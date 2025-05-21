@@ -46,3 +46,33 @@ model Photo {
   @@index([diaryId])
   @@map("photos")
 }
+
+model Weather {
+  id            String          @id @default(cuid())
+  date          String         // YYYYMMDD 형식
+  locationX     Int            // 예보지점 X 좌표
+  locationY     Int            // 예보지점 Y 좌표
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  hourlyWeather HourlyWeather[]
+
+  @@unique([date, locationX, locationY])
+  @@index([date])
+  @@map("weather")
+}
+
+model HourlyWeather {
+  id             String   @id @default(cuid())
+  weatherId      String
+  time           String   // HHMM 형식
+  temperature    String
+  precipitation  String
+  weatherState   String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  weather        Weather  @relation(fields: [weatherId], references: [id])
+
+  @@unique([weatherId, time])
+  @@index([weatherId])
+  @@map("hourly_weather")
+}
