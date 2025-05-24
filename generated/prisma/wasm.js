@@ -129,9 +129,22 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AppUsageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  packageName: 'packageName',
+  appName: 'appName',
+  usageTimeInMillis: 'usageTimeInMillis',
+  appIconPath: 'appIconPath',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DiaryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  date: 'date',
   title: 'title',
   content: 'content',
   createdAt: 'createdAt',
@@ -142,6 +155,43 @@ exports.Prisma.PhotoScalarFieldEnum = {
   id: 'id',
   diaryId: 'diaryId',
   url: 'url',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LocationLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.ChecklistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  text: 'text',
+  subtext: 'subtext',
+  isChecked: 'isChecked',
+  dueDate: 'dueDate',
+  completedDate: 'completedDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ScheduleScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  text: 'text',
+  subText: 'subText',
+  dayOfWeek: 'dayOfWeek',
+  selectedDate: 'selectedDate',
+  isRoutine: 'isRoutine',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  color: 'color',
+  hasAlarm: 'hasAlarm',
+  alarmOffset: 'alarmOffset',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -164,8 +214,12 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  AppUsage: 'AppUsage',
   Diary: 'Diary',
-  Photo: 'Photo'
+  Photo: 'Photo',
+  LocationLog: 'LocationLog',
+  Checklist: 'Checklist',
+  Schedule: 'Schedule'
 };
 
 /**

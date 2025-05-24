@@ -16,20 +16,44 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   diaries   Diary[]
+  appusages AppUsage[]
+  checklists Checklist[]
+  locationLogs LocationLog[]
+  schedules Schedule[]
 
   @@index([userId])
   @@map("users")
 }
 
+model AppUsage {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date             String
+  packageName      String
+  appName          String
+  usageTimeInMillis Int
+  appIconPath      String?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([userId])
+  @@map("appusages")
+}
+
 model Diary {
-  id        String   @id @default(cuid())
-  userId    String
-  title     String
-  content   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  Photo     Photo[]
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date       String
+  title      String
+  content    String?
+
+  photos     Photo[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@index([userId])
   @@map("diaries")
@@ -47,32 +71,53 @@ model Photo {
   @@map("photos")
 }
 
-model Weather {
-  id            String          @id @default(cuid())
-  date          String         // YYYYMMDD 형식
-  locationX     Int            // 예보지점 X 좌표
-  locationY     Int            // 예보지점 Y 좌표
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  hourlyWeather HourlyWeather[]
+model LocationLog {
+  id        String   @id @default(cuid())
+  userId    String
+  latitude  Float
+  longitude Float
+  timestamp DateTime @default(now())
 
-  @@unique([date, locationX, locationY])
-  @@index([date])
-  @@map("weather")
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@index([userId, timestamp])
 }
 
-model HourlyWeather {
+model Checklist {
   id             String   @id @default(cuid())
-  weatherId      String
-  time           String   // HHMM 형식
-  temperature    String
-  precipitation  String
-  weatherState   String
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text           String
+  subtext        String? 
+  isChecked      Boolean  @default(false)
+  dueDate        DateTime?
+  completedDate  DateTime?
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  weather        Weather  @relation(fields: [weatherId], references: [id])
 
-  @@unique([weatherId, time])
-  @@index([weatherId])
-  @@map("hourly_weather")
+  @@index([userId])
+  @@map("checklists")
+}
+
+model Schedule {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text           String
+  subText        String?
+  dayOfWeek      Int?
+  selectedDate   DateTime?
+  isRoutine      Boolean
+  startTime      String
+  endTime        String
+  color          String?
+  hasAlarm       Boolean?
+  alarmOffset    Int? // Milliseconds
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@map("schedules")
 }

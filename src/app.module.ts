@@ -5,7 +5,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { WeatherModule } from './weather/weather.module'; // WeatherModule을 가져옵니다.
+import { WeatherModule } from './weather/weather.module';
+import { LocationModule } from './location/location.module';
+import { ChecklistModule } from './checklist/checklist.module';
+import { AppUsageModule } from './appusage/appusage.module';
+import { PhotoModule } from './photo/photo.module';
+import { DiaryModule } from './diary/diary.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -16,7 +22,13 @@ import { WeatherModule } from './weather/weather.module'; // WeatherModule을 �
     HttpModule,
     AuthModule,
     UsersModule,
-    WeatherModule, // WeatherModule 추가
+    WeatherModule,
+    LocationModule,
+    ChecklistModule,
+    ScheduleModule,
+    AppUsageModule,
+    PhotoModule,
+    DiaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

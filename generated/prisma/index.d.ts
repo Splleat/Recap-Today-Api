@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model AppUsage
+ * 
+ */
+export type AppUsage = $Result.DefaultSelection<Prisma.$AppUsagePayload>
+/**
  * Model Diary
  * 
  */
@@ -28,6 +33,21 @@ export type Diary = $Result.DefaultSelection<Prisma.$DiaryPayload>
  * 
  */
 export type Photo = $Result.DefaultSelection<Prisma.$PhotoPayload>
+/**
+ * Model LocationLog
+ * 
+ */
+export type LocationLog = $Result.DefaultSelection<Prisma.$LocationLogPayload>
+/**
+ * Model Checklist
+ * 
+ */
+export type Checklist = $Result.DefaultSelection<Prisma.$ChecklistPayload>
+/**
+ * Model Schedule
+ * 
+ */
+export type Schedule = $Result.DefaultSelection<Prisma.$SchedulePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -165,6 +185,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.appUsage`: Exposes CRUD operations for the **AppUsage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AppUsages
+    * const appUsages = await prisma.appUsage.findMany()
+    * ```
+    */
+  get appUsage(): Prisma.AppUsageDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.diary`: Exposes CRUD operations for the **Diary** model.
     * Example usage:
     * ```ts
@@ -183,6 +213,36 @@ export class PrismaClient<
     * ```
     */
   get photo(): Prisma.PhotoDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.locationLog`: Exposes CRUD operations for the **LocationLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LocationLogs
+    * const locationLogs = await prisma.locationLog.findMany()
+    * ```
+    */
+  get locationLog(): Prisma.LocationLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.checklist`: Exposes CRUD operations for the **Checklist** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Checklists
+    * const checklists = await prisma.checklist.findMany()
+    * ```
+    */
+  get checklist(): Prisma.ChecklistDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.schedule`: Exposes CRUD operations for the **Schedule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Schedules
+    * const schedules = await prisma.schedule.findMany()
+    * ```
+    */
+  get schedule(): Prisma.ScheduleDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -624,8 +684,12 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    AppUsage: 'AppUsage',
     Diary: 'Diary',
-    Photo: 'Photo'
+    Photo: 'Photo',
+    LocationLog: 'LocationLog',
+    Checklist: 'Checklist',
+    Schedule: 'Schedule'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "diary" | "photo"
+      modelProps: "user" | "appUsage" | "diary" | "photo" | "locationLog" | "checklist" | "schedule"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -719,6 +783,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      AppUsage: {
+        payload: Prisma.$AppUsagePayload<ExtArgs>
+        fields: Prisma.AppUsageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AppUsageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AppUsageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>
+          }
+          findFirst: {
+            args: Prisma.AppUsageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AppUsageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>
+          }
+          findMany: {
+            args: Prisma.AppUsageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>[]
+          }
+          create: {
+            args: Prisma.AppUsageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>
+          }
+          createMany: {
+            args: Prisma.AppUsageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AppUsageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>[]
+          }
+          delete: {
+            args: Prisma.AppUsageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>
+          }
+          update: {
+            args: Prisma.AppUsageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>
+          }
+          deleteMany: {
+            args: Prisma.AppUsageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AppUsageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AppUsageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>[]
+          }
+          upsert: {
+            args: Prisma.AppUsageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppUsagePayload>
+          }
+          aggregate: {
+            args: Prisma.AppUsageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAppUsage>
+          }
+          groupBy: {
+            args: Prisma.AppUsageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AppUsageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AppUsageCountArgs<ExtArgs>
+            result: $Utils.Optional<AppUsageCountAggregateOutputType> | number
           }
         }
       }
@@ -870,6 +1008,228 @@ export namespace Prisma {
           }
         }
       }
+      LocationLog: {
+        payload: Prisma.$LocationLogPayload<ExtArgs>
+        fields: Prisma.LocationLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LocationLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LocationLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
+          }
+          findFirst: {
+            args: Prisma.LocationLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LocationLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
+          }
+          findMany: {
+            args: Prisma.LocationLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>[]
+          }
+          create: {
+            args: Prisma.LocationLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
+          }
+          createMany: {
+            args: Prisma.LocationLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LocationLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>[]
+          }
+          delete: {
+            args: Prisma.LocationLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
+          }
+          update: {
+            args: Prisma.LocationLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.LocationLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LocationLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LocationLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.LocationLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
+          }
+          aggregate: {
+            args: Prisma.LocationLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLocationLog>
+          }
+          groupBy: {
+            args: Prisma.LocationLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LocationLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LocationLogCountArgs<ExtArgs>
+            result: $Utils.Optional<LocationLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      Checklist: {
+        payload: Prisma.$ChecklistPayload<ExtArgs>
+        fields: Prisma.ChecklistFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChecklistFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChecklistFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>
+          }
+          findFirst: {
+            args: Prisma.ChecklistFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChecklistFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>
+          }
+          findMany: {
+            args: Prisma.ChecklistFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>[]
+          }
+          create: {
+            args: Prisma.ChecklistCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>
+          }
+          createMany: {
+            args: Prisma.ChecklistCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChecklistCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>[]
+          }
+          delete: {
+            args: Prisma.ChecklistDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>
+          }
+          update: {
+            args: Prisma.ChecklistUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChecklistDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChecklistUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChecklistUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>[]
+          }
+          upsert: {
+            args: Prisma.ChecklistUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistPayload>
+          }
+          aggregate: {
+            args: Prisma.ChecklistAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChecklist>
+          }
+          groupBy: {
+            args: Prisma.ChecklistGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChecklistGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChecklistCountArgs<ExtArgs>
+            result: $Utils.Optional<ChecklistCountAggregateOutputType> | number
+          }
+        }
+      }
+      Schedule: {
+        payload: Prisma.$SchedulePayload<ExtArgs>
+        fields: Prisma.ScheduleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ScheduleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ScheduleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>
+          }
+          findFirst: {
+            args: Prisma.ScheduleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ScheduleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>
+          }
+          findMany: {
+            args: Prisma.ScheduleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>[]
+          }
+          create: {
+            args: Prisma.ScheduleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>
+          }
+          createMany: {
+            args: Prisma.ScheduleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ScheduleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>[]
+          }
+          delete: {
+            args: Prisma.ScheduleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>
+          }
+          update: {
+            args: Prisma.ScheduleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>
+          }
+          deleteMany: {
+            args: Prisma.ScheduleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ScheduleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ScheduleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>[]
+          }
+          upsert: {
+            args: Prisma.ScheduleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SchedulePayload>
+          }
+          aggregate: {
+            args: Prisma.ScheduleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSchedule>
+          }
+          groupBy: {
+            args: Prisma.ScheduleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ScheduleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ScheduleCountArgs<ExtArgs>
+            result: $Utils.Optional<ScheduleCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -955,8 +1315,12 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    appUsage?: AppUsageOmit
     diary?: DiaryOmit
     photo?: PhotoOmit
+    locationLog?: LocationLogOmit
+    checklist?: ChecklistOmit
+    schedule?: ScheduleOmit
   }
 
   /* Types for Logging */
@@ -1052,10 +1416,18 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     diaries: number
+    appusages: number
+    checklists: number
+    locationLogs: number
+    schedules: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     diaries?: boolean | UserCountOutputTypeCountDiariesArgs
+    appusages?: boolean | UserCountOutputTypeCountAppusagesArgs
+    checklists?: boolean | UserCountOutputTypeCountChecklistsArgs
+    locationLogs?: boolean | UserCountOutputTypeCountLocationLogsArgs
+    schedules?: boolean | UserCountOutputTypeCountSchedulesArgs
   }
 
   // Custom InputTypes
@@ -1076,17 +1448,45 @@ export namespace Prisma {
     where?: DiaryWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAppusagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppUsageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChecklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChecklistWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLocationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LocationLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScheduleWhereInput
+  }
+
 
   /**
    * Count Type DiaryCountOutputType
    */
 
   export type DiaryCountOutputType = {
-    Photo: number
+    photos: number
   }
 
   export type DiaryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Photo?: boolean | DiaryCountOutputTypeCountPhotoArgs
+    photos?: boolean | DiaryCountOutputTypeCountPhotosArgs
   }
 
   // Custom InputTypes
@@ -1103,7 +1503,7 @@ export namespace Prisma {
   /**
    * DiaryCountOutputType without action
    */
-  export type DiaryCountOutputTypeCountPhotoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DiaryCountOutputTypeCountPhotosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PhotoWhereInput
   }
 
@@ -1285,6 +1685,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     diaries?: boolean | User$diariesArgs<ExtArgs>
+    appusages?: boolean | User$appusagesArgs<ExtArgs>
+    checklists?: boolean | User$checklistsArgs<ExtArgs>
+    locationLogs?: boolean | User$locationLogsArgs<ExtArgs>
+    schedules?: boolean | User$schedulesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1318,6 +1722,10 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     diaries?: boolean | User$diariesArgs<ExtArgs>
+    appusages?: boolean | User$appusagesArgs<ExtArgs>
+    checklists?: boolean | User$checklistsArgs<ExtArgs>
+    locationLogs?: boolean | User$locationLogsArgs<ExtArgs>
+    schedules?: boolean | User$schedulesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1327,6 +1735,10 @@ export namespace Prisma {
     name: "User"
     objects: {
       diaries: Prisma.$DiaryPayload<ExtArgs>[]
+      appusages: Prisma.$AppUsagePayload<ExtArgs>[]
+      checklists: Prisma.$ChecklistPayload<ExtArgs>[]
+      locationLogs: Prisma.$LocationLogPayload<ExtArgs>[]
+      schedules: Prisma.$SchedulePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1730,6 +2142,10 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     diaries<T extends User$diariesArgs<ExtArgs> = {}>(args?: Subset<T, User$diariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    appusages<T extends User$appusagesArgs<ExtArgs> = {}>(args?: Subset<T, User$appusagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    checklists<T extends User$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, User$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    locationLogs<T extends User$locationLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$locationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    schedules<T extends User$schedulesArgs<ExtArgs> = {}>(args?: Subset<T, User$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2177,6 +2593,102 @@ export namespace Prisma {
   }
 
   /**
+   * User.appusages
+   */
+  export type User$appusagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    where?: AppUsageWhereInput
+    orderBy?: AppUsageOrderByWithRelationInput | AppUsageOrderByWithRelationInput[]
+    cursor?: AppUsageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppUsageScalarFieldEnum | AppUsageScalarFieldEnum[]
+  }
+
+  /**
+   * User.checklists
+   */
+  export type User$checklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    where?: ChecklistWhereInput
+    orderBy?: ChecklistOrderByWithRelationInput | ChecklistOrderByWithRelationInput[]
+    cursor?: ChecklistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * User.locationLogs
+   */
+  export type User$locationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    where?: LocationLogWhereInput
+    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
+    cursor?: LocationLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.schedules
+   */
+  export type User$schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    where?: ScheduleWhereInput
+    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
+    cursor?: ScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2196,6 +2708,1150 @@ export namespace Prisma {
 
 
   /**
+   * Model AppUsage
+   */
+
+  export type AggregateAppUsage = {
+    _count: AppUsageCountAggregateOutputType | null
+    _avg: AppUsageAvgAggregateOutputType | null
+    _sum: AppUsageSumAggregateOutputType | null
+    _min: AppUsageMinAggregateOutputType | null
+    _max: AppUsageMaxAggregateOutputType | null
+  }
+
+  export type AppUsageAvgAggregateOutputType = {
+    usageTimeInMillis: number | null
+  }
+
+  export type AppUsageSumAggregateOutputType = {
+    usageTimeInMillis: number | null
+  }
+
+  export type AppUsageMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: string | null
+    packageName: string | null
+    appName: string | null
+    usageTimeInMillis: number | null
+    appIconPath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AppUsageMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: string | null
+    packageName: string | null
+    appName: string | null
+    usageTimeInMillis: number | null
+    appIconPath: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AppUsageCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    packageName: number
+    appName: number
+    usageTimeInMillis: number
+    appIconPath: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AppUsageAvgAggregateInputType = {
+    usageTimeInMillis?: true
+  }
+
+  export type AppUsageSumAggregateInputType = {
+    usageTimeInMillis?: true
+  }
+
+  export type AppUsageMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    packageName?: true
+    appName?: true
+    usageTimeInMillis?: true
+    appIconPath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AppUsageMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    packageName?: true
+    appName?: true
+    usageTimeInMillis?: true
+    appIconPath?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AppUsageCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    packageName?: true
+    appName?: true
+    usageTimeInMillis?: true
+    appIconPath?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AppUsageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppUsage to aggregate.
+     */
+    where?: AppUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppUsages to fetch.
+     */
+    orderBy?: AppUsageOrderByWithRelationInput | AppUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AppUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AppUsages
+    **/
+    _count?: true | AppUsageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AppUsageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AppUsageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AppUsageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AppUsageMaxAggregateInputType
+  }
+
+  export type GetAppUsageAggregateType<T extends AppUsageAggregateArgs> = {
+        [P in keyof T & keyof AggregateAppUsage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAppUsage[P]>
+      : GetScalarType<T[P], AggregateAppUsage[P]>
+  }
+
+
+
+
+  export type AppUsageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppUsageWhereInput
+    orderBy?: AppUsageOrderByWithAggregationInput | AppUsageOrderByWithAggregationInput[]
+    by: AppUsageScalarFieldEnum[] | AppUsageScalarFieldEnum
+    having?: AppUsageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AppUsageCountAggregateInputType | true
+    _avg?: AppUsageAvgAggregateInputType
+    _sum?: AppUsageSumAggregateInputType
+    _min?: AppUsageMinAggregateInputType
+    _max?: AppUsageMaxAggregateInputType
+  }
+
+  export type AppUsageGroupByOutputType = {
+    id: string
+    userId: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AppUsageCountAggregateOutputType | null
+    _avg: AppUsageAvgAggregateOutputType | null
+    _sum: AppUsageSumAggregateOutputType | null
+    _min: AppUsageMinAggregateOutputType | null
+    _max: AppUsageMaxAggregateOutputType | null
+  }
+
+  type GetAppUsageGroupByPayload<T extends AppUsageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AppUsageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AppUsageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AppUsageGroupByOutputType[P]>
+            : GetScalarType<T[P], AppUsageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AppUsageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    packageName?: boolean
+    appName?: boolean
+    usageTimeInMillis?: boolean
+    appIconPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["appUsage"]>
+
+  export type AppUsageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    packageName?: boolean
+    appName?: boolean
+    usageTimeInMillis?: boolean
+    appIconPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["appUsage"]>
+
+  export type AppUsageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    packageName?: boolean
+    appName?: boolean
+    usageTimeInMillis?: boolean
+    appIconPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["appUsage"]>
+
+  export type AppUsageSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    packageName?: boolean
+    appName?: boolean
+    usageTimeInMillis?: boolean
+    appIconPath?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AppUsageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "packageName" | "appName" | "usageTimeInMillis" | "appIconPath" | "createdAt" | "updatedAt", ExtArgs["result"]["appUsage"]>
+  export type AppUsageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AppUsageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AppUsageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AppUsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AppUsage"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: string
+      packageName: string
+      appName: string
+      usageTimeInMillis: number
+      appIconPath: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["appUsage"]>
+    composites: {}
+  }
+
+  type AppUsageGetPayload<S extends boolean | null | undefined | AppUsageDefaultArgs> = $Result.GetResult<Prisma.$AppUsagePayload, S>
+
+  type AppUsageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AppUsageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AppUsageCountAggregateInputType | true
+    }
+
+  export interface AppUsageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AppUsage'], meta: { name: 'AppUsage' } }
+    /**
+     * Find zero or one AppUsage that matches the filter.
+     * @param {AppUsageFindUniqueArgs} args - Arguments to find a AppUsage
+     * @example
+     * // Get one AppUsage
+     * const appUsage = await prisma.appUsage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AppUsageFindUniqueArgs>(args: SelectSubset<T, AppUsageFindUniqueArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AppUsage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AppUsageFindUniqueOrThrowArgs} args - Arguments to find a AppUsage
+     * @example
+     * // Get one AppUsage
+     * const appUsage = await prisma.appUsage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AppUsageFindUniqueOrThrowArgs>(args: SelectSubset<T, AppUsageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AppUsage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageFindFirstArgs} args - Arguments to find a AppUsage
+     * @example
+     * // Get one AppUsage
+     * const appUsage = await prisma.appUsage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AppUsageFindFirstArgs>(args?: SelectSubset<T, AppUsageFindFirstArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AppUsage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageFindFirstOrThrowArgs} args - Arguments to find a AppUsage
+     * @example
+     * // Get one AppUsage
+     * const appUsage = await prisma.appUsage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AppUsageFindFirstOrThrowArgs>(args?: SelectSubset<T, AppUsageFindFirstOrThrowArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AppUsages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AppUsages
+     * const appUsages = await prisma.appUsage.findMany()
+     * 
+     * // Get first 10 AppUsages
+     * const appUsages = await prisma.appUsage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const appUsageWithIdOnly = await prisma.appUsage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AppUsageFindManyArgs>(args?: SelectSubset<T, AppUsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AppUsage.
+     * @param {AppUsageCreateArgs} args - Arguments to create a AppUsage.
+     * @example
+     * // Create one AppUsage
+     * const AppUsage = await prisma.appUsage.create({
+     *   data: {
+     *     // ... data to create a AppUsage
+     *   }
+     * })
+     * 
+     */
+    create<T extends AppUsageCreateArgs>(args: SelectSubset<T, AppUsageCreateArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AppUsages.
+     * @param {AppUsageCreateManyArgs} args - Arguments to create many AppUsages.
+     * @example
+     * // Create many AppUsages
+     * const appUsage = await prisma.appUsage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AppUsageCreateManyArgs>(args?: SelectSubset<T, AppUsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AppUsages and returns the data saved in the database.
+     * @param {AppUsageCreateManyAndReturnArgs} args - Arguments to create many AppUsages.
+     * @example
+     * // Create many AppUsages
+     * const appUsage = await prisma.appUsage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AppUsages and only return the `id`
+     * const appUsageWithIdOnly = await prisma.appUsage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AppUsageCreateManyAndReturnArgs>(args?: SelectSubset<T, AppUsageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AppUsage.
+     * @param {AppUsageDeleteArgs} args - Arguments to delete one AppUsage.
+     * @example
+     * // Delete one AppUsage
+     * const AppUsage = await prisma.appUsage.delete({
+     *   where: {
+     *     // ... filter to delete one AppUsage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AppUsageDeleteArgs>(args: SelectSubset<T, AppUsageDeleteArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AppUsage.
+     * @param {AppUsageUpdateArgs} args - Arguments to update one AppUsage.
+     * @example
+     * // Update one AppUsage
+     * const appUsage = await prisma.appUsage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AppUsageUpdateArgs>(args: SelectSubset<T, AppUsageUpdateArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AppUsages.
+     * @param {AppUsageDeleteManyArgs} args - Arguments to filter AppUsages to delete.
+     * @example
+     * // Delete a few AppUsages
+     * const { count } = await prisma.appUsage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AppUsageDeleteManyArgs>(args?: SelectSubset<T, AppUsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AppUsages
+     * const appUsage = await prisma.appUsage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AppUsageUpdateManyArgs>(args: SelectSubset<T, AppUsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AppUsages and returns the data updated in the database.
+     * @param {AppUsageUpdateManyAndReturnArgs} args - Arguments to update many AppUsages.
+     * @example
+     * // Update many AppUsages
+     * const appUsage = await prisma.appUsage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AppUsages and only return the `id`
+     * const appUsageWithIdOnly = await prisma.appUsage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AppUsageUpdateManyAndReturnArgs>(args: SelectSubset<T, AppUsageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AppUsage.
+     * @param {AppUsageUpsertArgs} args - Arguments to update or create a AppUsage.
+     * @example
+     * // Update or create a AppUsage
+     * const appUsage = await prisma.appUsage.upsert({
+     *   create: {
+     *     // ... data to create a AppUsage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AppUsage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AppUsageUpsertArgs>(args: SelectSubset<T, AppUsageUpsertArgs<ExtArgs>>): Prisma__AppUsageClient<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AppUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageCountArgs} args - Arguments to filter AppUsages to count.
+     * @example
+     * // Count the number of AppUsages
+     * const count = await prisma.appUsage.count({
+     *   where: {
+     *     // ... the filter for the AppUsages we want to count
+     *   }
+     * })
+    **/
+    count<T extends AppUsageCountArgs>(
+      args?: Subset<T, AppUsageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AppUsageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AppUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AppUsageAggregateArgs>(args: Subset<T, AppUsageAggregateArgs>): Prisma.PrismaPromise<GetAppUsageAggregateType<T>>
+
+    /**
+     * Group by AppUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AppUsageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AppUsageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AppUsageGroupByArgs['orderBy'] }
+        : { orderBy?: AppUsageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AppUsageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAppUsageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AppUsage model
+   */
+  readonly fields: AppUsageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AppUsage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AppUsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AppUsage model
+   */
+  interface AppUsageFieldRefs {
+    readonly id: FieldRef<"AppUsage", 'String'>
+    readonly userId: FieldRef<"AppUsage", 'String'>
+    readonly date: FieldRef<"AppUsage", 'String'>
+    readonly packageName: FieldRef<"AppUsage", 'String'>
+    readonly appName: FieldRef<"AppUsage", 'String'>
+    readonly usageTimeInMillis: FieldRef<"AppUsage", 'Int'>
+    readonly appIconPath: FieldRef<"AppUsage", 'String'>
+    readonly createdAt: FieldRef<"AppUsage", 'DateTime'>
+    readonly updatedAt: FieldRef<"AppUsage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AppUsage findUnique
+   */
+  export type AppUsageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which AppUsage to fetch.
+     */
+    where: AppUsageWhereUniqueInput
+  }
+
+  /**
+   * AppUsage findUniqueOrThrow
+   */
+  export type AppUsageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which AppUsage to fetch.
+     */
+    where: AppUsageWhereUniqueInput
+  }
+
+  /**
+   * AppUsage findFirst
+   */
+  export type AppUsageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which AppUsage to fetch.
+     */
+    where?: AppUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppUsages to fetch.
+     */
+    orderBy?: AppUsageOrderByWithRelationInput | AppUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppUsages.
+     */
+    cursor?: AppUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppUsages.
+     */
+    distinct?: AppUsageScalarFieldEnum | AppUsageScalarFieldEnum[]
+  }
+
+  /**
+   * AppUsage findFirstOrThrow
+   */
+  export type AppUsageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which AppUsage to fetch.
+     */
+    where?: AppUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppUsages to fetch.
+     */
+    orderBy?: AppUsageOrderByWithRelationInput | AppUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AppUsages.
+     */
+    cursor?: AppUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AppUsages.
+     */
+    distinct?: AppUsageScalarFieldEnum | AppUsageScalarFieldEnum[]
+  }
+
+  /**
+   * AppUsage findMany
+   */
+  export type AppUsageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which AppUsages to fetch.
+     */
+    where?: AppUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AppUsages to fetch.
+     */
+    orderBy?: AppUsageOrderByWithRelationInput | AppUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AppUsages.
+     */
+    cursor?: AppUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AppUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AppUsages.
+     */
+    skip?: number
+    distinct?: AppUsageScalarFieldEnum | AppUsageScalarFieldEnum[]
+  }
+
+  /**
+   * AppUsage create
+   */
+  export type AppUsageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AppUsage.
+     */
+    data: XOR<AppUsageCreateInput, AppUsageUncheckedCreateInput>
+  }
+
+  /**
+   * AppUsage createMany
+   */
+  export type AppUsageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AppUsages.
+     */
+    data: AppUsageCreateManyInput | AppUsageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AppUsage createManyAndReturn
+   */
+  export type AppUsageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * The data used to create many AppUsages.
+     */
+    data: AppUsageCreateManyInput | AppUsageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AppUsage update
+   */
+  export type AppUsageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AppUsage.
+     */
+    data: XOR<AppUsageUpdateInput, AppUsageUncheckedUpdateInput>
+    /**
+     * Choose, which AppUsage to update.
+     */
+    where: AppUsageWhereUniqueInput
+  }
+
+  /**
+   * AppUsage updateMany
+   */
+  export type AppUsageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AppUsages.
+     */
+    data: XOR<AppUsageUpdateManyMutationInput, AppUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which AppUsages to update
+     */
+    where?: AppUsageWhereInput
+    /**
+     * Limit how many AppUsages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AppUsage updateManyAndReturn
+   */
+  export type AppUsageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * The data used to update AppUsages.
+     */
+    data: XOR<AppUsageUpdateManyMutationInput, AppUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which AppUsages to update
+     */
+    where?: AppUsageWhereInput
+    /**
+     * Limit how many AppUsages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AppUsage upsert
+   */
+  export type AppUsageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AppUsage to update in case it exists.
+     */
+    where: AppUsageWhereUniqueInput
+    /**
+     * In case the AppUsage found by the `where` argument doesn't exist, create a new AppUsage with this data.
+     */
+    create: XOR<AppUsageCreateInput, AppUsageUncheckedCreateInput>
+    /**
+     * In case the AppUsage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AppUsageUpdateInput, AppUsageUncheckedUpdateInput>
+  }
+
+  /**
+   * AppUsage delete
+   */
+  export type AppUsageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+    /**
+     * Filter which AppUsage to delete.
+     */
+    where: AppUsageWhereUniqueInput
+  }
+
+  /**
+   * AppUsage deleteMany
+   */
+  export type AppUsageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AppUsages to delete
+     */
+    where?: AppUsageWhereInput
+    /**
+     * Limit how many AppUsages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AppUsage without action
+   */
+  export type AppUsageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppUsage
+     */
+    select?: AppUsageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppUsage
+     */
+    omit?: AppUsageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppUsageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Diary
    */
 
@@ -2208,6 +3864,7 @@ export namespace Prisma {
   export type DiaryMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    date: string | null
     title: string | null
     content: string | null
     createdAt: Date | null
@@ -2217,6 +3874,7 @@ export namespace Prisma {
   export type DiaryMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    date: string | null
     title: string | null
     content: string | null
     createdAt: Date | null
@@ -2226,6 +3884,7 @@ export namespace Prisma {
   export type DiaryCountAggregateOutputType = {
     id: number
     userId: number
+    date: number
     title: number
     content: number
     createdAt: number
@@ -2237,6 +3896,7 @@ export namespace Prisma {
   export type DiaryMinAggregateInputType = {
     id?: true
     userId?: true
+    date?: true
     title?: true
     content?: true
     createdAt?: true
@@ -2246,6 +3906,7 @@ export namespace Prisma {
   export type DiaryMaxAggregateInputType = {
     id?: true
     userId?: true
+    date?: true
     title?: true
     content?: true
     createdAt?: true
@@ -2255,6 +3916,7 @@ export namespace Prisma {
   export type DiaryCountAggregateInputType = {
     id?: true
     userId?: true
+    date?: true
     title?: true
     content?: true
     createdAt?: true
@@ -2337,6 +3999,7 @@ export namespace Prisma {
   export type DiaryGroupByOutputType = {
     id: string
     userId: string
+    date: string
     title: string
     content: string | null
     createdAt: Date
@@ -2363,18 +4026,20 @@ export namespace Prisma {
   export type DiarySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    date?: boolean
     title?: boolean
     content?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    Photo?: boolean | Diary$PhotoArgs<ExtArgs>
+    photos?: boolean | Diary$photosArgs<ExtArgs>
     _count?: boolean | DiaryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["diary"]>
 
   export type DiarySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    date?: boolean
     title?: boolean
     content?: boolean
     createdAt?: boolean
@@ -2385,6 +4050,7 @@ export namespace Prisma {
   export type DiarySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    date?: boolean
     title?: boolean
     content?: boolean
     createdAt?: boolean
@@ -2395,16 +4061,17 @@ export namespace Prisma {
   export type DiarySelectScalar = {
     id?: boolean
     userId?: boolean
+    date?: boolean
     title?: boolean
     content?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DiaryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["diary"]>
+  export type DiaryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "title" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["diary"]>
   export type DiaryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    Photo?: boolean | Diary$PhotoArgs<ExtArgs>
+    photos?: boolean | Diary$photosArgs<ExtArgs>
     _count?: boolean | DiaryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DiaryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2418,11 +4085,12 @@ export namespace Prisma {
     name: "Diary"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      Photo: Prisma.$PhotoPayload<ExtArgs>[]
+      photos: Prisma.$PhotoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      date: string
       title: string
       content: string | null
       createdAt: Date
@@ -2822,7 +4490,7 @@ export namespace Prisma {
   export interface Prisma__DiaryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    Photo<T extends Diary$PhotoArgs<ExtArgs> = {}>(args?: Subset<T, Diary$PhotoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhotoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    photos<T extends Diary$photosArgs<ExtArgs> = {}>(args?: Subset<T, Diary$photosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhotoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2854,6 +4522,7 @@ export namespace Prisma {
   interface DiaryFieldRefs {
     readonly id: FieldRef<"Diary", 'String'>
     readonly userId: FieldRef<"Diary", 'String'>
+    readonly date: FieldRef<"Diary", 'String'>
     readonly title: FieldRef<"Diary", 'String'>
     readonly content: FieldRef<"Diary", 'String'>
     readonly createdAt: FieldRef<"Diary", 'DateTime'>
@@ -3254,9 +4923,9 @@ export namespace Prisma {
   }
 
   /**
-   * Diary.Photo
+   * Diary.photos
    */
-  export type Diary$PhotoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Diary$photosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Photo
      */
@@ -4355,6 +6024,3425 @@ export namespace Prisma {
 
 
   /**
+   * Model LocationLog
+   */
+
+  export type AggregateLocationLog = {
+    _count: LocationLogCountAggregateOutputType | null
+    _avg: LocationLogAvgAggregateOutputType | null
+    _sum: LocationLogSumAggregateOutputType | null
+    _min: LocationLogMinAggregateOutputType | null
+    _max: LocationLogMaxAggregateOutputType | null
+  }
+
+  export type LocationLogAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type LocationLogSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type LocationLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    latitude: number | null
+    longitude: number | null
+    timestamp: Date | null
+  }
+
+  export type LocationLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    latitude: number | null
+    longitude: number | null
+    timestamp: Date | null
+  }
+
+  export type LocationLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    latitude: number
+    longitude: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type LocationLogAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type LocationLogSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type LocationLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    latitude?: true
+    longitude?: true
+    timestamp?: true
+  }
+
+  export type LocationLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    latitude?: true
+    longitude?: true
+    timestamp?: true
+  }
+
+  export type LocationLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    latitude?: true
+    longitude?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type LocationLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LocationLog to aggregate.
+     */
+    where?: LocationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LocationLogs to fetch.
+     */
+    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LocationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LocationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LocationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LocationLogs
+    **/
+    _count?: true | LocationLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LocationLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LocationLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LocationLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LocationLogMaxAggregateInputType
+  }
+
+  export type GetLocationLogAggregateType<T extends LocationLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateLocationLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLocationLog[P]>
+      : GetScalarType<T[P], AggregateLocationLog[P]>
+  }
+
+
+
+
+  export type LocationLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LocationLogWhereInput
+    orderBy?: LocationLogOrderByWithAggregationInput | LocationLogOrderByWithAggregationInput[]
+    by: LocationLogScalarFieldEnum[] | LocationLogScalarFieldEnum
+    having?: LocationLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LocationLogCountAggregateInputType | true
+    _avg?: LocationLogAvgAggregateInputType
+    _sum?: LocationLogSumAggregateInputType
+    _min?: LocationLogMinAggregateInputType
+    _max?: LocationLogMaxAggregateInputType
+  }
+
+  export type LocationLogGroupByOutputType = {
+    id: string
+    userId: string
+    latitude: number
+    longitude: number
+    timestamp: Date
+    _count: LocationLogCountAggregateOutputType | null
+    _avg: LocationLogAvgAggregateOutputType | null
+    _sum: LocationLogSumAggregateOutputType | null
+    _min: LocationLogMinAggregateOutputType | null
+    _max: LocationLogMaxAggregateOutputType | null
+  }
+
+  type GetLocationLogGroupByPayload<T extends LocationLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LocationLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LocationLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LocationLogGroupByOutputType[P]>
+            : GetScalarType<T[P], LocationLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LocationLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["locationLog"]>
+
+  export type LocationLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["locationLog"]>
+
+  export type LocationLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timestamp?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["locationLog"]>
+
+  export type LocationLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timestamp?: boolean
+  }
+
+  export type LocationLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "latitude" | "longitude" | "timestamp", ExtArgs["result"]["locationLog"]>
+  export type LocationLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LocationLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LocationLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LocationLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LocationLog"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      latitude: number
+      longitude: number
+      timestamp: Date
+    }, ExtArgs["result"]["locationLog"]>
+    composites: {}
+  }
+
+  type LocationLogGetPayload<S extends boolean | null | undefined | LocationLogDefaultArgs> = $Result.GetResult<Prisma.$LocationLogPayload, S>
+
+  type LocationLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LocationLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LocationLogCountAggregateInputType | true
+    }
+
+  export interface LocationLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LocationLog'], meta: { name: 'LocationLog' } }
+    /**
+     * Find zero or one LocationLog that matches the filter.
+     * @param {LocationLogFindUniqueArgs} args - Arguments to find a LocationLog
+     * @example
+     * // Get one LocationLog
+     * const locationLog = await prisma.locationLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LocationLogFindUniqueArgs>(args: SelectSubset<T, LocationLogFindUniqueArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LocationLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LocationLogFindUniqueOrThrowArgs} args - Arguments to find a LocationLog
+     * @example
+     * // Get one LocationLog
+     * const locationLog = await prisma.locationLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LocationLogFindUniqueOrThrowArgs>(args: SelectSubset<T, LocationLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LocationLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogFindFirstArgs} args - Arguments to find a LocationLog
+     * @example
+     * // Get one LocationLog
+     * const locationLog = await prisma.locationLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LocationLogFindFirstArgs>(args?: SelectSubset<T, LocationLogFindFirstArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LocationLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogFindFirstOrThrowArgs} args - Arguments to find a LocationLog
+     * @example
+     * // Get one LocationLog
+     * const locationLog = await prisma.locationLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LocationLogFindFirstOrThrowArgs>(args?: SelectSubset<T, LocationLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LocationLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LocationLogs
+     * const locationLogs = await prisma.locationLog.findMany()
+     * 
+     * // Get first 10 LocationLogs
+     * const locationLogs = await prisma.locationLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const locationLogWithIdOnly = await prisma.locationLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LocationLogFindManyArgs>(args?: SelectSubset<T, LocationLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LocationLog.
+     * @param {LocationLogCreateArgs} args - Arguments to create a LocationLog.
+     * @example
+     * // Create one LocationLog
+     * const LocationLog = await prisma.locationLog.create({
+     *   data: {
+     *     // ... data to create a LocationLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends LocationLogCreateArgs>(args: SelectSubset<T, LocationLogCreateArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LocationLogs.
+     * @param {LocationLogCreateManyArgs} args - Arguments to create many LocationLogs.
+     * @example
+     * // Create many LocationLogs
+     * const locationLog = await prisma.locationLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LocationLogCreateManyArgs>(args?: SelectSubset<T, LocationLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LocationLogs and returns the data saved in the database.
+     * @param {LocationLogCreateManyAndReturnArgs} args - Arguments to create many LocationLogs.
+     * @example
+     * // Create many LocationLogs
+     * const locationLog = await prisma.locationLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LocationLogs and only return the `id`
+     * const locationLogWithIdOnly = await prisma.locationLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LocationLogCreateManyAndReturnArgs>(args?: SelectSubset<T, LocationLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LocationLog.
+     * @param {LocationLogDeleteArgs} args - Arguments to delete one LocationLog.
+     * @example
+     * // Delete one LocationLog
+     * const LocationLog = await prisma.locationLog.delete({
+     *   where: {
+     *     // ... filter to delete one LocationLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LocationLogDeleteArgs>(args: SelectSubset<T, LocationLogDeleteArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LocationLog.
+     * @param {LocationLogUpdateArgs} args - Arguments to update one LocationLog.
+     * @example
+     * // Update one LocationLog
+     * const locationLog = await prisma.locationLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LocationLogUpdateArgs>(args: SelectSubset<T, LocationLogUpdateArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LocationLogs.
+     * @param {LocationLogDeleteManyArgs} args - Arguments to filter LocationLogs to delete.
+     * @example
+     * // Delete a few LocationLogs
+     * const { count } = await prisma.locationLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LocationLogDeleteManyArgs>(args?: SelectSubset<T, LocationLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LocationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LocationLogs
+     * const locationLog = await prisma.locationLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LocationLogUpdateManyArgs>(args: SelectSubset<T, LocationLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LocationLogs and returns the data updated in the database.
+     * @param {LocationLogUpdateManyAndReturnArgs} args - Arguments to update many LocationLogs.
+     * @example
+     * // Update many LocationLogs
+     * const locationLog = await prisma.locationLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LocationLogs and only return the `id`
+     * const locationLogWithIdOnly = await prisma.locationLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LocationLogUpdateManyAndReturnArgs>(args: SelectSubset<T, LocationLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LocationLog.
+     * @param {LocationLogUpsertArgs} args - Arguments to update or create a LocationLog.
+     * @example
+     * // Update or create a LocationLog
+     * const locationLog = await prisma.locationLog.upsert({
+     *   create: {
+     *     // ... data to create a LocationLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LocationLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LocationLogUpsertArgs>(args: SelectSubset<T, LocationLogUpsertArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LocationLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogCountArgs} args - Arguments to filter LocationLogs to count.
+     * @example
+     * // Count the number of LocationLogs
+     * const count = await prisma.locationLog.count({
+     *   where: {
+     *     // ... the filter for the LocationLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends LocationLogCountArgs>(
+      args?: Subset<T, LocationLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LocationLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LocationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LocationLogAggregateArgs>(args: Subset<T, LocationLogAggregateArgs>): Prisma.PrismaPromise<GetLocationLogAggregateType<T>>
+
+    /**
+     * Group by LocationLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LocationLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LocationLogGroupByArgs['orderBy'] }
+        : { orderBy?: LocationLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LocationLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLocationLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LocationLog model
+   */
+  readonly fields: LocationLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LocationLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LocationLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LocationLog model
+   */
+  interface LocationLogFieldRefs {
+    readonly id: FieldRef<"LocationLog", 'String'>
+    readonly userId: FieldRef<"LocationLog", 'String'>
+    readonly latitude: FieldRef<"LocationLog", 'Float'>
+    readonly longitude: FieldRef<"LocationLog", 'Float'>
+    readonly timestamp: FieldRef<"LocationLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LocationLog findUnique
+   */
+  export type LocationLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which LocationLog to fetch.
+     */
+    where: LocationLogWhereUniqueInput
+  }
+
+  /**
+   * LocationLog findUniqueOrThrow
+   */
+  export type LocationLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which LocationLog to fetch.
+     */
+    where: LocationLogWhereUniqueInput
+  }
+
+  /**
+   * LocationLog findFirst
+   */
+  export type LocationLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which LocationLog to fetch.
+     */
+    where?: LocationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LocationLogs to fetch.
+     */
+    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LocationLogs.
+     */
+    cursor?: LocationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LocationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LocationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LocationLogs.
+     */
+    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
+  }
+
+  /**
+   * LocationLog findFirstOrThrow
+   */
+  export type LocationLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which LocationLog to fetch.
+     */
+    where?: LocationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LocationLogs to fetch.
+     */
+    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LocationLogs.
+     */
+    cursor?: LocationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LocationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LocationLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LocationLogs.
+     */
+    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
+  }
+
+  /**
+   * LocationLog findMany
+   */
+  export type LocationLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * Filter, which LocationLogs to fetch.
+     */
+    where?: LocationLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LocationLogs to fetch.
+     */
+    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LocationLogs.
+     */
+    cursor?: LocationLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LocationLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LocationLogs.
+     */
+    skip?: number
+    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
+  }
+
+  /**
+   * LocationLog create
+   */
+  export type LocationLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LocationLog.
+     */
+    data: XOR<LocationLogCreateInput, LocationLogUncheckedCreateInput>
+  }
+
+  /**
+   * LocationLog createMany
+   */
+  export type LocationLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LocationLogs.
+     */
+    data: LocationLogCreateManyInput | LocationLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LocationLog createManyAndReturn
+   */
+  export type LocationLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many LocationLogs.
+     */
+    data: LocationLogCreateManyInput | LocationLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LocationLog update
+   */
+  export type LocationLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LocationLog.
+     */
+    data: XOR<LocationLogUpdateInput, LocationLogUncheckedUpdateInput>
+    /**
+     * Choose, which LocationLog to update.
+     */
+    where: LocationLogWhereUniqueInput
+  }
+
+  /**
+   * LocationLog updateMany
+   */
+  export type LocationLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LocationLogs.
+     */
+    data: XOR<LocationLogUpdateManyMutationInput, LocationLogUncheckedUpdateManyInput>
+    /**
+     * Filter which LocationLogs to update
+     */
+    where?: LocationLogWhereInput
+    /**
+     * Limit how many LocationLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LocationLog updateManyAndReturn
+   */
+  export type LocationLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * The data used to update LocationLogs.
+     */
+    data: XOR<LocationLogUpdateManyMutationInput, LocationLogUncheckedUpdateManyInput>
+    /**
+     * Filter which LocationLogs to update
+     */
+    where?: LocationLogWhereInput
+    /**
+     * Limit how many LocationLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LocationLog upsert
+   */
+  export type LocationLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LocationLog to update in case it exists.
+     */
+    where: LocationLogWhereUniqueInput
+    /**
+     * In case the LocationLog found by the `where` argument doesn't exist, create a new LocationLog with this data.
+     */
+    create: XOR<LocationLogCreateInput, LocationLogUncheckedCreateInput>
+    /**
+     * In case the LocationLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LocationLogUpdateInput, LocationLogUncheckedUpdateInput>
+  }
+
+  /**
+   * LocationLog delete
+   */
+  export type LocationLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+    /**
+     * Filter which LocationLog to delete.
+     */
+    where: LocationLogWhereUniqueInput
+  }
+
+  /**
+   * LocationLog deleteMany
+   */
+  export type LocationLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LocationLogs to delete
+     */
+    where?: LocationLogWhereInput
+    /**
+     * Limit how many LocationLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LocationLog without action
+   */
+  export type LocationLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationLog
+     */
+    select?: LocationLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LocationLog
+     */
+    omit?: LocationLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Checklist
+   */
+
+  export type AggregateChecklist = {
+    _count: ChecklistCountAggregateOutputType | null
+    _min: ChecklistMinAggregateOutputType | null
+    _max: ChecklistMaxAggregateOutputType | null
+  }
+
+  export type ChecklistMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    text: string | null
+    subtext: string | null
+    isChecked: boolean | null
+    dueDate: Date | null
+    completedDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChecklistMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    text: string | null
+    subtext: string | null
+    isChecked: boolean | null
+    dueDate: Date | null
+    completedDate: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChecklistCountAggregateOutputType = {
+    id: number
+    userId: number
+    text: number
+    subtext: number
+    isChecked: number
+    dueDate: number
+    completedDate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ChecklistMinAggregateInputType = {
+    id?: true
+    userId?: true
+    text?: true
+    subtext?: true
+    isChecked?: true
+    dueDate?: true
+    completedDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChecklistMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    text?: true
+    subtext?: true
+    isChecked?: true
+    dueDate?: true
+    completedDate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChecklistCountAggregateInputType = {
+    id?: true
+    userId?: true
+    text?: true
+    subtext?: true
+    isChecked?: true
+    dueDate?: true
+    completedDate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ChecklistAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Checklist to aggregate.
+     */
+    where?: ChecklistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Checklists to fetch.
+     */
+    orderBy?: ChecklistOrderByWithRelationInput | ChecklistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChecklistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Checklists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Checklists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Checklists
+    **/
+    _count?: true | ChecklistCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChecklistMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChecklistMaxAggregateInputType
+  }
+
+  export type GetChecklistAggregateType<T extends ChecklistAggregateArgs> = {
+        [P in keyof T & keyof AggregateChecklist]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChecklist[P]>
+      : GetScalarType<T[P], AggregateChecklist[P]>
+  }
+
+
+
+
+  export type ChecklistGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChecklistWhereInput
+    orderBy?: ChecklistOrderByWithAggregationInput | ChecklistOrderByWithAggregationInput[]
+    by: ChecklistScalarFieldEnum[] | ChecklistScalarFieldEnum
+    having?: ChecklistScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChecklistCountAggregateInputType | true
+    _min?: ChecklistMinAggregateInputType
+    _max?: ChecklistMaxAggregateInputType
+  }
+
+  export type ChecklistGroupByOutputType = {
+    id: string
+    userId: string
+    text: string
+    subtext: string | null
+    isChecked: boolean
+    dueDate: Date | null
+    completedDate: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ChecklistCountAggregateOutputType | null
+    _min: ChecklistMinAggregateOutputType | null
+    _max: ChecklistMaxAggregateOutputType | null
+  }
+
+  type GetChecklistGroupByPayload<T extends ChecklistGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChecklistGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChecklistGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChecklistGroupByOutputType[P]>
+            : GetScalarType<T[P], ChecklistGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChecklistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subtext?: boolean
+    isChecked?: boolean
+    dueDate?: boolean
+    completedDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["checklist"]>
+
+  export type ChecklistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subtext?: boolean
+    isChecked?: boolean
+    dueDate?: boolean
+    completedDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["checklist"]>
+
+  export type ChecklistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subtext?: boolean
+    isChecked?: boolean
+    dueDate?: boolean
+    completedDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["checklist"]>
+
+  export type ChecklistSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subtext?: boolean
+    isChecked?: boolean
+    dueDate?: boolean
+    completedDate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ChecklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "text" | "subtext" | "isChecked" | "dueDate" | "completedDate" | "createdAt" | "updatedAt", ExtArgs["result"]["checklist"]>
+  export type ChecklistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ChecklistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ChecklistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ChecklistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Checklist"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      text: string
+      subtext: string | null
+      isChecked: boolean
+      dueDate: Date | null
+      completedDate: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["checklist"]>
+    composites: {}
+  }
+
+  type ChecklistGetPayload<S extends boolean | null | undefined | ChecklistDefaultArgs> = $Result.GetResult<Prisma.$ChecklistPayload, S>
+
+  type ChecklistCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChecklistFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChecklistCountAggregateInputType | true
+    }
+
+  export interface ChecklistDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Checklist'], meta: { name: 'Checklist' } }
+    /**
+     * Find zero or one Checklist that matches the filter.
+     * @param {ChecklistFindUniqueArgs} args - Arguments to find a Checklist
+     * @example
+     * // Get one Checklist
+     * const checklist = await prisma.checklist.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChecklistFindUniqueArgs>(args: SelectSubset<T, ChecklistFindUniqueArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Checklist that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChecklistFindUniqueOrThrowArgs} args - Arguments to find a Checklist
+     * @example
+     * // Get one Checklist
+     * const checklist = await prisma.checklist.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChecklistFindUniqueOrThrowArgs>(args: SelectSubset<T, ChecklistFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Checklist that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistFindFirstArgs} args - Arguments to find a Checklist
+     * @example
+     * // Get one Checklist
+     * const checklist = await prisma.checklist.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChecklistFindFirstArgs>(args?: SelectSubset<T, ChecklistFindFirstArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Checklist that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistFindFirstOrThrowArgs} args - Arguments to find a Checklist
+     * @example
+     * // Get one Checklist
+     * const checklist = await prisma.checklist.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChecklistFindFirstOrThrowArgs>(args?: SelectSubset<T, ChecklistFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Checklists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Checklists
+     * const checklists = await prisma.checklist.findMany()
+     * 
+     * // Get first 10 Checklists
+     * const checklists = await prisma.checklist.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const checklistWithIdOnly = await prisma.checklist.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChecklistFindManyArgs>(args?: SelectSubset<T, ChecklistFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Checklist.
+     * @param {ChecklistCreateArgs} args - Arguments to create a Checklist.
+     * @example
+     * // Create one Checklist
+     * const Checklist = await prisma.checklist.create({
+     *   data: {
+     *     // ... data to create a Checklist
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChecklistCreateArgs>(args: SelectSubset<T, ChecklistCreateArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Checklists.
+     * @param {ChecklistCreateManyArgs} args - Arguments to create many Checklists.
+     * @example
+     * // Create many Checklists
+     * const checklist = await prisma.checklist.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChecklistCreateManyArgs>(args?: SelectSubset<T, ChecklistCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Checklists and returns the data saved in the database.
+     * @param {ChecklistCreateManyAndReturnArgs} args - Arguments to create many Checklists.
+     * @example
+     * // Create many Checklists
+     * const checklist = await prisma.checklist.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Checklists and only return the `id`
+     * const checklistWithIdOnly = await prisma.checklist.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChecklistCreateManyAndReturnArgs>(args?: SelectSubset<T, ChecklistCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Checklist.
+     * @param {ChecklistDeleteArgs} args - Arguments to delete one Checklist.
+     * @example
+     * // Delete one Checklist
+     * const Checklist = await prisma.checklist.delete({
+     *   where: {
+     *     // ... filter to delete one Checklist
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChecklistDeleteArgs>(args: SelectSubset<T, ChecklistDeleteArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Checklist.
+     * @param {ChecklistUpdateArgs} args - Arguments to update one Checklist.
+     * @example
+     * // Update one Checklist
+     * const checklist = await prisma.checklist.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChecklistUpdateArgs>(args: SelectSubset<T, ChecklistUpdateArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Checklists.
+     * @param {ChecklistDeleteManyArgs} args - Arguments to filter Checklists to delete.
+     * @example
+     * // Delete a few Checklists
+     * const { count } = await prisma.checklist.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChecklistDeleteManyArgs>(args?: SelectSubset<T, ChecklistDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Checklists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Checklists
+     * const checklist = await prisma.checklist.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChecklistUpdateManyArgs>(args: SelectSubset<T, ChecklistUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Checklists and returns the data updated in the database.
+     * @param {ChecklistUpdateManyAndReturnArgs} args - Arguments to update many Checklists.
+     * @example
+     * // Update many Checklists
+     * const checklist = await prisma.checklist.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Checklists and only return the `id`
+     * const checklistWithIdOnly = await prisma.checklist.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChecklistUpdateManyAndReturnArgs>(args: SelectSubset<T, ChecklistUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Checklist.
+     * @param {ChecklistUpsertArgs} args - Arguments to update or create a Checklist.
+     * @example
+     * // Update or create a Checklist
+     * const checklist = await prisma.checklist.upsert({
+     *   create: {
+     *     // ... data to create a Checklist
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Checklist we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChecklistUpsertArgs>(args: SelectSubset<T, ChecklistUpsertArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Checklists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistCountArgs} args - Arguments to filter Checklists to count.
+     * @example
+     * // Count the number of Checklists
+     * const count = await prisma.checklist.count({
+     *   where: {
+     *     // ... the filter for the Checklists we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChecklistCountArgs>(
+      args?: Subset<T, ChecklistCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChecklistCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Checklist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChecklistAggregateArgs>(args: Subset<T, ChecklistAggregateArgs>): Prisma.PrismaPromise<GetChecklistAggregateType<T>>
+
+    /**
+     * Group by Checklist.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChecklistGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChecklistGroupByArgs['orderBy'] }
+        : { orderBy?: ChecklistGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChecklistGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChecklistGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Checklist model
+   */
+  readonly fields: ChecklistFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Checklist.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChecklistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Checklist model
+   */
+  interface ChecklistFieldRefs {
+    readonly id: FieldRef<"Checklist", 'String'>
+    readonly userId: FieldRef<"Checklist", 'String'>
+    readonly text: FieldRef<"Checklist", 'String'>
+    readonly subtext: FieldRef<"Checklist", 'String'>
+    readonly isChecked: FieldRef<"Checklist", 'Boolean'>
+    readonly dueDate: FieldRef<"Checklist", 'DateTime'>
+    readonly completedDate: FieldRef<"Checklist", 'DateTime'>
+    readonly createdAt: FieldRef<"Checklist", 'DateTime'>
+    readonly updatedAt: FieldRef<"Checklist", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Checklist findUnique
+   */
+  export type ChecklistFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * Filter, which Checklist to fetch.
+     */
+    where: ChecklistWhereUniqueInput
+  }
+
+  /**
+   * Checklist findUniqueOrThrow
+   */
+  export type ChecklistFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * Filter, which Checklist to fetch.
+     */
+    where: ChecklistWhereUniqueInput
+  }
+
+  /**
+   * Checklist findFirst
+   */
+  export type ChecklistFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * Filter, which Checklist to fetch.
+     */
+    where?: ChecklistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Checklists to fetch.
+     */
+    orderBy?: ChecklistOrderByWithRelationInput | ChecklistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Checklists.
+     */
+    cursor?: ChecklistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Checklists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Checklists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Checklists.
+     */
+    distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * Checklist findFirstOrThrow
+   */
+  export type ChecklistFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * Filter, which Checklist to fetch.
+     */
+    where?: ChecklistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Checklists to fetch.
+     */
+    orderBy?: ChecklistOrderByWithRelationInput | ChecklistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Checklists.
+     */
+    cursor?: ChecklistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Checklists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Checklists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Checklists.
+     */
+    distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * Checklist findMany
+   */
+  export type ChecklistFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * Filter, which Checklists to fetch.
+     */
+    where?: ChecklistWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Checklists to fetch.
+     */
+    orderBy?: ChecklistOrderByWithRelationInput | ChecklistOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Checklists.
+     */
+    cursor?: ChecklistWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Checklists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Checklists.
+     */
+    skip?: number
+    distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * Checklist create
+   */
+  export type ChecklistCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Checklist.
+     */
+    data: XOR<ChecklistCreateInput, ChecklistUncheckedCreateInput>
+  }
+
+  /**
+   * Checklist createMany
+   */
+  export type ChecklistCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Checklists.
+     */
+    data: ChecklistCreateManyInput | ChecklistCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Checklist createManyAndReturn
+   */
+  export type ChecklistCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * The data used to create many Checklists.
+     */
+    data: ChecklistCreateManyInput | ChecklistCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Checklist update
+   */
+  export type ChecklistUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Checklist.
+     */
+    data: XOR<ChecklistUpdateInput, ChecklistUncheckedUpdateInput>
+    /**
+     * Choose, which Checklist to update.
+     */
+    where: ChecklistWhereUniqueInput
+  }
+
+  /**
+   * Checklist updateMany
+   */
+  export type ChecklistUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Checklists.
+     */
+    data: XOR<ChecklistUpdateManyMutationInput, ChecklistUncheckedUpdateManyInput>
+    /**
+     * Filter which Checklists to update
+     */
+    where?: ChecklistWhereInput
+    /**
+     * Limit how many Checklists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Checklist updateManyAndReturn
+   */
+  export type ChecklistUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * The data used to update Checklists.
+     */
+    data: XOR<ChecklistUpdateManyMutationInput, ChecklistUncheckedUpdateManyInput>
+    /**
+     * Filter which Checklists to update
+     */
+    where?: ChecklistWhereInput
+    /**
+     * Limit how many Checklists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Checklist upsert
+   */
+  export type ChecklistUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Checklist to update in case it exists.
+     */
+    where: ChecklistWhereUniqueInput
+    /**
+     * In case the Checklist found by the `where` argument doesn't exist, create a new Checklist with this data.
+     */
+    create: XOR<ChecklistCreateInput, ChecklistUncheckedCreateInput>
+    /**
+     * In case the Checklist was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChecklistUpdateInput, ChecklistUncheckedUpdateInput>
+  }
+
+  /**
+   * Checklist delete
+   */
+  export type ChecklistDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    /**
+     * Filter which Checklist to delete.
+     */
+    where: ChecklistWhereUniqueInput
+  }
+
+  /**
+   * Checklist deleteMany
+   */
+  export type ChecklistDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Checklists to delete
+     */
+    where?: ChecklistWhereInput
+    /**
+     * Limit how many Checklists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Checklist without action
+   */
+  export type ChecklistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Schedule
+   */
+
+  export type AggregateSchedule = {
+    _count: ScheduleCountAggregateOutputType | null
+    _avg: ScheduleAvgAggregateOutputType | null
+    _sum: ScheduleSumAggregateOutputType | null
+    _min: ScheduleMinAggregateOutputType | null
+    _max: ScheduleMaxAggregateOutputType | null
+  }
+
+  export type ScheduleAvgAggregateOutputType = {
+    dayOfWeek: number | null
+    alarmOffset: number | null
+  }
+
+  export type ScheduleSumAggregateOutputType = {
+    dayOfWeek: number | null
+    alarmOffset: number | null
+  }
+
+  export type ScheduleMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    text: string | null
+    subText: string | null
+    dayOfWeek: number | null
+    selectedDate: Date | null
+    isRoutine: boolean | null
+    startTime: string | null
+    endTime: string | null
+    color: string | null
+    hasAlarm: boolean | null
+    alarmOffset: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ScheduleMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    text: string | null
+    subText: string | null
+    dayOfWeek: number | null
+    selectedDate: Date | null
+    isRoutine: boolean | null
+    startTime: string | null
+    endTime: string | null
+    color: string | null
+    hasAlarm: boolean | null
+    alarmOffset: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ScheduleCountAggregateOutputType = {
+    id: number
+    userId: number
+    text: number
+    subText: number
+    dayOfWeek: number
+    selectedDate: number
+    isRoutine: number
+    startTime: number
+    endTime: number
+    color: number
+    hasAlarm: number
+    alarmOffset: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ScheduleAvgAggregateInputType = {
+    dayOfWeek?: true
+    alarmOffset?: true
+  }
+
+  export type ScheduleSumAggregateInputType = {
+    dayOfWeek?: true
+    alarmOffset?: true
+  }
+
+  export type ScheduleMinAggregateInputType = {
+    id?: true
+    userId?: true
+    text?: true
+    subText?: true
+    dayOfWeek?: true
+    selectedDate?: true
+    isRoutine?: true
+    startTime?: true
+    endTime?: true
+    color?: true
+    hasAlarm?: true
+    alarmOffset?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ScheduleMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    text?: true
+    subText?: true
+    dayOfWeek?: true
+    selectedDate?: true
+    isRoutine?: true
+    startTime?: true
+    endTime?: true
+    color?: true
+    hasAlarm?: true
+    alarmOffset?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ScheduleCountAggregateInputType = {
+    id?: true
+    userId?: true
+    text?: true
+    subText?: true
+    dayOfWeek?: true
+    selectedDate?: true
+    isRoutine?: true
+    startTime?: true
+    endTime?: true
+    color?: true
+    hasAlarm?: true
+    alarmOffset?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ScheduleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Schedule to aggregate.
+     */
+    where?: ScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Schedules to fetch.
+     */
+    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Schedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Schedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Schedules
+    **/
+    _count?: true | ScheduleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ScheduleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ScheduleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ScheduleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ScheduleMaxAggregateInputType
+  }
+
+  export type GetScheduleAggregateType<T extends ScheduleAggregateArgs> = {
+        [P in keyof T & keyof AggregateSchedule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSchedule[P]>
+      : GetScalarType<T[P], AggregateSchedule[P]>
+  }
+
+
+
+
+  export type ScheduleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScheduleWhereInput
+    orderBy?: ScheduleOrderByWithAggregationInput | ScheduleOrderByWithAggregationInput[]
+    by: ScheduleScalarFieldEnum[] | ScheduleScalarFieldEnum
+    having?: ScheduleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ScheduleCountAggregateInputType | true
+    _avg?: ScheduleAvgAggregateInputType
+    _sum?: ScheduleSumAggregateInputType
+    _min?: ScheduleMinAggregateInputType
+    _max?: ScheduleMaxAggregateInputType
+  }
+
+  export type ScheduleGroupByOutputType = {
+    id: string
+    userId: string
+    text: string
+    subText: string | null
+    dayOfWeek: number | null
+    selectedDate: Date | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color: string | null
+    hasAlarm: boolean | null
+    alarmOffset: number | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ScheduleCountAggregateOutputType | null
+    _avg: ScheduleAvgAggregateOutputType | null
+    _sum: ScheduleSumAggregateOutputType | null
+    _min: ScheduleMinAggregateOutputType | null
+    _max: ScheduleMaxAggregateOutputType | null
+  }
+
+  type GetScheduleGroupByPayload<T extends ScheduleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ScheduleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ScheduleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ScheduleGroupByOutputType[P]>
+            : GetScalarType<T[P], ScheduleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ScheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subText?: boolean
+    dayOfWeek?: boolean
+    selectedDate?: boolean
+    isRoutine?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    color?: boolean
+    hasAlarm?: boolean
+    alarmOffset?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["schedule"]>
+
+  export type ScheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subText?: boolean
+    dayOfWeek?: boolean
+    selectedDate?: boolean
+    isRoutine?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    color?: boolean
+    hasAlarm?: boolean
+    alarmOffset?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["schedule"]>
+
+  export type ScheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subText?: boolean
+    dayOfWeek?: boolean
+    selectedDate?: boolean
+    isRoutine?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    color?: boolean
+    hasAlarm?: boolean
+    alarmOffset?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["schedule"]>
+
+  export type ScheduleSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    text?: boolean
+    subText?: boolean
+    dayOfWeek?: boolean
+    selectedDate?: boolean
+    isRoutine?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    color?: boolean
+    hasAlarm?: boolean
+    alarmOffset?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "text" | "subText" | "dayOfWeek" | "selectedDate" | "isRoutine" | "startTime" | "endTime" | "color" | "hasAlarm" | "alarmOffset" | "createdAt" | "updatedAt", ExtArgs["result"]["schedule"]>
+  export type ScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SchedulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Schedule"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      text: string
+      subText: string | null
+      dayOfWeek: number | null
+      selectedDate: Date | null
+      isRoutine: boolean
+      startTime: string
+      endTime: string
+      color: string | null
+      hasAlarm: boolean | null
+      alarmOffset: number | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["schedule"]>
+    composites: {}
+  }
+
+  type ScheduleGetPayload<S extends boolean | null | undefined | ScheduleDefaultArgs> = $Result.GetResult<Prisma.$SchedulePayload, S>
+
+  type ScheduleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ScheduleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ScheduleCountAggregateInputType | true
+    }
+
+  export interface ScheduleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Schedule'], meta: { name: 'Schedule' } }
+    /**
+     * Find zero or one Schedule that matches the filter.
+     * @param {ScheduleFindUniqueArgs} args - Arguments to find a Schedule
+     * @example
+     * // Get one Schedule
+     * const schedule = await prisma.schedule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ScheduleFindUniqueArgs>(args: SelectSubset<T, ScheduleFindUniqueArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Schedule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ScheduleFindUniqueOrThrowArgs} args - Arguments to find a Schedule
+     * @example
+     * // Get one Schedule
+     * const schedule = await prisma.schedule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ScheduleFindUniqueOrThrowArgs>(args: SelectSubset<T, ScheduleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Schedule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleFindFirstArgs} args - Arguments to find a Schedule
+     * @example
+     * // Get one Schedule
+     * const schedule = await prisma.schedule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ScheduleFindFirstArgs>(args?: SelectSubset<T, ScheduleFindFirstArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Schedule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleFindFirstOrThrowArgs} args - Arguments to find a Schedule
+     * @example
+     * // Get one Schedule
+     * const schedule = await prisma.schedule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ScheduleFindFirstOrThrowArgs>(args?: SelectSubset<T, ScheduleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Schedules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Schedules
+     * const schedules = await prisma.schedule.findMany()
+     * 
+     * // Get first 10 Schedules
+     * const schedules = await prisma.schedule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const scheduleWithIdOnly = await prisma.schedule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ScheduleFindManyArgs>(args?: SelectSubset<T, ScheduleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Schedule.
+     * @param {ScheduleCreateArgs} args - Arguments to create a Schedule.
+     * @example
+     * // Create one Schedule
+     * const Schedule = await prisma.schedule.create({
+     *   data: {
+     *     // ... data to create a Schedule
+     *   }
+     * })
+     * 
+     */
+    create<T extends ScheduleCreateArgs>(args: SelectSubset<T, ScheduleCreateArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Schedules.
+     * @param {ScheduleCreateManyArgs} args - Arguments to create many Schedules.
+     * @example
+     * // Create many Schedules
+     * const schedule = await prisma.schedule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ScheduleCreateManyArgs>(args?: SelectSubset<T, ScheduleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Schedules and returns the data saved in the database.
+     * @param {ScheduleCreateManyAndReturnArgs} args - Arguments to create many Schedules.
+     * @example
+     * // Create many Schedules
+     * const schedule = await prisma.schedule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Schedules and only return the `id`
+     * const scheduleWithIdOnly = await prisma.schedule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ScheduleCreateManyAndReturnArgs>(args?: SelectSubset<T, ScheduleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Schedule.
+     * @param {ScheduleDeleteArgs} args - Arguments to delete one Schedule.
+     * @example
+     * // Delete one Schedule
+     * const Schedule = await prisma.schedule.delete({
+     *   where: {
+     *     // ... filter to delete one Schedule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ScheduleDeleteArgs>(args: SelectSubset<T, ScheduleDeleteArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Schedule.
+     * @param {ScheduleUpdateArgs} args - Arguments to update one Schedule.
+     * @example
+     * // Update one Schedule
+     * const schedule = await prisma.schedule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ScheduleUpdateArgs>(args: SelectSubset<T, ScheduleUpdateArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Schedules.
+     * @param {ScheduleDeleteManyArgs} args - Arguments to filter Schedules to delete.
+     * @example
+     * // Delete a few Schedules
+     * const { count } = await prisma.schedule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ScheduleDeleteManyArgs>(args?: SelectSubset<T, ScheduleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Schedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Schedules
+     * const schedule = await prisma.schedule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ScheduleUpdateManyArgs>(args: SelectSubset<T, ScheduleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Schedules and returns the data updated in the database.
+     * @param {ScheduleUpdateManyAndReturnArgs} args - Arguments to update many Schedules.
+     * @example
+     * // Update many Schedules
+     * const schedule = await prisma.schedule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Schedules and only return the `id`
+     * const scheduleWithIdOnly = await prisma.schedule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ScheduleUpdateManyAndReturnArgs>(args: SelectSubset<T, ScheduleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Schedule.
+     * @param {ScheduleUpsertArgs} args - Arguments to update or create a Schedule.
+     * @example
+     * // Update or create a Schedule
+     * const schedule = await prisma.schedule.upsert({
+     *   create: {
+     *     // ... data to create a Schedule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Schedule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ScheduleUpsertArgs>(args: SelectSubset<T, ScheduleUpsertArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Schedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleCountArgs} args - Arguments to filter Schedules to count.
+     * @example
+     * // Count the number of Schedules
+     * const count = await prisma.schedule.count({
+     *   where: {
+     *     // ... the filter for the Schedules we want to count
+     *   }
+     * })
+    **/
+    count<T extends ScheduleCountArgs>(
+      args?: Subset<T, ScheduleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ScheduleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Schedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ScheduleAggregateArgs>(args: Subset<T, ScheduleAggregateArgs>): Prisma.PrismaPromise<GetScheduleAggregateType<T>>
+
+    /**
+     * Group by Schedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ScheduleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ScheduleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ScheduleGroupByArgs['orderBy'] }
+        : { orderBy?: ScheduleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ScheduleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetScheduleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Schedule model
+   */
+  readonly fields: ScheduleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Schedule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ScheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Schedule model
+   */
+  interface ScheduleFieldRefs {
+    readonly id: FieldRef<"Schedule", 'String'>
+    readonly userId: FieldRef<"Schedule", 'String'>
+    readonly text: FieldRef<"Schedule", 'String'>
+    readonly subText: FieldRef<"Schedule", 'String'>
+    readonly dayOfWeek: FieldRef<"Schedule", 'Int'>
+    readonly selectedDate: FieldRef<"Schedule", 'DateTime'>
+    readonly isRoutine: FieldRef<"Schedule", 'Boolean'>
+    readonly startTime: FieldRef<"Schedule", 'String'>
+    readonly endTime: FieldRef<"Schedule", 'String'>
+    readonly color: FieldRef<"Schedule", 'String'>
+    readonly hasAlarm: FieldRef<"Schedule", 'Boolean'>
+    readonly alarmOffset: FieldRef<"Schedule", 'Int'>
+    readonly createdAt: FieldRef<"Schedule", 'DateTime'>
+    readonly updatedAt: FieldRef<"Schedule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Schedule findUnique
+   */
+  export type ScheduleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which Schedule to fetch.
+     */
+    where: ScheduleWhereUniqueInput
+  }
+
+  /**
+   * Schedule findUniqueOrThrow
+   */
+  export type ScheduleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which Schedule to fetch.
+     */
+    where: ScheduleWhereUniqueInput
+  }
+
+  /**
+   * Schedule findFirst
+   */
+  export type ScheduleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which Schedule to fetch.
+     */
+    where?: ScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Schedules to fetch.
+     */
+    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Schedules.
+     */
+    cursor?: ScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Schedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Schedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Schedules.
+     */
+    distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Schedule findFirstOrThrow
+   */
+  export type ScheduleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which Schedule to fetch.
+     */
+    where?: ScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Schedules to fetch.
+     */
+    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Schedules.
+     */
+    cursor?: ScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Schedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Schedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Schedules.
+     */
+    distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Schedule findMany
+   */
+  export type ScheduleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which Schedules to fetch.
+     */
+    where?: ScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Schedules to fetch.
+     */
+    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Schedules.
+     */
+    cursor?: ScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Schedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Schedules.
+     */
+    skip?: number
+    distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Schedule create
+   */
+  export type ScheduleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Schedule.
+     */
+    data: XOR<ScheduleCreateInput, ScheduleUncheckedCreateInput>
+  }
+
+  /**
+   * Schedule createMany
+   */
+  export type ScheduleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Schedules.
+     */
+    data: ScheduleCreateManyInput | ScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Schedule createManyAndReturn
+   */
+  export type ScheduleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Schedules.
+     */
+    data: ScheduleCreateManyInput | ScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Schedule update
+   */
+  export type ScheduleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Schedule.
+     */
+    data: XOR<ScheduleUpdateInput, ScheduleUncheckedUpdateInput>
+    /**
+     * Choose, which Schedule to update.
+     */
+    where: ScheduleWhereUniqueInput
+  }
+
+  /**
+   * Schedule updateMany
+   */
+  export type ScheduleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Schedules.
+     */
+    data: XOR<ScheduleUpdateManyMutationInput, ScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which Schedules to update
+     */
+    where?: ScheduleWhereInput
+    /**
+     * Limit how many Schedules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Schedule updateManyAndReturn
+   */
+  export type ScheduleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to update Schedules.
+     */
+    data: XOR<ScheduleUpdateManyMutationInput, ScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which Schedules to update
+     */
+    where?: ScheduleWhereInput
+    /**
+     * Limit how many Schedules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Schedule upsert
+   */
+  export type ScheduleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Schedule to update in case it exists.
+     */
+    where: ScheduleWhereUniqueInput
+    /**
+     * In case the Schedule found by the `where` argument doesn't exist, create a new Schedule with this data.
+     */
+    create: XOR<ScheduleCreateInput, ScheduleUncheckedCreateInput>
+    /**
+     * In case the Schedule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ScheduleUpdateInput, ScheduleUncheckedUpdateInput>
+  }
+
+  /**
+   * Schedule delete
+   */
+  export type ScheduleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    /**
+     * Filter which Schedule to delete.
+     */
+    where: ScheduleWhereUniqueInput
+  }
+
+  /**
+   * Schedule deleteMany
+   */
+  export type ScheduleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Schedules to delete
+     */
+    where?: ScheduleWhereInput
+    /**
+     * Limit how many Schedules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Schedule without action
+   */
+  export type ScheduleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Schedule
+     */
+    omit?: ScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4380,9 +9468,25 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const AppUsageScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    packageName: 'packageName',
+    appName: 'appName',
+    usageTimeInMillis: 'usageTimeInMillis',
+    appIconPath: 'appIconPath',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AppUsageScalarFieldEnum = (typeof AppUsageScalarFieldEnum)[keyof typeof AppUsageScalarFieldEnum]
+
+
   export const DiaryScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
+    date: 'date',
     title: 'title',
     content: 'content',
     createdAt: 'createdAt',
@@ -4401,6 +9505,52 @@ export namespace Prisma {
   };
 
   export type PhotoScalarFieldEnum = (typeof PhotoScalarFieldEnum)[keyof typeof PhotoScalarFieldEnum]
+
+
+  export const LocationLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    timestamp: 'timestamp'
+  };
+
+  export type LocationLogScalarFieldEnum = (typeof LocationLogScalarFieldEnum)[keyof typeof LocationLogScalarFieldEnum]
+
+
+  export const ChecklistScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    text: 'text',
+    subtext: 'subtext',
+    isChecked: 'isChecked',
+    dueDate: 'dueDate',
+    completedDate: 'completedDate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ChecklistScalarFieldEnum = (typeof ChecklistScalarFieldEnum)[keyof typeof ChecklistScalarFieldEnum]
+
+
+  export const ScheduleScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    text: 'text',
+    subText: 'subText',
+    dayOfWeek: 'dayOfWeek',
+    selectedDate: 'selectedDate',
+    isRoutine: 'isRoutine',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    color: 'color',
+    hasAlarm: 'hasAlarm',
+    alarmOffset: 'alarmOffset',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typeof ScheduleScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4472,6 +9622,27 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
   /**
    * Deep Input Types
    */
@@ -4488,6 +9659,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     diaries?: DiaryListRelationFilter
+    appusages?: AppUsageListRelationFilter
+    checklists?: ChecklistListRelationFilter
+    locationLogs?: LocationLogListRelationFilter
+    schedules?: ScheduleListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4498,6 +9673,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     diaries?: DiaryOrderByRelationAggregateInput
+    appusages?: AppUsageOrderByRelationAggregateInput
+    checklists?: ChecklistOrderByRelationAggregateInput
+    locationLogs?: LocationLogOrderByRelationAggregateInput
+    schedules?: ScheduleOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4511,6 +9690,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     diaries?: DiaryListRelationFilter
+    appusages?: AppUsageListRelationFilter
+    checklists?: ChecklistListRelationFilter
+    locationLogs?: LocationLogListRelationFilter
+    schedules?: ScheduleListRelationFilter
   }, "id" | "userId">
 
   export type UserOrderByWithAggregationInput = {
@@ -4537,29 +9720,108 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type AppUsageWhereInput = {
+    AND?: AppUsageWhereInput | AppUsageWhereInput[]
+    OR?: AppUsageWhereInput[]
+    NOT?: AppUsageWhereInput | AppUsageWhereInput[]
+    id?: StringFilter<"AppUsage"> | string
+    userId?: StringFilter<"AppUsage"> | string
+    date?: StringFilter<"AppUsage"> | string
+    packageName?: StringFilter<"AppUsage"> | string
+    appName?: StringFilter<"AppUsage"> | string
+    usageTimeInMillis?: IntFilter<"AppUsage"> | number
+    appIconPath?: StringNullableFilter<"AppUsage"> | string | null
+    createdAt?: DateTimeFilter<"AppUsage"> | Date | string
+    updatedAt?: DateTimeFilter<"AppUsage"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AppUsageOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    packageName?: SortOrder
+    appName?: SortOrder
+    usageTimeInMillis?: SortOrder
+    appIconPath?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AppUsageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AppUsageWhereInput | AppUsageWhereInput[]
+    OR?: AppUsageWhereInput[]
+    NOT?: AppUsageWhereInput | AppUsageWhereInput[]
+    userId?: StringFilter<"AppUsage"> | string
+    date?: StringFilter<"AppUsage"> | string
+    packageName?: StringFilter<"AppUsage"> | string
+    appName?: StringFilter<"AppUsage"> | string
+    usageTimeInMillis?: IntFilter<"AppUsage"> | number
+    appIconPath?: StringNullableFilter<"AppUsage"> | string | null
+    createdAt?: DateTimeFilter<"AppUsage"> | Date | string
+    updatedAt?: DateTimeFilter<"AppUsage"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AppUsageOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    packageName?: SortOrder
+    appName?: SortOrder
+    usageTimeInMillis?: SortOrder
+    appIconPath?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AppUsageCountOrderByAggregateInput
+    _avg?: AppUsageAvgOrderByAggregateInput
+    _max?: AppUsageMaxOrderByAggregateInput
+    _min?: AppUsageMinOrderByAggregateInput
+    _sum?: AppUsageSumOrderByAggregateInput
+  }
+
+  export type AppUsageScalarWhereWithAggregatesInput = {
+    AND?: AppUsageScalarWhereWithAggregatesInput | AppUsageScalarWhereWithAggregatesInput[]
+    OR?: AppUsageScalarWhereWithAggregatesInput[]
+    NOT?: AppUsageScalarWhereWithAggregatesInput | AppUsageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AppUsage"> | string
+    userId?: StringWithAggregatesFilter<"AppUsage"> | string
+    date?: StringWithAggregatesFilter<"AppUsage"> | string
+    packageName?: StringWithAggregatesFilter<"AppUsage"> | string
+    appName?: StringWithAggregatesFilter<"AppUsage"> | string
+    usageTimeInMillis?: IntWithAggregatesFilter<"AppUsage"> | number
+    appIconPath?: StringNullableWithAggregatesFilter<"AppUsage"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AppUsage"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AppUsage"> | Date | string
+  }
+
   export type DiaryWhereInput = {
     AND?: DiaryWhereInput | DiaryWhereInput[]
     OR?: DiaryWhereInput[]
     NOT?: DiaryWhereInput | DiaryWhereInput[]
     id?: StringFilter<"Diary"> | string
     userId?: StringFilter<"Diary"> | string
+    date?: StringFilter<"Diary"> | string
     title?: StringFilter<"Diary"> | string
     content?: StringNullableFilter<"Diary"> | string | null
     createdAt?: DateTimeFilter<"Diary"> | Date | string
     updatedAt?: DateTimeFilter<"Diary"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    Photo?: PhotoListRelationFilter
+    photos?: PhotoListRelationFilter
   }
 
   export type DiaryOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    date?: SortOrder
     title?: SortOrder
     content?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    Photo?: PhotoOrderByRelationAggregateInput
+    photos?: PhotoOrderByRelationAggregateInput
   }
 
   export type DiaryWhereUniqueInput = Prisma.AtLeast<{
@@ -4568,17 +9830,19 @@ export namespace Prisma {
     OR?: DiaryWhereInput[]
     NOT?: DiaryWhereInput | DiaryWhereInput[]
     userId?: StringFilter<"Diary"> | string
+    date?: StringFilter<"Diary"> | string
     title?: StringFilter<"Diary"> | string
     content?: StringNullableFilter<"Diary"> | string | null
     createdAt?: DateTimeFilter<"Diary"> | Date | string
     updatedAt?: DateTimeFilter<"Diary"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    Photo?: PhotoListRelationFilter
+    photos?: PhotoListRelationFilter
   }, "id">
 
   export type DiaryOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    date?: SortOrder
     title?: SortOrder
     content?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -4594,6 +9858,7 @@ export namespace Prisma {
     NOT?: DiaryScalarWhereWithAggregatesInput | DiaryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Diary"> | string
     userId?: StringWithAggregatesFilter<"Diary"> | string
+    date?: StringWithAggregatesFilter<"Diary"> | string
     title?: StringWithAggregatesFilter<"Diary"> | string
     content?: StringNullableWithAggregatesFilter<"Diary"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Diary"> | Date | string
@@ -4655,6 +9920,240 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Photo"> | Date | string
   }
 
+  export type LocationLogWhereInput = {
+    AND?: LocationLogWhereInput | LocationLogWhereInput[]
+    OR?: LocationLogWhereInput[]
+    NOT?: LocationLogWhereInput | LocationLogWhereInput[]
+    id?: StringFilter<"LocationLog"> | string
+    userId?: StringFilter<"LocationLog"> | string
+    latitude?: FloatFilter<"LocationLog"> | number
+    longitude?: FloatFilter<"LocationLog"> | number
+    timestamp?: DateTimeFilter<"LocationLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LocationLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timestamp?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LocationLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LocationLogWhereInput | LocationLogWhereInput[]
+    OR?: LocationLogWhereInput[]
+    NOT?: LocationLogWhereInput | LocationLogWhereInput[]
+    userId?: StringFilter<"LocationLog"> | string
+    latitude?: FloatFilter<"LocationLog"> | number
+    longitude?: FloatFilter<"LocationLog"> | number
+    timestamp?: DateTimeFilter<"LocationLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LocationLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timestamp?: SortOrder
+    _count?: LocationLogCountOrderByAggregateInput
+    _avg?: LocationLogAvgOrderByAggregateInput
+    _max?: LocationLogMaxOrderByAggregateInput
+    _min?: LocationLogMinOrderByAggregateInput
+    _sum?: LocationLogSumOrderByAggregateInput
+  }
+
+  export type LocationLogScalarWhereWithAggregatesInput = {
+    AND?: LocationLogScalarWhereWithAggregatesInput | LocationLogScalarWhereWithAggregatesInput[]
+    OR?: LocationLogScalarWhereWithAggregatesInput[]
+    NOT?: LocationLogScalarWhereWithAggregatesInput | LocationLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LocationLog"> | string
+    userId?: StringWithAggregatesFilter<"LocationLog"> | string
+    latitude?: FloatWithAggregatesFilter<"LocationLog"> | number
+    longitude?: FloatWithAggregatesFilter<"LocationLog"> | number
+    timestamp?: DateTimeWithAggregatesFilter<"LocationLog"> | Date | string
+  }
+
+  export type ChecklistWhereInput = {
+    AND?: ChecklistWhereInput | ChecklistWhereInput[]
+    OR?: ChecklistWhereInput[]
+    NOT?: ChecklistWhereInput | ChecklistWhereInput[]
+    id?: StringFilter<"Checklist"> | string
+    userId?: StringFilter<"Checklist"> | string
+    text?: StringFilter<"Checklist"> | string
+    subtext?: StringNullableFilter<"Checklist"> | string | null
+    isChecked?: BoolFilter<"Checklist"> | boolean
+    dueDate?: DateTimeNullableFilter<"Checklist"> | Date | string | null
+    completedDate?: DateTimeNullableFilter<"Checklist"> | Date | string | null
+    createdAt?: DateTimeFilter<"Checklist"> | Date | string
+    updatedAt?: DateTimeFilter<"Checklist"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ChecklistOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subtext?: SortOrderInput | SortOrder
+    isChecked?: SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ChecklistWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ChecklistWhereInput | ChecklistWhereInput[]
+    OR?: ChecklistWhereInput[]
+    NOT?: ChecklistWhereInput | ChecklistWhereInput[]
+    userId?: StringFilter<"Checklist"> | string
+    text?: StringFilter<"Checklist"> | string
+    subtext?: StringNullableFilter<"Checklist"> | string | null
+    isChecked?: BoolFilter<"Checklist"> | boolean
+    dueDate?: DateTimeNullableFilter<"Checklist"> | Date | string | null
+    completedDate?: DateTimeNullableFilter<"Checklist"> | Date | string | null
+    createdAt?: DateTimeFilter<"Checklist"> | Date | string
+    updatedAt?: DateTimeFilter<"Checklist"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ChecklistOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subtext?: SortOrderInput | SortOrder
+    isChecked?: SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedDate?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ChecklistCountOrderByAggregateInput
+    _max?: ChecklistMaxOrderByAggregateInput
+    _min?: ChecklistMinOrderByAggregateInput
+  }
+
+  export type ChecklistScalarWhereWithAggregatesInput = {
+    AND?: ChecklistScalarWhereWithAggregatesInput | ChecklistScalarWhereWithAggregatesInput[]
+    OR?: ChecklistScalarWhereWithAggregatesInput[]
+    NOT?: ChecklistScalarWhereWithAggregatesInput | ChecklistScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Checklist"> | string
+    userId?: StringWithAggregatesFilter<"Checklist"> | string
+    text?: StringWithAggregatesFilter<"Checklist"> | string
+    subtext?: StringNullableWithAggregatesFilter<"Checklist"> | string | null
+    isChecked?: BoolWithAggregatesFilter<"Checklist"> | boolean
+    dueDate?: DateTimeNullableWithAggregatesFilter<"Checklist"> | Date | string | null
+    completedDate?: DateTimeNullableWithAggregatesFilter<"Checklist"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Checklist"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Checklist"> | Date | string
+  }
+
+  export type ScheduleWhereInput = {
+    AND?: ScheduleWhereInput | ScheduleWhereInput[]
+    OR?: ScheduleWhereInput[]
+    NOT?: ScheduleWhereInput | ScheduleWhereInput[]
+    id?: StringFilter<"Schedule"> | string
+    userId?: StringFilter<"Schedule"> | string
+    text?: StringFilter<"Schedule"> | string
+    subText?: StringNullableFilter<"Schedule"> | string | null
+    dayOfWeek?: IntNullableFilter<"Schedule"> | number | null
+    selectedDate?: DateTimeNullableFilter<"Schedule"> | Date | string | null
+    isRoutine?: BoolFilter<"Schedule"> | boolean
+    startTime?: StringFilter<"Schedule"> | string
+    endTime?: StringFilter<"Schedule"> | string
+    color?: StringNullableFilter<"Schedule"> | string | null
+    hasAlarm?: BoolNullableFilter<"Schedule"> | boolean | null
+    alarmOffset?: IntNullableFilter<"Schedule"> | number | null
+    createdAt?: DateTimeFilter<"Schedule"> | Date | string
+    updatedAt?: DateTimeFilter<"Schedule"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ScheduleOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subText?: SortOrderInput | SortOrder
+    dayOfWeek?: SortOrderInput | SortOrder
+    selectedDate?: SortOrderInput | SortOrder
+    isRoutine?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    color?: SortOrderInput | SortOrder
+    hasAlarm?: SortOrderInput | SortOrder
+    alarmOffset?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ScheduleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ScheduleWhereInput | ScheduleWhereInput[]
+    OR?: ScheduleWhereInput[]
+    NOT?: ScheduleWhereInput | ScheduleWhereInput[]
+    userId?: StringFilter<"Schedule"> | string
+    text?: StringFilter<"Schedule"> | string
+    subText?: StringNullableFilter<"Schedule"> | string | null
+    dayOfWeek?: IntNullableFilter<"Schedule"> | number | null
+    selectedDate?: DateTimeNullableFilter<"Schedule"> | Date | string | null
+    isRoutine?: BoolFilter<"Schedule"> | boolean
+    startTime?: StringFilter<"Schedule"> | string
+    endTime?: StringFilter<"Schedule"> | string
+    color?: StringNullableFilter<"Schedule"> | string | null
+    hasAlarm?: BoolNullableFilter<"Schedule"> | boolean | null
+    alarmOffset?: IntNullableFilter<"Schedule"> | number | null
+    createdAt?: DateTimeFilter<"Schedule"> | Date | string
+    updatedAt?: DateTimeFilter<"Schedule"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ScheduleOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subText?: SortOrderInput | SortOrder
+    dayOfWeek?: SortOrderInput | SortOrder
+    selectedDate?: SortOrderInput | SortOrder
+    isRoutine?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    color?: SortOrderInput | SortOrder
+    hasAlarm?: SortOrderInput | SortOrder
+    alarmOffset?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ScheduleCountOrderByAggregateInput
+    _avg?: ScheduleAvgOrderByAggregateInput
+    _max?: ScheduleMaxOrderByAggregateInput
+    _min?: ScheduleMinOrderByAggregateInput
+    _sum?: ScheduleSumOrderByAggregateInput
+  }
+
+  export type ScheduleScalarWhereWithAggregatesInput = {
+    AND?: ScheduleScalarWhereWithAggregatesInput | ScheduleScalarWhereWithAggregatesInput[]
+    OR?: ScheduleScalarWhereWithAggregatesInput[]
+    NOT?: ScheduleScalarWhereWithAggregatesInput | ScheduleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Schedule"> | string
+    userId?: StringWithAggregatesFilter<"Schedule"> | string
+    text?: StringWithAggregatesFilter<"Schedule"> | string
+    subText?: StringNullableWithAggregatesFilter<"Schedule"> | string | null
+    dayOfWeek?: IntNullableWithAggregatesFilter<"Schedule"> | number | null
+    selectedDate?: DateTimeNullableWithAggregatesFilter<"Schedule"> | Date | string | null
+    isRoutine?: BoolWithAggregatesFilter<"Schedule"> | boolean
+    startTime?: StringWithAggregatesFilter<"Schedule"> | string
+    endTime?: StringWithAggregatesFilter<"Schedule"> | string
+    color?: StringNullableWithAggregatesFilter<"Schedule"> | string | null
+    hasAlarm?: BoolNullableWithAggregatesFilter<"Schedule"> | boolean | null
+    alarmOffset?: IntNullableWithAggregatesFilter<"Schedule"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"Schedule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Schedule"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     userId?: string | null
@@ -4663,6 +10162,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     diaries?: DiaryCreateNestedManyWithoutUserInput
+    appusages?: AppUsageCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
+    schedules?: ScheduleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4673,6 +10176,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
+    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4683,6 +10190,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diaries?: DiaryUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -4693,6 +10204,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -4722,49 +10237,137 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AppUsageCreateInput = {
+    id?: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAppusagesInput
+  }
+
+  export type AppUsageUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AppUsageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAppusagesNestedInput
+  }
+
+  export type AppUsageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUsageCreateManyInput = {
+    id?: string
+    userId: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AppUsageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUsageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DiaryCreateInput = {
     id?: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutDiariesInput
-    Photo?: PhotoCreateNestedManyWithoutDiaryInput
+    photos?: PhotoCreateNestedManyWithoutDiaryInput
   }
 
   export type DiaryUncheckedCreateInput = {
     id?: string
     userId: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Photo?: PhotoUncheckedCreateNestedManyWithoutDiaryInput
+    photos?: PhotoUncheckedCreateNestedManyWithoutDiaryInput
   }
 
   export type DiaryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDiariesNestedInput
-    Photo?: PhotoUpdateManyWithoutDiaryNestedInput
+    photos?: PhotoUpdateManyWithoutDiaryNestedInput
   }
 
   export type DiaryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Photo?: PhotoUncheckedUpdateManyWithoutDiaryNestedInput
+    photos?: PhotoUncheckedUpdateManyWithoutDiaryNestedInput
   }
 
   export type DiaryCreateManyInput = {
     id?: string
     userId: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
@@ -4773,6 +10376,7 @@ export namespace Prisma {
 
   export type DiaryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4782,6 +10386,7 @@ export namespace Prisma {
   export type DiaryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4793,7 +10398,7 @@ export namespace Prisma {
     url: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    diary: DiaryCreateNestedOneWithoutPhotoInput
+    diary: DiaryCreateNestedOneWithoutPhotosInput
   }
 
   export type PhotoUncheckedCreateInput = {
@@ -4809,7 +10414,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    diary?: DiaryUpdateOneRequiredWithoutPhotoNestedInput
+    diary?: DiaryUpdateOneRequiredWithoutPhotosNestedInput
   }
 
   export type PhotoUncheckedUpdateInput = {
@@ -4839,6 +10444,262 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     diaryId?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationLogCreateInput = {
+    id?: string
+    latitude: number
+    longitude: number
+    timestamp?: Date | string
+    user: UserCreateNestedOneWithoutLocationLogsInput
+  }
+
+  export type LocationLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    latitude: number
+    longitude: number
+    timestamp?: Date | string
+  }
+
+  export type LocationLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutLocationLogsNestedInput
+  }
+
+  export type LocationLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationLogCreateManyInput = {
+    id?: string
+    userId: string
+    latitude: number
+    longitude: number
+    timestamp?: Date | string
+  }
+
+  export type LocationLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistCreateInput = {
+    id?: string
+    text: string
+    subtext?: string | null
+    isChecked?: boolean
+    dueDate?: Date | string | null
+    completedDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutChecklistsInput
+  }
+
+  export type ChecklistUncheckedCreateInput = {
+    id?: string
+    userId: string
+    text: string
+    subtext?: string | null
+    isChecked?: boolean
+    dueDate?: Date | string | null
+    completedDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutChecklistsNestedInput
+  }
+
+  export type ChecklistUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistCreateManyInput = {
+    id?: string
+    userId: string
+    text: string
+    subtext?: string | null
+    isChecked?: boolean
+    dueDate?: Date | string | null
+    completedDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScheduleCreateInput = {
+    id?: string
+    text: string
+    subText?: string | null
+    dayOfWeek?: number | null
+    selectedDate?: Date | string | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color?: string | null
+    hasAlarm?: boolean | null
+    alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSchedulesInput
+  }
+
+  export type ScheduleUncheckedCreateInput = {
+    id?: string
+    userId: string
+    text: string
+    subText?: string | null
+    dayOfWeek?: number | null
+    selectedDate?: Date | string | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color?: string | null
+    hasAlarm?: boolean | null
+    alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScheduleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSchedulesNestedInput
+  }
+
+  export type ScheduleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScheduleCreateManyInput = {
+    id?: string
+    userId: string
+    text: string
+    subText?: string | null
+    dayOfWeek?: number | null
+    selectedDate?: Date | string | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color?: string | null
+    hasAlarm?: boolean | null
+    alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScheduleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScheduleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4890,12 +10751,52 @@ export namespace Prisma {
     none?: DiaryWhereInput
   }
 
+  export type AppUsageListRelationFilter = {
+    every?: AppUsageWhereInput
+    some?: AppUsageWhereInput
+    none?: AppUsageWhereInput
+  }
+
+  export type ChecklistListRelationFilter = {
+    every?: ChecklistWhereInput
+    some?: ChecklistWhereInput
+    none?: ChecklistWhereInput
+  }
+
+  export type LocationLogListRelationFilter = {
+    every?: LocationLogWhereInput
+    some?: LocationLogWhereInput
+    none?: LocationLogWhereInput
+  }
+
+  export type ScheduleListRelationFilter = {
+    every?: ScheduleWhereInput
+    some?: ScheduleWhereInput
+    none?: ScheduleWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type DiaryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AppUsageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChecklistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LocationLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ScheduleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4976,9 +10877,80 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type AppUsageCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    packageName?: SortOrder
+    appName?: SortOrder
+    usageTimeInMillis?: SortOrder
+    appIconPath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AppUsageAvgOrderByAggregateInput = {
+    usageTimeInMillis?: SortOrder
+  }
+
+  export type AppUsageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    packageName?: SortOrder
+    appName?: SortOrder
+    usageTimeInMillis?: SortOrder
+    appIconPath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AppUsageMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    packageName?: SortOrder
+    appName?: SortOrder
+    usageTimeInMillis?: SortOrder
+    appIconPath?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AppUsageSumOrderByAggregateInput = {
+    usageTimeInMillis?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type PhotoListRelationFilter = {
@@ -4994,6 +10966,7 @@ export namespace Prisma {
   export type DiaryCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    date?: SortOrder
     title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
@@ -5003,6 +10976,7 @@ export namespace Prisma {
   export type DiaryMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    date?: SortOrder
     title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
@@ -5012,6 +10986,7 @@ export namespace Prisma {
   export type DiaryMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    date?: SortOrder
     title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
@@ -5047,6 +11022,242 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type LocationLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type LocationLogAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type LocationLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type LocationLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type LocationLogSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type ChecklistCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subtext?: SortOrder
+    isChecked?: SortOrder
+    dueDate?: SortOrder
+    completedDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChecklistMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subtext?: SortOrder
+    isChecked?: SortOrder
+    dueDate?: SortOrder
+    completedDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChecklistMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subtext?: SortOrder
+    isChecked?: SortOrder
+    dueDate?: SortOrder
+    completedDate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type ScheduleCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subText?: SortOrder
+    dayOfWeek?: SortOrder
+    selectedDate?: SortOrder
+    isRoutine?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    color?: SortOrder
+    hasAlarm?: SortOrder
+    alarmOffset?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScheduleAvgOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+    alarmOffset?: SortOrder
+  }
+
+  export type ScheduleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subText?: SortOrder
+    dayOfWeek?: SortOrder
+    selectedDate?: SortOrder
+    isRoutine?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    color?: SortOrder
+    hasAlarm?: SortOrder
+    alarmOffset?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScheduleMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    text?: SortOrder
+    subText?: SortOrder
+    dayOfWeek?: SortOrder
+    selectedDate?: SortOrder
+    isRoutine?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    color?: SortOrder
+    hasAlarm?: SortOrder
+    alarmOffset?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ScheduleSumOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+    alarmOffset?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type DiaryCreateNestedManyWithoutUserInput = {
     create?: XOR<DiaryCreateWithoutUserInput, DiaryUncheckedCreateWithoutUserInput> | DiaryCreateWithoutUserInput[] | DiaryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DiaryCreateOrConnectWithoutUserInput | DiaryCreateOrConnectWithoutUserInput[]
@@ -5054,11 +11265,67 @@ export namespace Prisma {
     connect?: DiaryWhereUniqueInput | DiaryWhereUniqueInput[]
   }
 
+  export type AppUsageCreateNestedManyWithoutUserInput = {
+    create?: XOR<AppUsageCreateWithoutUserInput, AppUsageUncheckedCreateWithoutUserInput> | AppUsageCreateWithoutUserInput[] | AppUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppUsageCreateOrConnectWithoutUserInput | AppUsageCreateOrConnectWithoutUserInput[]
+    createMany?: AppUsageCreateManyUserInputEnvelope
+    connect?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+  }
+
+  export type ChecklistCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChecklistCreateWithoutUserInput, ChecklistUncheckedCreateWithoutUserInput> | ChecklistCreateWithoutUserInput[] | ChecklistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutUserInput | ChecklistCreateOrConnectWithoutUserInput[]
+    createMany?: ChecklistCreateManyUserInputEnvelope
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+  }
+
+  export type LocationLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
+    createMany?: LocationLogCreateManyUserInputEnvelope
+    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+  }
+
+  export type ScheduleCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
+    createMany?: ScheduleCreateManyUserInputEnvelope
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+  }
+
   export type DiaryUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<DiaryCreateWithoutUserInput, DiaryUncheckedCreateWithoutUserInput> | DiaryCreateWithoutUserInput[] | DiaryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DiaryCreateOrConnectWithoutUserInput | DiaryCreateOrConnectWithoutUserInput[]
     createMany?: DiaryCreateManyUserInputEnvelope
     connect?: DiaryWhereUniqueInput | DiaryWhereUniqueInput[]
+  }
+
+  export type AppUsageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AppUsageCreateWithoutUserInput, AppUsageUncheckedCreateWithoutUserInput> | AppUsageCreateWithoutUserInput[] | AppUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppUsageCreateOrConnectWithoutUserInput | AppUsageCreateOrConnectWithoutUserInput[]
+    createMany?: AppUsageCreateManyUserInputEnvelope
+    connect?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+  }
+
+  export type ChecklistUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChecklistCreateWithoutUserInput, ChecklistUncheckedCreateWithoutUserInput> | ChecklistCreateWithoutUserInput[] | ChecklistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutUserInput | ChecklistCreateOrConnectWithoutUserInput[]
+    createMany?: ChecklistCreateManyUserInputEnvelope
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+  }
+
+  export type LocationLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
+    createMany?: LocationLogCreateManyUserInputEnvelope
+    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+  }
+
+  export type ScheduleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
+    createMany?: ScheduleCreateManyUserInputEnvelope
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5087,6 +11354,62 @@ export namespace Prisma {
     deleteMany?: DiaryScalarWhereInput | DiaryScalarWhereInput[]
   }
 
+  export type AppUsageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AppUsageCreateWithoutUserInput, AppUsageUncheckedCreateWithoutUserInput> | AppUsageCreateWithoutUserInput[] | AppUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppUsageCreateOrConnectWithoutUserInput | AppUsageCreateOrConnectWithoutUserInput[]
+    upsert?: AppUsageUpsertWithWhereUniqueWithoutUserInput | AppUsageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AppUsageCreateManyUserInputEnvelope
+    set?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    disconnect?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    delete?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    connect?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    update?: AppUsageUpdateWithWhereUniqueWithoutUserInput | AppUsageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AppUsageUpdateManyWithWhereWithoutUserInput | AppUsageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AppUsageScalarWhereInput | AppUsageScalarWhereInput[]
+  }
+
+  export type ChecklistUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChecklistCreateWithoutUserInput, ChecklistUncheckedCreateWithoutUserInput> | ChecklistCreateWithoutUserInput[] | ChecklistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutUserInput | ChecklistCreateOrConnectWithoutUserInput[]
+    upsert?: ChecklistUpsertWithWhereUniqueWithoutUserInput | ChecklistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChecklistCreateManyUserInputEnvelope
+    set?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    disconnect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    delete?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    update?: ChecklistUpdateWithWhereUniqueWithoutUserInput | ChecklistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChecklistUpdateManyWithWhereWithoutUserInput | ChecklistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+  }
+
+  export type LocationLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
+    upsert?: LocationLogUpsertWithWhereUniqueWithoutUserInput | LocationLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LocationLogCreateManyUserInputEnvelope
+    set?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    disconnect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    delete?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    update?: LocationLogUpdateWithWhereUniqueWithoutUserInput | LocationLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LocationLogUpdateManyWithWhereWithoutUserInput | LocationLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
+  }
+
+  export type ScheduleUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
+    upsert?: ScheduleUpsertWithWhereUniqueWithoutUserInput | ScheduleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScheduleCreateManyUserInputEnvelope
+    set?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    disconnect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    delete?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    update?: ScheduleUpdateWithWhereUniqueWithoutUserInput | ScheduleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScheduleUpdateManyWithWhereWithoutUserInput | ScheduleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+  }
+
   export type DiaryUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<DiaryCreateWithoutUserInput, DiaryUncheckedCreateWithoutUserInput> | DiaryCreateWithoutUserInput[] | DiaryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DiaryCreateOrConnectWithoutUserInput | DiaryCreateOrConnectWithoutUserInput[]
@@ -5099,6 +11422,84 @@ export namespace Prisma {
     update?: DiaryUpdateWithWhereUniqueWithoutUserInput | DiaryUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DiaryUpdateManyWithWhereWithoutUserInput | DiaryUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DiaryScalarWhereInput | DiaryScalarWhereInput[]
+  }
+
+  export type AppUsageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AppUsageCreateWithoutUserInput, AppUsageUncheckedCreateWithoutUserInput> | AppUsageCreateWithoutUserInput[] | AppUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AppUsageCreateOrConnectWithoutUserInput | AppUsageCreateOrConnectWithoutUserInput[]
+    upsert?: AppUsageUpsertWithWhereUniqueWithoutUserInput | AppUsageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AppUsageCreateManyUserInputEnvelope
+    set?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    disconnect?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    delete?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    connect?: AppUsageWhereUniqueInput | AppUsageWhereUniqueInput[]
+    update?: AppUsageUpdateWithWhereUniqueWithoutUserInput | AppUsageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AppUsageUpdateManyWithWhereWithoutUserInput | AppUsageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AppUsageScalarWhereInput | AppUsageScalarWhereInput[]
+  }
+
+  export type ChecklistUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChecklistCreateWithoutUserInput, ChecklistUncheckedCreateWithoutUserInput> | ChecklistCreateWithoutUserInput[] | ChecklistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutUserInput | ChecklistCreateOrConnectWithoutUserInput[]
+    upsert?: ChecklistUpsertWithWhereUniqueWithoutUserInput | ChecklistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChecklistCreateManyUserInputEnvelope
+    set?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    disconnect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    delete?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    update?: ChecklistUpdateWithWhereUniqueWithoutUserInput | ChecklistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChecklistUpdateManyWithWhereWithoutUserInput | ChecklistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+  }
+
+  export type LocationLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
+    upsert?: LocationLogUpsertWithWhereUniqueWithoutUserInput | LocationLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: LocationLogCreateManyUserInputEnvelope
+    set?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    disconnect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    delete?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
+    update?: LocationLogUpdateWithWhereUniqueWithoutUserInput | LocationLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: LocationLogUpdateManyWithWhereWithoutUserInput | LocationLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
+  }
+
+  export type ScheduleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
+    upsert?: ScheduleUpsertWithWhereUniqueWithoutUserInput | ScheduleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScheduleCreateManyUserInputEnvelope
+    set?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    disconnect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    delete?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    update?: ScheduleUpdateWithWhereUniqueWithoutUserInput | ScheduleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScheduleUpdateManyWithWhereWithoutUserInput | ScheduleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutAppusagesInput = {
+    create?: XOR<UserCreateWithoutAppusagesInput, UserUncheckedCreateWithoutAppusagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppusagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutAppusagesNestedInput = {
+    create?: XOR<UserCreateWithoutAppusagesInput, UserUncheckedCreateWithoutAppusagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppusagesInput
+    upsert?: UserUpsertWithoutAppusagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAppusagesInput, UserUpdateWithoutAppusagesInput>, UserUncheckedUpdateWithoutAppusagesInput>
   }
 
   export type UserCreateNestedOneWithoutDiariesInput = {
@@ -5157,18 +11558,88 @@ export namespace Prisma {
     deleteMany?: PhotoScalarWhereInput | PhotoScalarWhereInput[]
   }
 
-  export type DiaryCreateNestedOneWithoutPhotoInput = {
-    create?: XOR<DiaryCreateWithoutPhotoInput, DiaryUncheckedCreateWithoutPhotoInput>
-    connectOrCreate?: DiaryCreateOrConnectWithoutPhotoInput
+  export type DiaryCreateNestedOneWithoutPhotosInput = {
+    create?: XOR<DiaryCreateWithoutPhotosInput, DiaryUncheckedCreateWithoutPhotosInput>
+    connectOrCreate?: DiaryCreateOrConnectWithoutPhotosInput
     connect?: DiaryWhereUniqueInput
   }
 
-  export type DiaryUpdateOneRequiredWithoutPhotoNestedInput = {
-    create?: XOR<DiaryCreateWithoutPhotoInput, DiaryUncheckedCreateWithoutPhotoInput>
-    connectOrCreate?: DiaryCreateOrConnectWithoutPhotoInput
-    upsert?: DiaryUpsertWithoutPhotoInput
+  export type DiaryUpdateOneRequiredWithoutPhotosNestedInput = {
+    create?: XOR<DiaryCreateWithoutPhotosInput, DiaryUncheckedCreateWithoutPhotosInput>
+    connectOrCreate?: DiaryCreateOrConnectWithoutPhotosInput
+    upsert?: DiaryUpsertWithoutPhotosInput
     connect?: DiaryWhereUniqueInput
-    update?: XOR<XOR<DiaryUpdateToOneWithWhereWithoutPhotoInput, DiaryUpdateWithoutPhotoInput>, DiaryUncheckedUpdateWithoutPhotoInput>
+    update?: XOR<XOR<DiaryUpdateToOneWithWhereWithoutPhotosInput, DiaryUpdateWithoutPhotosInput>, DiaryUncheckedUpdateWithoutPhotosInput>
+  }
+
+  export type UserCreateNestedOneWithoutLocationLogsInput = {
+    create?: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLocationLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutLocationLogsNestedInput = {
+    create?: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLocationLogsInput
+    upsert?: UserUpsertWithoutLocationLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLocationLogsInput, UserUpdateWithoutLocationLogsInput>, UserUncheckedUpdateWithoutLocationLogsInput>
+  }
+
+  export type UserCreateNestedOneWithoutChecklistsInput = {
+    create?: XOR<UserCreateWithoutChecklistsInput, UserUncheckedCreateWithoutChecklistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChecklistsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutChecklistsNestedInput = {
+    create?: XOR<UserCreateWithoutChecklistsInput, UserUncheckedCreateWithoutChecklistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChecklistsInput
+    upsert?: UserUpsertWithoutChecklistsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChecklistsInput, UserUpdateWithoutChecklistsInput>, UserUncheckedUpdateWithoutChecklistsInput>
+  }
+
+  export type UserCreateNestedOneWithoutSchedulesInput = {
+    create?: XOR<UserCreateWithoutSchedulesInput, UserUncheckedCreateWithoutSchedulesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSchedulesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type UserUpdateOneRequiredWithoutSchedulesNestedInput = {
+    create?: XOR<UserCreateWithoutSchedulesInput, UserUncheckedCreateWithoutSchedulesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSchedulesInput
+    upsert?: UserUpsertWithoutSchedulesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSchedulesInput, UserUpdateWithoutSchedulesInput>, UserUncheckedUpdateWithoutSchedulesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5280,22 +11751,145 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type DiaryCreateWithoutUserInput = {
     id?: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Photo?: PhotoCreateNestedManyWithoutDiaryInput
+    photos?: PhotoCreateNestedManyWithoutDiaryInput
   }
 
   export type DiaryUncheckedCreateWithoutUserInput = {
     id?: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    Photo?: PhotoUncheckedCreateNestedManyWithoutDiaryInput
+    photos?: PhotoUncheckedCreateNestedManyWithoutDiaryInput
   }
 
   export type DiaryCreateOrConnectWithoutUserInput = {
@@ -5305,6 +11899,136 @@ export namespace Prisma {
 
   export type DiaryCreateManyUserInputEnvelope = {
     data: DiaryCreateManyUserInput | DiaryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AppUsageCreateWithoutUserInput = {
+    id?: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AppUsageUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AppUsageCreateOrConnectWithoutUserInput = {
+    where: AppUsageWhereUniqueInput
+    create: XOR<AppUsageCreateWithoutUserInput, AppUsageUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppUsageCreateManyUserInputEnvelope = {
+    data: AppUsageCreateManyUserInput | AppUsageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChecklistCreateWithoutUserInput = {
+    id?: string
+    text: string
+    subtext?: string | null
+    isChecked?: boolean
+    dueDate?: Date | string | null
+    completedDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistUncheckedCreateWithoutUserInput = {
+    id?: string
+    text: string
+    subtext?: string | null
+    isChecked?: boolean
+    dueDate?: Date | string | null
+    completedDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistCreateOrConnectWithoutUserInput = {
+    where: ChecklistWhereUniqueInput
+    create: XOR<ChecklistCreateWithoutUserInput, ChecklistUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChecklistCreateManyUserInputEnvelope = {
+    data: ChecklistCreateManyUserInput | ChecklistCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LocationLogCreateWithoutUserInput = {
+    id?: string
+    latitude: number
+    longitude: number
+    timestamp?: Date | string
+  }
+
+  export type LocationLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    latitude: number
+    longitude: number
+    timestamp?: Date | string
+  }
+
+  export type LocationLogCreateOrConnectWithoutUserInput = {
+    where: LocationLogWhereUniqueInput
+    create: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type LocationLogCreateManyUserInputEnvelope = {
+    data: LocationLogCreateManyUserInput | LocationLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ScheduleCreateWithoutUserInput = {
+    id?: string
+    text: string
+    subText?: string | null
+    dayOfWeek?: number | null
+    selectedDate?: Date | string | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color?: string | null
+    hasAlarm?: boolean | null
+    alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScheduleUncheckedCreateWithoutUserInput = {
+    id?: string
+    text: string
+    subText?: string | null
+    dayOfWeek?: number | null
+    selectedDate?: Date | string | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color?: string | null
+    hasAlarm?: boolean | null
+    alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ScheduleCreateOrConnectWithoutUserInput = {
+    where: ScheduleWhereUniqueInput
+    create: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScheduleCreateManyUserInputEnvelope = {
+    data: ScheduleCreateManyUserInput | ScheduleCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -5330,10 +12054,204 @@ export namespace Prisma {
     NOT?: DiaryScalarWhereInput | DiaryScalarWhereInput[]
     id?: StringFilter<"Diary"> | string
     userId?: StringFilter<"Diary"> | string
+    date?: StringFilter<"Diary"> | string
     title?: StringFilter<"Diary"> | string
     content?: StringNullableFilter<"Diary"> | string | null
     createdAt?: DateTimeFilter<"Diary"> | Date | string
     updatedAt?: DateTimeFilter<"Diary"> | Date | string
+  }
+
+  export type AppUsageUpsertWithWhereUniqueWithoutUserInput = {
+    where: AppUsageWhereUniqueInput
+    update: XOR<AppUsageUpdateWithoutUserInput, AppUsageUncheckedUpdateWithoutUserInput>
+    create: XOR<AppUsageCreateWithoutUserInput, AppUsageUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppUsageUpdateWithWhereUniqueWithoutUserInput = {
+    where: AppUsageWhereUniqueInput
+    data: XOR<AppUsageUpdateWithoutUserInput, AppUsageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AppUsageUpdateManyWithWhereWithoutUserInput = {
+    where: AppUsageScalarWhereInput
+    data: XOR<AppUsageUpdateManyMutationInput, AppUsageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AppUsageScalarWhereInput = {
+    AND?: AppUsageScalarWhereInput | AppUsageScalarWhereInput[]
+    OR?: AppUsageScalarWhereInput[]
+    NOT?: AppUsageScalarWhereInput | AppUsageScalarWhereInput[]
+    id?: StringFilter<"AppUsage"> | string
+    userId?: StringFilter<"AppUsage"> | string
+    date?: StringFilter<"AppUsage"> | string
+    packageName?: StringFilter<"AppUsage"> | string
+    appName?: StringFilter<"AppUsage"> | string
+    usageTimeInMillis?: IntFilter<"AppUsage"> | number
+    appIconPath?: StringNullableFilter<"AppUsage"> | string | null
+    createdAt?: DateTimeFilter<"AppUsage"> | Date | string
+    updatedAt?: DateTimeFilter<"AppUsage"> | Date | string
+  }
+
+  export type ChecklistUpsertWithWhereUniqueWithoutUserInput = {
+    where: ChecklistWhereUniqueInput
+    update: XOR<ChecklistUpdateWithoutUserInput, ChecklistUncheckedUpdateWithoutUserInput>
+    create: XOR<ChecklistCreateWithoutUserInput, ChecklistUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChecklistUpdateWithWhereUniqueWithoutUserInput = {
+    where: ChecklistWhereUniqueInput
+    data: XOR<ChecklistUpdateWithoutUserInput, ChecklistUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ChecklistUpdateManyWithWhereWithoutUserInput = {
+    where: ChecklistScalarWhereInput
+    data: XOR<ChecklistUpdateManyMutationInput, ChecklistUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ChecklistScalarWhereInput = {
+    AND?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+    OR?: ChecklistScalarWhereInput[]
+    NOT?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+    id?: StringFilter<"Checklist"> | string
+    userId?: StringFilter<"Checklist"> | string
+    text?: StringFilter<"Checklist"> | string
+    subtext?: StringNullableFilter<"Checklist"> | string | null
+    isChecked?: BoolFilter<"Checklist"> | boolean
+    dueDate?: DateTimeNullableFilter<"Checklist"> | Date | string | null
+    completedDate?: DateTimeNullableFilter<"Checklist"> | Date | string | null
+    createdAt?: DateTimeFilter<"Checklist"> | Date | string
+    updatedAt?: DateTimeFilter<"Checklist"> | Date | string
+  }
+
+  export type LocationLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: LocationLogWhereUniqueInput
+    update: XOR<LocationLogUpdateWithoutUserInput, LocationLogUncheckedUpdateWithoutUserInput>
+    create: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type LocationLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: LocationLogWhereUniqueInput
+    data: XOR<LocationLogUpdateWithoutUserInput, LocationLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LocationLogUpdateManyWithWhereWithoutUserInput = {
+    where: LocationLogScalarWhereInput
+    data: XOR<LocationLogUpdateManyMutationInput, LocationLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type LocationLogScalarWhereInput = {
+    AND?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
+    OR?: LocationLogScalarWhereInput[]
+    NOT?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
+    id?: StringFilter<"LocationLog"> | string
+    userId?: StringFilter<"LocationLog"> | string
+    latitude?: FloatFilter<"LocationLog"> | number
+    longitude?: FloatFilter<"LocationLog"> | number
+    timestamp?: DateTimeFilter<"LocationLog"> | Date | string
+  }
+
+  export type ScheduleUpsertWithWhereUniqueWithoutUserInput = {
+    where: ScheduleWhereUniqueInput
+    update: XOR<ScheduleUpdateWithoutUserInput, ScheduleUncheckedUpdateWithoutUserInput>
+    create: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScheduleUpdateWithWhereUniqueWithoutUserInput = {
+    where: ScheduleWhereUniqueInput
+    data: XOR<ScheduleUpdateWithoutUserInput, ScheduleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ScheduleUpdateManyWithWhereWithoutUserInput = {
+    where: ScheduleScalarWhereInput
+    data: XOR<ScheduleUpdateManyMutationInput, ScheduleUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ScheduleScalarWhereInput = {
+    AND?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+    OR?: ScheduleScalarWhereInput[]
+    NOT?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+    id?: StringFilter<"Schedule"> | string
+    userId?: StringFilter<"Schedule"> | string
+    text?: StringFilter<"Schedule"> | string
+    subText?: StringNullableFilter<"Schedule"> | string | null
+    dayOfWeek?: IntNullableFilter<"Schedule"> | number | null
+    selectedDate?: DateTimeNullableFilter<"Schedule"> | Date | string | null
+    isRoutine?: BoolFilter<"Schedule"> | boolean
+    startTime?: StringFilter<"Schedule"> | string
+    endTime?: StringFilter<"Schedule"> | string
+    color?: StringNullableFilter<"Schedule"> | string | null
+    hasAlarm?: BoolNullableFilter<"Schedule"> | boolean | null
+    alarmOffset?: IntNullableFilter<"Schedule"> | number | null
+    createdAt?: DateTimeFilter<"Schedule"> | Date | string
+    updatedAt?: DateTimeFilter<"Schedule"> | Date | string
+  }
+
+  export type UserCreateWithoutAppusagesInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
+    schedules?: ScheduleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAppusagesInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAppusagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAppusagesInput, UserUncheckedCreateWithoutAppusagesInput>
+  }
+
+  export type UserUpsertWithoutAppusagesInput = {
+    update: XOR<UserUpdateWithoutAppusagesInput, UserUncheckedUpdateWithoutAppusagesInput>
+    create: XOR<UserCreateWithoutAppusagesInput, UserUncheckedCreateWithoutAppusagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAppusagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAppusagesInput, UserUncheckedUpdateWithoutAppusagesInput>
+  }
+
+  export type UserUpdateWithoutAppusagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAppusagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDiariesInput = {
@@ -5343,6 +12261,10 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    appusages?: AppUsageCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
+    schedules?: ScheduleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDiariesInput = {
@@ -5352,6 +12274,10 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDiariesInput = {
@@ -5401,6 +12327,10 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appusages?: AppUsageUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiariesInput = {
@@ -5410,6 +12340,10 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PhotoUpsertWithWhereUniqueWithoutDiaryInput = {
@@ -5439,8 +12373,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Photo"> | Date | string
   }
 
-  export type DiaryCreateWithoutPhotoInput = {
+  export type DiaryCreateWithoutPhotosInput = {
     id?: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
@@ -5448,33 +12383,35 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutDiariesInput
   }
 
-  export type DiaryUncheckedCreateWithoutPhotoInput = {
+  export type DiaryUncheckedCreateWithoutPhotosInput = {
     id?: string
     userId: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type DiaryCreateOrConnectWithoutPhotoInput = {
+  export type DiaryCreateOrConnectWithoutPhotosInput = {
     where: DiaryWhereUniqueInput
-    create: XOR<DiaryCreateWithoutPhotoInput, DiaryUncheckedCreateWithoutPhotoInput>
+    create: XOR<DiaryCreateWithoutPhotosInput, DiaryUncheckedCreateWithoutPhotosInput>
   }
 
-  export type DiaryUpsertWithoutPhotoInput = {
-    update: XOR<DiaryUpdateWithoutPhotoInput, DiaryUncheckedUpdateWithoutPhotoInput>
-    create: XOR<DiaryCreateWithoutPhotoInput, DiaryUncheckedCreateWithoutPhotoInput>
+  export type DiaryUpsertWithoutPhotosInput = {
+    update: XOR<DiaryUpdateWithoutPhotosInput, DiaryUncheckedUpdateWithoutPhotosInput>
+    create: XOR<DiaryCreateWithoutPhotosInput, DiaryUncheckedCreateWithoutPhotosInput>
     where?: DiaryWhereInput
   }
 
-  export type DiaryUpdateToOneWithWhereWithoutPhotoInput = {
+  export type DiaryUpdateToOneWithWhereWithoutPhotosInput = {
     where?: DiaryWhereInput
-    data: XOR<DiaryUpdateWithoutPhotoInput, DiaryUncheckedUpdateWithoutPhotoInput>
+    data: XOR<DiaryUpdateWithoutPhotosInput, DiaryUncheckedUpdateWithoutPhotosInput>
   }
 
-  export type DiaryUpdateWithoutPhotoInput = {
+  export type DiaryUpdateWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5482,45 +12419,434 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutDiariesNestedInput
   }
 
-  export type DiaryUncheckedUpdateWithoutPhotoInput = {
+  export type DiaryUncheckedUpdateWithoutPhotosInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutLocationLogsInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryCreateNestedManyWithoutUserInput
+    appusages?: AppUsageCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    schedules?: ScheduleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLocationLogsInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
+    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLocationLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
+  }
+
+  export type UserUpsertWithoutLocationLogsInput = {
+    update: XOR<UserUpdateWithoutLocationLogsInput, UserUncheckedUpdateWithoutLocationLogsInput>
+    create: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLocationLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLocationLogsInput, UserUncheckedUpdateWithoutLocationLogsInput>
+  }
+
+  export type UserUpdateWithoutLocationLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLocationLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutChecklistsInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryCreateNestedManyWithoutUserInput
+    appusages?: AppUsageCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
+    schedules?: ScheduleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutChecklistsInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
+    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutChecklistsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutChecklistsInput, UserUncheckedCreateWithoutChecklistsInput>
+  }
+
+  export type UserUpsertWithoutChecklistsInput = {
+    update: XOR<UserUpdateWithoutChecklistsInput, UserUncheckedUpdateWithoutChecklistsInput>
+    create: XOR<UserCreateWithoutChecklistsInput, UserUncheckedCreateWithoutChecklistsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutChecklistsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutChecklistsInput, UserUncheckedUpdateWithoutChecklistsInput>
+  }
+
+  export type UserUpdateWithoutChecklistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutChecklistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSchedulesInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryCreateNestedManyWithoutUserInput
+    appusages?: AppUsageCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSchedulesInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
+    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSchedulesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSchedulesInput, UserUncheckedCreateWithoutSchedulesInput>
+  }
+
+  export type UserUpsertWithoutSchedulesInput = {
+    update: XOR<UserUpdateWithoutSchedulesInput, UserUncheckedUpdateWithoutSchedulesInput>
+    create: XOR<UserCreateWithoutSchedulesInput, UserUncheckedCreateWithoutSchedulesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSchedulesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSchedulesInput, UserUncheckedUpdateWithoutSchedulesInput>
+  }
+
+  export type UserUpdateWithoutSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type DiaryCreateManyUserInput = {
     id?: string
+    date: string
     title: string
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
+  export type AppUsageCreateManyUserInput = {
+    id?: string
+    date: string
+    packageName: string
+    appName: string
+    usageTimeInMillis: number
+    appIconPath?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistCreateManyUserInput = {
+    id?: string
+    text: string
+    subtext?: string | null
+    isChecked?: boolean
+    dueDate?: Date | string | null
+    completedDate?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LocationLogCreateManyUserInput = {
+    id?: string
+    latitude: number
+    longitude: number
+    timestamp?: Date | string
+  }
+
+  export type ScheduleCreateManyUserInput = {
+    id?: string
+    text: string
+    subText?: string | null
+    dayOfWeek?: number | null
+    selectedDate?: Date | string | null
+    isRoutine: boolean
+    startTime: string
+    endTime: string
+    color?: string | null
+    hasAlarm?: boolean | null
+    alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type DiaryUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Photo?: PhotoUpdateManyWithoutDiaryNestedInput
+    photos?: PhotoUpdateManyWithoutDiaryNestedInput
   }
 
   export type DiaryUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Photo?: PhotoUncheckedUpdateManyWithoutDiaryNestedInput
+    photos?: PhotoUncheckedUpdateManyWithoutDiaryNestedInput
   }
 
   export type DiaryUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUsageUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUsageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppUsageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    appName?: StringFieldUpdateOperationsInput | string
+    usageTimeInMillis?: IntFieldUpdateOperationsInput | number
+    appIconPath?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subtext?: NullableStringFieldUpdateOperationsInput | string | null
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScheduleUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScheduleUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScheduleUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    subText?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: NullableIntFieldUpdateOperationsInput | number | null
+    selectedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isRoutine?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
