@@ -196,6 +196,12 @@ exports.Prisma.ScheduleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BlacklistedTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -219,7 +225,8 @@ exports.Prisma.ModelName = {
   Photo: 'Photo',
   LocationLog: 'LocationLog',
   Checklist: 'Checklist',
-  Schedule: 'Schedule'
+  Schedule: 'Schedule',
+  BlacklistedToken: 'BlacklistedToken'
 };
 
 /**

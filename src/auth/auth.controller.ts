@@ -22,4 +22,10 @@ export class AuthController {
       signUpDto.name,
     );
   }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
+  async logout(@Body('token') token: string) {
+    return this.authService.logout(token);
+  }
 }
