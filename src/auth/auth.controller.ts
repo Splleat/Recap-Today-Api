@@ -1,7 +1,8 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
+import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -27,5 +28,11 @@ export class AuthController {
   @Post('logout')
   async logout(@Body('token') token: string) {
     return this.authService.logout(token);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('validate')
+  validateToken() {
+    return { message: 'Token is valid' };
   }
 }
