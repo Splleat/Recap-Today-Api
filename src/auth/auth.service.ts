@@ -133,4 +133,18 @@ export class AuthService {
     });
     console.log(`Cleaned up ${result.count} expired tokens from DB blacklist.`);
   }
+
+  async getCurrentUser(userId: string) {
+    const user = await this.usersService.user({ id: userId });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return {
+      id: user.id,
+      userId: user.userId,
+      name: user.name,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
 }

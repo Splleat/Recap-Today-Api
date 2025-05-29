@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
@@ -34,5 +34,11 @@ export class AuthController {
   @Get('validate')
   validateToken() {
     return { message: 'Token is valid' };
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  async getCurrentUser(@Request() req: any) {
+    return this.authService.getCurrentUser(req.user.sub);
   }
 }
