@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { PrismaService } from '../prisma.service'; // PrismaService import 추가
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class AuthService {
@@ -145,6 +146,55 @@ export class AuthService {
       name: user.name,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+    };
+  }
+
+  async updateProfile(userId: string, updateProfileDto: UpdateProfileDto) {
+    const user = await this.usersService.user({ id: userId });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    // 비밀번호 변경이 요청된 경우
+    if (updateProfileDto.newPassword) {
+      // 현재 비밀번호가 제공되지 않은 경우
+      if (!updateProfileDto.currentPassword) {
+        throw new BadRequestException('Current password is required to change password');
+      }
+
+      // 현재 비밀번호 확인
+      if (user.password !== updateProfileDto.currentPassword) {
+        throw new BadRequestException('Current password is incorrect');
+      }
+
+      // 새 비밀번호와 현재 비밀번호가 같은지 확인
+      if (updateProfileDto.currentPassword === updateProfileDto.newPassword) {
+        throw new BadRequestException('New password must be different from current password');
+      }
+    }
+
+    // 업데이트할 데이터 준비
+    const updateData: any = {
+      name: updateProfileDto.name,
+    };
+
+    // 새 비밀번호가 있으면 포함
+    if (updateProfileDto.newPassword) {
+      updateData.password = updateProfileDto.newPassword;
+    }
+
+    // 사용자 정보 업데이트
+    const updatedUser = await this.usersService.update({
+      where: { id: userId },
+      data: updateData,
+    });
+
+    return {
+      id: updatedUser.id,
+      userId: updatedUser.userId,
+      name: updatedUser.name,
+      createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt,
     };
   }
 }

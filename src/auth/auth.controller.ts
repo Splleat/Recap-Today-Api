@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Patch, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 import { AuthGuard } from './auth.guard';
 
 @Controller('auth')
@@ -40,5 +41,11 @@ export class AuthController {
   @Get('me')
   async getCurrentUser(@Request() req: any) {
     return this.authService.getCurrentUser(req.user.sub);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('profile')
+  async updateProfile(@Request() req: any, @Body() updateProfileDto: UpdateProfileDto) {
+    return this.authService.updateProfile(req.user.sub, updateProfileDto);
   }
 }
