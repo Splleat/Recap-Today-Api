@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { WeatherModule } from './weather/weather.module';
-import { LocationModule } from './location/location.module';
 import { ChecklistModule } from './checklist/checklist.module';
 import { AppUsageModule } from './appusage/appusage.module';
 import { PhotoModule } from './photo/photo.module';
@@ -24,7 +23,6 @@ import { AiFeedbackModule } from './ai-feedback/ai-feedback.module';
     AuthModule,
     UsersModule,
     WeatherModule,
-    LocationModule,
     ChecklistModule,
     ScheduleModule,
     AppUsageModule,

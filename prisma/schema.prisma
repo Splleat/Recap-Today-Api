@@ -72,17 +72,6 @@ model Photo {
   @@map("photos")
 }
 
-model LocationLog {
-  id        String   @id @default(cuid())
-  userId    String
-  latitude  Float
-  longitude Float
-  timestamp DateTime @default(now())
-
-  user      User    @relation(fields: [userId], references: [id])
-
-  @@index([userId, timestamp])
-}
 
 model Checklist {
   id             String   @id @default(cuid())
