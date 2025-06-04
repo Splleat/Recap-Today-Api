@@ -63,10 +63,12 @@ export class AiFeedbackService {
           headers: { 'Content-Type': 'application/json' }
         }
       );
-      // Gemini 응답에서 텍스트 추출
+      // Gemini 응답 로그 추가
+      console.log('Gemini API response:', JSON.stringify(response.data, null, 2));
       return response.data.candidates?.[0]?.content?.parts?.[0]?.text || '';
     } catch (e) {
       // TODO: 에러 로깅/처리
+      console.error('Gemini API error:', e);
       return '';
     }
   }
