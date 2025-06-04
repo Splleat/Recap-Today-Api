@@ -19,7 +19,6 @@ model User {
   diaries   Diary[]
   appusages AppUsage[]
   checklists Checklist[]
-  locationLogs LocationLog[]
   schedules Schedule[]
 
   @@index([userId])
