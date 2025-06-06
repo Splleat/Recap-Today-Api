@@ -14,9 +14,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/usr/src/app:delegated
-      - /usr/src/app/node_modules
     environment:
       NODE_ENV: development
       PORT: 3000
