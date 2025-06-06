@@ -12,8 +12,6 @@ RUN npm install
 
 # prisma 폴더와 generated 폴더를 명확히 복사
 COPY prisma ./prisma
-COPY generated ./generated
-
 # Copy the rest of the application files
 COPY . .
 
@@ -23,11 +21,8 @@ RUN npm run build
 # Install NestJS CLI globally
 RUN npm install -g @nestjs/cli
 
-# Install Prisma
-RUN npx prisma generate
-
 # Expose the application port
 EXPOSE 3000
 
 # Command to run the application
-CMD ["node", "dist/main"]
+CMD ["sh", "-c", "npx prisma generate && node dist/main"]
