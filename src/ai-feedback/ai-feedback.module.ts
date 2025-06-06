@@ -5,10 +5,11 @@ import { ConfigModule } from '@nestjs/config';
 import { AiFeedbackController } from './ai-feedback.controller';
 import { AiFeedbackService } from './ai-feedback.service';
 import { AuthModule } from '../auth/auth.module';
+import { AiFeedbackLimitService } from './ai-feedback-limit.service';
 
 @Module({
   imports: [HttpModule, ConfigModule, AuthModule],
   controllers: [AiFeedbackController],
-  providers: [AiFeedbackService],
+  providers: [AiFeedbackService, AiFeedbackLimitService],
 })
 export class AiFeedbackModule {}
