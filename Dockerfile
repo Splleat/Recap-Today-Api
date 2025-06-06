@@ -24,5 +24,5 @@ RUN npm install -g @nestjs/cli
 # Expose the application port
 EXPOSE 3000
 
-# Command to run the application
-CMD ["sh", "-c", "npx prisma generate && node dist/main"]
+# Command to run the application: generate client, apply migrations, then start server
+CMD ["sh", "-c", "npx prisma generate && npx prisma migrate deploy && node dist/main"]
