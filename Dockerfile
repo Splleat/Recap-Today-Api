@@ -10,6 +10,10 @@ COPY package*.json ./
 # Install the application dependencies
 RUN npm install
 
+# prisma 폴더와 generated 폴더를 명확히 복사
+COPY prisma ./prisma
+COPY generated ./generated
+
 # Copy the rest of the application files
 COPY . .
 
