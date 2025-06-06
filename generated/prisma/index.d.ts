@@ -34,11 +34,6 @@ export type Diary = $Result.DefaultSelection<Prisma.$DiaryPayload>
  */
 export type Photo = $Result.DefaultSelection<Prisma.$PhotoPayload>
 /**
- * Model LocationLog
- * 
- */
-export type LocationLog = $Result.DefaultSelection<Prisma.$LocationLogPayload>
-/**
  * Model Checklist
  * 
  */
@@ -53,6 +48,11 @@ export type Schedule = $Result.DefaultSelection<Prisma.$SchedulePayload>
  * 
  */
 export type BlacklistedToken = $Result.DefaultSelection<Prisma.$BlacklistedTokenPayload>
+/**
+ * Model UserFeedbackLimit
+ * 
+ */
+export type UserFeedbackLimit = $Result.DefaultSelection<Prisma.$UserFeedbackLimitPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -220,16 +220,6 @@ export class PrismaClient<
   get photo(): Prisma.PhotoDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.locationLog`: Exposes CRUD operations for the **LocationLog** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more LocationLogs
-    * const locationLogs = await prisma.locationLog.findMany()
-    * ```
-    */
-  get locationLog(): Prisma.LocationLogDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.checklist`: Exposes CRUD operations for the **Checklist** model.
     * Example usage:
     * ```ts
@@ -258,6 +248,16 @@ export class PrismaClient<
     * ```
     */
   get blacklistedToken(): Prisma.BlacklistedTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userFeedbackLimit`: Exposes CRUD operations for the **UserFeedbackLimit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserFeedbackLimits
+    * const userFeedbackLimits = await prisma.userFeedbackLimit.findMany()
+    * ```
+    */
+  get userFeedbackLimit(): Prisma.UserFeedbackLimitDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -702,10 +702,10 @@ export namespace Prisma {
     AppUsage: 'AppUsage',
     Diary: 'Diary',
     Photo: 'Photo',
-    LocationLog: 'LocationLog',
     Checklist: 'Checklist',
     Schedule: 'Schedule',
-    BlacklistedToken: 'BlacklistedToken'
+    BlacklistedToken: 'BlacklistedToken',
+    UserFeedbackLimit: 'UserFeedbackLimit'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -724,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "appUsage" | "diary" | "photo" | "locationLog" | "checklist" | "schedule" | "blacklistedToken"
+      modelProps: "user" | "appUsage" | "diary" | "photo" | "checklist" | "schedule" | "blacklistedToken" | "userFeedbackLimit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1024,80 +1024,6 @@ export namespace Prisma {
           }
         }
       }
-      LocationLog: {
-        payload: Prisma.$LocationLogPayload<ExtArgs>
-        fields: Prisma.LocationLogFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.LocationLogFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.LocationLogFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
-          }
-          findFirst: {
-            args: Prisma.LocationLogFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.LocationLogFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
-          }
-          findMany: {
-            args: Prisma.LocationLogFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>[]
-          }
-          create: {
-            args: Prisma.LocationLogCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
-          }
-          createMany: {
-            args: Prisma.LocationLogCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.LocationLogCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>[]
-          }
-          delete: {
-            args: Prisma.LocationLogDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
-          }
-          update: {
-            args: Prisma.LocationLogUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
-          }
-          deleteMany: {
-            args: Prisma.LocationLogDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.LocationLogUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.LocationLogUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>[]
-          }
-          upsert: {
-            args: Prisma.LocationLogUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LocationLogPayload>
-          }
-          aggregate: {
-            args: Prisma.LocationLogAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateLocationLog>
-          }
-          groupBy: {
-            args: Prisma.LocationLogGroupByArgs<ExtArgs>
-            result: $Utils.Optional<LocationLogGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.LocationLogCountArgs<ExtArgs>
-            result: $Utils.Optional<LocationLogCountAggregateOutputType> | number
-          }
-        }
-      }
       Checklist: {
         payload: Prisma.$ChecklistPayload<ExtArgs>
         fields: Prisma.ChecklistFieldRefs
@@ -1320,6 +1246,80 @@ export namespace Prisma {
           }
         }
       }
+      UserFeedbackLimit: {
+        payload: Prisma.$UserFeedbackLimitPayload<ExtArgs>
+        fields: Prisma.UserFeedbackLimitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFeedbackLimitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFeedbackLimitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFeedbackLimitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFeedbackLimitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>
+          }
+          findMany: {
+            args: Prisma.UserFeedbackLimitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>[]
+          }
+          create: {
+            args: Prisma.UserFeedbackLimitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>
+          }
+          createMany: {
+            args: Prisma.UserFeedbackLimitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserFeedbackLimitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>[]
+          }
+          delete: {
+            args: Prisma.UserFeedbackLimitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>
+          }
+          update: {
+            args: Prisma.UserFeedbackLimitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserFeedbackLimitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserFeedbackLimitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserFeedbackLimitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserFeedbackLimitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserFeedbackLimitPayload>
+          }
+          aggregate: {
+            args: Prisma.UserFeedbackLimitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserFeedbackLimit>
+          }
+          groupBy: {
+            args: Prisma.UserFeedbackLimitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserFeedbackLimitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserFeedbackLimitCountArgs<ExtArgs>
+            result: $Utils.Optional<UserFeedbackLimitCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1408,10 +1408,10 @@ export namespace Prisma {
     appUsage?: AppUsageOmit
     diary?: DiaryOmit
     photo?: PhotoOmit
-    locationLog?: LocationLogOmit
     checklist?: ChecklistOmit
     schedule?: ScheduleOmit
     blacklistedToken?: BlacklistedTokenOmit
+    userFeedbackLimit?: UserFeedbackLimitOmit
   }
 
   /* Types for Logging */
@@ -1509,16 +1509,16 @@ export namespace Prisma {
     diaries: number
     appusages: number
     checklists: number
-    locationLogs: number
     schedules: number
+    feedbackLimits: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     diaries?: boolean | UserCountOutputTypeCountDiariesArgs
     appusages?: boolean | UserCountOutputTypeCountAppusagesArgs
     checklists?: boolean | UserCountOutputTypeCountChecklistsArgs
-    locationLogs?: boolean | UserCountOutputTypeCountLocationLogsArgs
     schedules?: boolean | UserCountOutputTypeCountSchedulesArgs
+    feedbackLimits?: boolean | UserCountOutputTypeCountFeedbackLimitsArgs
   }
 
   // Custom InputTypes
@@ -1556,15 +1556,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountLocationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LocationLogWhereInput
+  export type UserCountOutputTypeCountSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScheduleWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ScheduleWhereInput
+  export type UserCountOutputTypeCountFeedbackLimitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserFeedbackLimitWhereInput
   }
 
 
@@ -1778,8 +1778,8 @@ export namespace Prisma {
     diaries?: boolean | User$diariesArgs<ExtArgs>
     appusages?: boolean | User$appusagesArgs<ExtArgs>
     checklists?: boolean | User$checklistsArgs<ExtArgs>
-    locationLogs?: boolean | User$locationLogsArgs<ExtArgs>
     schedules?: boolean | User$schedulesArgs<ExtArgs>
+    feedbackLimits?: boolean | User$feedbackLimitsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1815,8 +1815,8 @@ export namespace Prisma {
     diaries?: boolean | User$diariesArgs<ExtArgs>
     appusages?: boolean | User$appusagesArgs<ExtArgs>
     checklists?: boolean | User$checklistsArgs<ExtArgs>
-    locationLogs?: boolean | User$locationLogsArgs<ExtArgs>
     schedules?: boolean | User$schedulesArgs<ExtArgs>
+    feedbackLimits?: boolean | User$feedbackLimitsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1828,8 +1828,8 @@ export namespace Prisma {
       diaries: Prisma.$DiaryPayload<ExtArgs>[]
       appusages: Prisma.$AppUsagePayload<ExtArgs>[]
       checklists: Prisma.$ChecklistPayload<ExtArgs>[]
-      locationLogs: Prisma.$LocationLogPayload<ExtArgs>[]
       schedules: Prisma.$SchedulePayload<ExtArgs>[]
+      feedbackLimits: Prisma.$UserFeedbackLimitPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2235,8 +2235,8 @@ export namespace Prisma {
     diaries<T extends User$diariesArgs<ExtArgs> = {}>(args?: Subset<T, User$diariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     appusages<T extends User$appusagesArgs<ExtArgs> = {}>(args?: Subset<T, User$appusagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     checklists<T extends User$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, User$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    locationLogs<T extends User$locationLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$locationLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     schedules<T extends User$schedulesArgs<ExtArgs> = {}>(args?: Subset<T, User$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    feedbackLimits<T extends User$feedbackLimitsArgs<ExtArgs> = {}>(args?: Subset<T, User$feedbackLimitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2732,30 +2732,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.locationLogs
-   */
-  export type User$locationLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    where?: LocationLogWhereInput
-    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
-    cursor?: LocationLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
-  }
-
-  /**
    * User.schedules
    */
   export type User$schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2777,6 +2753,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * User.feedbackLimits
+   */
+  export type User$feedbackLimitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    where?: UserFeedbackLimitWhereInput
+    orderBy?: UserFeedbackLimitOrderByWithRelationInput | UserFeedbackLimitOrderByWithRelationInput[]
+    cursor?: UserFeedbackLimitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserFeedbackLimitScalarFieldEnum | UserFeedbackLimitScalarFieldEnum[]
   }
 
   /**
@@ -6115,1102 +6115,6 @@ export namespace Prisma {
 
 
   /**
-   * Model LocationLog
-   */
-
-  export type AggregateLocationLog = {
-    _count: LocationLogCountAggregateOutputType | null
-    _avg: LocationLogAvgAggregateOutputType | null
-    _sum: LocationLogSumAggregateOutputType | null
-    _min: LocationLogMinAggregateOutputType | null
-    _max: LocationLogMaxAggregateOutputType | null
-  }
-
-  export type LocationLogAvgAggregateOutputType = {
-    latitude: number | null
-    longitude: number | null
-  }
-
-  export type LocationLogSumAggregateOutputType = {
-    latitude: number | null
-    longitude: number | null
-  }
-
-  export type LocationLogMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    latitude: number | null
-    longitude: number | null
-    timestamp: Date | null
-  }
-
-  export type LocationLogMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    latitude: number | null
-    longitude: number | null
-    timestamp: Date | null
-  }
-
-  export type LocationLogCountAggregateOutputType = {
-    id: number
-    userId: number
-    latitude: number
-    longitude: number
-    timestamp: number
-    _all: number
-  }
-
-
-  export type LocationLogAvgAggregateInputType = {
-    latitude?: true
-    longitude?: true
-  }
-
-  export type LocationLogSumAggregateInputType = {
-    latitude?: true
-    longitude?: true
-  }
-
-  export type LocationLogMinAggregateInputType = {
-    id?: true
-    userId?: true
-    latitude?: true
-    longitude?: true
-    timestamp?: true
-  }
-
-  export type LocationLogMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    latitude?: true
-    longitude?: true
-    timestamp?: true
-  }
-
-  export type LocationLogCountAggregateInputType = {
-    id?: true
-    userId?: true
-    latitude?: true
-    longitude?: true
-    timestamp?: true
-    _all?: true
-  }
-
-  export type LocationLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which LocationLog to aggregate.
-     */
-    where?: LocationLogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LocationLogs to fetch.
-     */
-    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: LocationLogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LocationLogs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LocationLogs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned LocationLogs
-    **/
-    _count?: true | LocationLogCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: LocationLogAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: LocationLogSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: LocationLogMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: LocationLogMaxAggregateInputType
-  }
-
-  export type GetLocationLogAggregateType<T extends LocationLogAggregateArgs> = {
-        [P in keyof T & keyof AggregateLocationLog]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateLocationLog[P]>
-      : GetScalarType<T[P], AggregateLocationLog[P]>
-  }
-
-
-
-
-  export type LocationLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LocationLogWhereInput
-    orderBy?: LocationLogOrderByWithAggregationInput | LocationLogOrderByWithAggregationInput[]
-    by: LocationLogScalarFieldEnum[] | LocationLogScalarFieldEnum
-    having?: LocationLogScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: LocationLogCountAggregateInputType | true
-    _avg?: LocationLogAvgAggregateInputType
-    _sum?: LocationLogSumAggregateInputType
-    _min?: LocationLogMinAggregateInputType
-    _max?: LocationLogMaxAggregateInputType
-  }
-
-  export type LocationLogGroupByOutputType = {
-    id: string
-    userId: string
-    latitude: number
-    longitude: number
-    timestamp: Date
-    _count: LocationLogCountAggregateOutputType | null
-    _avg: LocationLogAvgAggregateOutputType | null
-    _sum: LocationLogSumAggregateOutputType | null
-    _min: LocationLogMinAggregateOutputType | null
-    _max: LocationLogMaxAggregateOutputType | null
-  }
-
-  type GetLocationLogGroupByPayload<T extends LocationLogGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<LocationLogGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof LocationLogGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], LocationLogGroupByOutputType[P]>
-            : GetScalarType<T[P], LocationLogGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type LocationLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    latitude?: boolean
-    longitude?: boolean
-    timestamp?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["locationLog"]>
-
-  export type LocationLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    latitude?: boolean
-    longitude?: boolean
-    timestamp?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["locationLog"]>
-
-  export type LocationLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    latitude?: boolean
-    longitude?: boolean
-    timestamp?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["locationLog"]>
-
-  export type LocationLogSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    latitude?: boolean
-    longitude?: boolean
-    timestamp?: boolean
-  }
-
-  export type LocationLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "latitude" | "longitude" | "timestamp", ExtArgs["result"]["locationLog"]>
-  export type LocationLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type LocationLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type LocationLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $LocationLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "LocationLog"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string
-      latitude: number
-      longitude: number
-      timestamp: Date
-    }, ExtArgs["result"]["locationLog"]>
-    composites: {}
-  }
-
-  type LocationLogGetPayload<S extends boolean | null | undefined | LocationLogDefaultArgs> = $Result.GetResult<Prisma.$LocationLogPayload, S>
-
-  type LocationLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<LocationLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: LocationLogCountAggregateInputType | true
-    }
-
-  export interface LocationLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LocationLog'], meta: { name: 'LocationLog' } }
-    /**
-     * Find zero or one LocationLog that matches the filter.
-     * @param {LocationLogFindUniqueArgs} args - Arguments to find a LocationLog
-     * @example
-     * // Get one LocationLog
-     * const locationLog = await prisma.locationLog.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends LocationLogFindUniqueArgs>(args: SelectSubset<T, LocationLogFindUniqueArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one LocationLog that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {LocationLogFindUniqueOrThrowArgs} args - Arguments to find a LocationLog
-     * @example
-     * // Get one LocationLog
-     * const locationLog = await prisma.locationLog.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends LocationLogFindUniqueOrThrowArgs>(args: SelectSubset<T, LocationLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first LocationLog that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogFindFirstArgs} args - Arguments to find a LocationLog
-     * @example
-     * // Get one LocationLog
-     * const locationLog = await prisma.locationLog.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends LocationLogFindFirstArgs>(args?: SelectSubset<T, LocationLogFindFirstArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first LocationLog that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogFindFirstOrThrowArgs} args - Arguments to find a LocationLog
-     * @example
-     * // Get one LocationLog
-     * const locationLog = await prisma.locationLog.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends LocationLogFindFirstOrThrowArgs>(args?: SelectSubset<T, LocationLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more LocationLogs that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all LocationLogs
-     * const locationLogs = await prisma.locationLog.findMany()
-     * 
-     * // Get first 10 LocationLogs
-     * const locationLogs = await prisma.locationLog.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const locationLogWithIdOnly = await prisma.locationLog.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends LocationLogFindManyArgs>(args?: SelectSubset<T, LocationLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a LocationLog.
-     * @param {LocationLogCreateArgs} args - Arguments to create a LocationLog.
-     * @example
-     * // Create one LocationLog
-     * const LocationLog = await prisma.locationLog.create({
-     *   data: {
-     *     // ... data to create a LocationLog
-     *   }
-     * })
-     * 
-     */
-    create<T extends LocationLogCreateArgs>(args: SelectSubset<T, LocationLogCreateArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many LocationLogs.
-     * @param {LocationLogCreateManyArgs} args - Arguments to create many LocationLogs.
-     * @example
-     * // Create many LocationLogs
-     * const locationLog = await prisma.locationLog.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends LocationLogCreateManyArgs>(args?: SelectSubset<T, LocationLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many LocationLogs and returns the data saved in the database.
-     * @param {LocationLogCreateManyAndReturnArgs} args - Arguments to create many LocationLogs.
-     * @example
-     * // Create many LocationLogs
-     * const locationLog = await prisma.locationLog.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many LocationLogs and only return the `id`
-     * const locationLogWithIdOnly = await prisma.locationLog.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends LocationLogCreateManyAndReturnArgs>(args?: SelectSubset<T, LocationLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a LocationLog.
-     * @param {LocationLogDeleteArgs} args - Arguments to delete one LocationLog.
-     * @example
-     * // Delete one LocationLog
-     * const LocationLog = await prisma.locationLog.delete({
-     *   where: {
-     *     // ... filter to delete one LocationLog
-     *   }
-     * })
-     * 
-     */
-    delete<T extends LocationLogDeleteArgs>(args: SelectSubset<T, LocationLogDeleteArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one LocationLog.
-     * @param {LocationLogUpdateArgs} args - Arguments to update one LocationLog.
-     * @example
-     * // Update one LocationLog
-     * const locationLog = await prisma.locationLog.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends LocationLogUpdateArgs>(args: SelectSubset<T, LocationLogUpdateArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more LocationLogs.
-     * @param {LocationLogDeleteManyArgs} args - Arguments to filter LocationLogs to delete.
-     * @example
-     * // Delete a few LocationLogs
-     * const { count } = await prisma.locationLog.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends LocationLogDeleteManyArgs>(args?: SelectSubset<T, LocationLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more LocationLogs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many LocationLogs
-     * const locationLog = await prisma.locationLog.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends LocationLogUpdateManyArgs>(args: SelectSubset<T, LocationLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more LocationLogs and returns the data updated in the database.
-     * @param {LocationLogUpdateManyAndReturnArgs} args - Arguments to update many LocationLogs.
-     * @example
-     * // Update many LocationLogs
-     * const locationLog = await prisma.locationLog.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more LocationLogs and only return the `id`
-     * const locationLogWithIdOnly = await prisma.locationLog.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends LocationLogUpdateManyAndReturnArgs>(args: SelectSubset<T, LocationLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one LocationLog.
-     * @param {LocationLogUpsertArgs} args - Arguments to update or create a LocationLog.
-     * @example
-     * // Update or create a LocationLog
-     * const locationLog = await prisma.locationLog.upsert({
-     *   create: {
-     *     // ... data to create a LocationLog
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the LocationLog we want to update
-     *   }
-     * })
-     */
-    upsert<T extends LocationLogUpsertArgs>(args: SelectSubset<T, LocationLogUpsertArgs<ExtArgs>>): Prisma__LocationLogClient<$Result.GetResult<Prisma.$LocationLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of LocationLogs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogCountArgs} args - Arguments to filter LocationLogs to count.
-     * @example
-     * // Count the number of LocationLogs
-     * const count = await prisma.locationLog.count({
-     *   where: {
-     *     // ... the filter for the LocationLogs we want to count
-     *   }
-     * })
-    **/
-    count<T extends LocationLogCountArgs>(
-      args?: Subset<T, LocationLogCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], LocationLogCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a LocationLog.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends LocationLogAggregateArgs>(args: Subset<T, LocationLogAggregateArgs>): Prisma.PrismaPromise<GetLocationLogAggregateType<T>>
-
-    /**
-     * Group by LocationLog.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LocationLogGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends LocationLogGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: LocationLogGroupByArgs['orderBy'] }
-        : { orderBy?: LocationLogGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, LocationLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLocationLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the LocationLog model
-   */
-  readonly fields: LocationLogFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for LocationLog.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__LocationLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the LocationLog model
-   */
-  interface LocationLogFieldRefs {
-    readonly id: FieldRef<"LocationLog", 'String'>
-    readonly userId: FieldRef<"LocationLog", 'String'>
-    readonly latitude: FieldRef<"LocationLog", 'Float'>
-    readonly longitude: FieldRef<"LocationLog", 'Float'>
-    readonly timestamp: FieldRef<"LocationLog", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * LocationLog findUnique
-   */
-  export type LocationLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * Filter, which LocationLog to fetch.
-     */
-    where: LocationLogWhereUniqueInput
-  }
-
-  /**
-   * LocationLog findUniqueOrThrow
-   */
-  export type LocationLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * Filter, which LocationLog to fetch.
-     */
-    where: LocationLogWhereUniqueInput
-  }
-
-  /**
-   * LocationLog findFirst
-   */
-  export type LocationLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * Filter, which LocationLog to fetch.
-     */
-    where?: LocationLogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LocationLogs to fetch.
-     */
-    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for LocationLogs.
-     */
-    cursor?: LocationLogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LocationLogs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LocationLogs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LocationLogs.
-     */
-    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
-  }
-
-  /**
-   * LocationLog findFirstOrThrow
-   */
-  export type LocationLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * Filter, which LocationLog to fetch.
-     */
-    where?: LocationLogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LocationLogs to fetch.
-     */
-    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for LocationLogs.
-     */
-    cursor?: LocationLogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LocationLogs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LocationLogs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LocationLogs.
-     */
-    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
-  }
-
-  /**
-   * LocationLog findMany
-   */
-  export type LocationLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * Filter, which LocationLogs to fetch.
-     */
-    where?: LocationLogWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LocationLogs to fetch.
-     */
-    orderBy?: LocationLogOrderByWithRelationInput | LocationLogOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing LocationLogs.
-     */
-    cursor?: LocationLogWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LocationLogs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LocationLogs.
-     */
-    skip?: number
-    distinct?: LocationLogScalarFieldEnum | LocationLogScalarFieldEnum[]
-  }
-
-  /**
-   * LocationLog create
-   */
-  export type LocationLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * The data needed to create a LocationLog.
-     */
-    data: XOR<LocationLogCreateInput, LocationLogUncheckedCreateInput>
-  }
-
-  /**
-   * LocationLog createMany
-   */
-  export type LocationLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many LocationLogs.
-     */
-    data: LocationLogCreateManyInput | LocationLogCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * LocationLog createManyAndReturn
-   */
-  export type LocationLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * The data used to create many LocationLogs.
-     */
-    data: LocationLogCreateManyInput | LocationLogCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * LocationLog update
-   */
-  export type LocationLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * The data needed to update a LocationLog.
-     */
-    data: XOR<LocationLogUpdateInput, LocationLogUncheckedUpdateInput>
-    /**
-     * Choose, which LocationLog to update.
-     */
-    where: LocationLogWhereUniqueInput
-  }
-
-  /**
-   * LocationLog updateMany
-   */
-  export type LocationLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update LocationLogs.
-     */
-    data: XOR<LocationLogUpdateManyMutationInput, LocationLogUncheckedUpdateManyInput>
-    /**
-     * Filter which LocationLogs to update
-     */
-    where?: LocationLogWhereInput
-    /**
-     * Limit how many LocationLogs to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * LocationLog updateManyAndReturn
-   */
-  export type LocationLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * The data used to update LocationLogs.
-     */
-    data: XOR<LocationLogUpdateManyMutationInput, LocationLogUncheckedUpdateManyInput>
-    /**
-     * Filter which LocationLogs to update
-     */
-    where?: LocationLogWhereInput
-    /**
-     * Limit how many LocationLogs to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * LocationLog upsert
-   */
-  export type LocationLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * The filter to search for the LocationLog to update in case it exists.
-     */
-    where: LocationLogWhereUniqueInput
-    /**
-     * In case the LocationLog found by the `where` argument doesn't exist, create a new LocationLog with this data.
-     */
-    create: XOR<LocationLogCreateInput, LocationLogUncheckedCreateInput>
-    /**
-     * In case the LocationLog was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<LocationLogUpdateInput, LocationLogUncheckedUpdateInput>
-  }
-
-  /**
-   * LocationLog delete
-   */
-  export type LocationLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-    /**
-     * Filter which LocationLog to delete.
-     */
-    where: LocationLogWhereUniqueInput
-  }
-
-  /**
-   * LocationLog deleteMany
-   */
-  export type LocationLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which LocationLogs to delete
-     */
-    where?: LocationLogWhereInput
-    /**
-     * Limit how many LocationLogs to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * LocationLog without action
-   */
-  export type LocationLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LocationLog
-     */
-    select?: LocationLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LocationLog
-     */
-    omit?: LocationLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LocationLogInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Checklist
    */
 
@@ -10503,6 +9407,1111 @@ export namespace Prisma {
 
 
   /**
+   * Model UserFeedbackLimit
+   */
+
+  export type AggregateUserFeedbackLimit = {
+    _count: UserFeedbackLimitCountAggregateOutputType | null
+    _avg: UserFeedbackLimitAvgAggregateOutputType | null
+    _sum: UserFeedbackLimitSumAggregateOutputType | null
+    _min: UserFeedbackLimitMinAggregateOutputType | null
+    _max: UserFeedbackLimitMaxAggregateOutputType | null
+  }
+
+  export type UserFeedbackLimitAvgAggregateOutputType = {
+    count: number | null
+  }
+
+  export type UserFeedbackLimitSumAggregateOutputType = {
+    count: number | null
+  }
+
+  export type UserFeedbackLimitMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: string | null
+    count: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserFeedbackLimitMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: string | null
+    count: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserFeedbackLimitCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    count: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserFeedbackLimitAvgAggregateInputType = {
+    count?: true
+  }
+
+  export type UserFeedbackLimitSumAggregateInputType = {
+    count?: true
+  }
+
+  export type UserFeedbackLimitMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    count?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserFeedbackLimitMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    count?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserFeedbackLimitCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    count?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserFeedbackLimitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserFeedbackLimit to aggregate.
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserFeedbackLimits to fetch.
+     */
+    orderBy?: UserFeedbackLimitOrderByWithRelationInput | UserFeedbackLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserFeedbackLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserFeedbackLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserFeedbackLimits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserFeedbackLimits
+    **/
+    _count?: true | UserFeedbackLimitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserFeedbackLimitAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserFeedbackLimitSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserFeedbackLimitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserFeedbackLimitMaxAggregateInputType
+  }
+
+  export type GetUserFeedbackLimitAggregateType<T extends UserFeedbackLimitAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserFeedbackLimit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserFeedbackLimit[P]>
+      : GetScalarType<T[P], AggregateUserFeedbackLimit[P]>
+  }
+
+
+
+
+  export type UserFeedbackLimitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserFeedbackLimitWhereInput
+    orderBy?: UserFeedbackLimitOrderByWithAggregationInput | UserFeedbackLimitOrderByWithAggregationInput[]
+    by: UserFeedbackLimitScalarFieldEnum[] | UserFeedbackLimitScalarFieldEnum
+    having?: UserFeedbackLimitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserFeedbackLimitCountAggregateInputType | true
+    _avg?: UserFeedbackLimitAvgAggregateInputType
+    _sum?: UserFeedbackLimitSumAggregateInputType
+    _min?: UserFeedbackLimitMinAggregateInputType
+    _max?: UserFeedbackLimitMaxAggregateInputType
+  }
+
+  export type UserFeedbackLimitGroupByOutputType = {
+    id: string
+    userId: string
+    date: string
+    count: number
+    createdAt: Date
+    updatedAt: Date
+    _count: UserFeedbackLimitCountAggregateOutputType | null
+    _avg: UserFeedbackLimitAvgAggregateOutputType | null
+    _sum: UserFeedbackLimitSumAggregateOutputType | null
+    _min: UserFeedbackLimitMinAggregateOutputType | null
+    _max: UserFeedbackLimitMaxAggregateOutputType | null
+  }
+
+  type GetUserFeedbackLimitGroupByPayload<T extends UserFeedbackLimitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserFeedbackLimitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserFeedbackLimitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserFeedbackLimitGroupByOutputType[P]>
+            : GetScalarType<T[P], UserFeedbackLimitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserFeedbackLimitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    count?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userFeedbackLimit"]>
+
+  export type UserFeedbackLimitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    count?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userFeedbackLimit"]>
+
+  export type UserFeedbackLimitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    count?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userFeedbackLimit"]>
+
+  export type UserFeedbackLimitSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    count?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserFeedbackLimitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "count" | "createdAt" | "updatedAt", ExtArgs["result"]["userFeedbackLimit"]>
+  export type UserFeedbackLimitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserFeedbackLimitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserFeedbackLimitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserFeedbackLimitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserFeedbackLimit"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: string
+      count: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userFeedbackLimit"]>
+    composites: {}
+  }
+
+  type UserFeedbackLimitGetPayload<S extends boolean | null | undefined | UserFeedbackLimitDefaultArgs> = $Result.GetResult<Prisma.$UserFeedbackLimitPayload, S>
+
+  type UserFeedbackLimitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserFeedbackLimitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserFeedbackLimitCountAggregateInputType | true
+    }
+
+  export interface UserFeedbackLimitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserFeedbackLimit'], meta: { name: 'UserFeedbackLimit' } }
+    /**
+     * Find zero or one UserFeedbackLimit that matches the filter.
+     * @param {UserFeedbackLimitFindUniqueArgs} args - Arguments to find a UserFeedbackLimit
+     * @example
+     * // Get one UserFeedbackLimit
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFeedbackLimitFindUniqueArgs>(args: SelectSubset<T, UserFeedbackLimitFindUniqueArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserFeedbackLimit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserFeedbackLimitFindUniqueOrThrowArgs} args - Arguments to find a UserFeedbackLimit
+     * @example
+     * // Get one UserFeedbackLimit
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFeedbackLimitFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFeedbackLimitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserFeedbackLimit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitFindFirstArgs} args - Arguments to find a UserFeedbackLimit
+     * @example
+     * // Get one UserFeedbackLimit
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFeedbackLimitFindFirstArgs>(args?: SelectSubset<T, UserFeedbackLimitFindFirstArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserFeedbackLimit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitFindFirstOrThrowArgs} args - Arguments to find a UserFeedbackLimit
+     * @example
+     * // Get one UserFeedbackLimit
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFeedbackLimitFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFeedbackLimitFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserFeedbackLimits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserFeedbackLimits
+     * const userFeedbackLimits = await prisma.userFeedbackLimit.findMany()
+     * 
+     * // Get first 10 UserFeedbackLimits
+     * const userFeedbackLimits = await prisma.userFeedbackLimit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userFeedbackLimitWithIdOnly = await prisma.userFeedbackLimit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserFeedbackLimitFindManyArgs>(args?: SelectSubset<T, UserFeedbackLimitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserFeedbackLimit.
+     * @param {UserFeedbackLimitCreateArgs} args - Arguments to create a UserFeedbackLimit.
+     * @example
+     * // Create one UserFeedbackLimit
+     * const UserFeedbackLimit = await prisma.userFeedbackLimit.create({
+     *   data: {
+     *     // ... data to create a UserFeedbackLimit
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserFeedbackLimitCreateArgs>(args: SelectSubset<T, UserFeedbackLimitCreateArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserFeedbackLimits.
+     * @param {UserFeedbackLimitCreateManyArgs} args - Arguments to create many UserFeedbackLimits.
+     * @example
+     * // Create many UserFeedbackLimits
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserFeedbackLimitCreateManyArgs>(args?: SelectSubset<T, UserFeedbackLimitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserFeedbackLimits and returns the data saved in the database.
+     * @param {UserFeedbackLimitCreateManyAndReturnArgs} args - Arguments to create many UserFeedbackLimits.
+     * @example
+     * // Create many UserFeedbackLimits
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserFeedbackLimits and only return the `id`
+     * const userFeedbackLimitWithIdOnly = await prisma.userFeedbackLimit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserFeedbackLimitCreateManyAndReturnArgs>(args?: SelectSubset<T, UserFeedbackLimitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserFeedbackLimit.
+     * @param {UserFeedbackLimitDeleteArgs} args - Arguments to delete one UserFeedbackLimit.
+     * @example
+     * // Delete one UserFeedbackLimit
+     * const UserFeedbackLimit = await prisma.userFeedbackLimit.delete({
+     *   where: {
+     *     // ... filter to delete one UserFeedbackLimit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserFeedbackLimitDeleteArgs>(args: SelectSubset<T, UserFeedbackLimitDeleteArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserFeedbackLimit.
+     * @param {UserFeedbackLimitUpdateArgs} args - Arguments to update one UserFeedbackLimit.
+     * @example
+     * // Update one UserFeedbackLimit
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserFeedbackLimitUpdateArgs>(args: SelectSubset<T, UserFeedbackLimitUpdateArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserFeedbackLimits.
+     * @param {UserFeedbackLimitDeleteManyArgs} args - Arguments to filter UserFeedbackLimits to delete.
+     * @example
+     * // Delete a few UserFeedbackLimits
+     * const { count } = await prisma.userFeedbackLimit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserFeedbackLimitDeleteManyArgs>(args?: SelectSubset<T, UserFeedbackLimitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserFeedbackLimits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserFeedbackLimits
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserFeedbackLimitUpdateManyArgs>(args: SelectSubset<T, UserFeedbackLimitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserFeedbackLimits and returns the data updated in the database.
+     * @param {UserFeedbackLimitUpdateManyAndReturnArgs} args - Arguments to update many UserFeedbackLimits.
+     * @example
+     * // Update many UserFeedbackLimits
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserFeedbackLimits and only return the `id`
+     * const userFeedbackLimitWithIdOnly = await prisma.userFeedbackLimit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserFeedbackLimitUpdateManyAndReturnArgs>(args: SelectSubset<T, UserFeedbackLimitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserFeedbackLimit.
+     * @param {UserFeedbackLimitUpsertArgs} args - Arguments to update or create a UserFeedbackLimit.
+     * @example
+     * // Update or create a UserFeedbackLimit
+     * const userFeedbackLimit = await prisma.userFeedbackLimit.upsert({
+     *   create: {
+     *     // ... data to create a UserFeedbackLimit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserFeedbackLimit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserFeedbackLimitUpsertArgs>(args: SelectSubset<T, UserFeedbackLimitUpsertArgs<ExtArgs>>): Prisma__UserFeedbackLimitClient<$Result.GetResult<Prisma.$UserFeedbackLimitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserFeedbackLimits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitCountArgs} args - Arguments to filter UserFeedbackLimits to count.
+     * @example
+     * // Count the number of UserFeedbackLimits
+     * const count = await prisma.userFeedbackLimit.count({
+     *   where: {
+     *     // ... the filter for the UserFeedbackLimits we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserFeedbackLimitCountArgs>(
+      args?: Subset<T, UserFeedbackLimitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserFeedbackLimitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserFeedbackLimit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserFeedbackLimitAggregateArgs>(args: Subset<T, UserFeedbackLimitAggregateArgs>): Prisma.PrismaPromise<GetUserFeedbackLimitAggregateType<T>>
+
+    /**
+     * Group by UserFeedbackLimit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFeedbackLimitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserFeedbackLimitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserFeedbackLimitGroupByArgs['orderBy'] }
+        : { orderBy?: UserFeedbackLimitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserFeedbackLimitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserFeedbackLimitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserFeedbackLimit model
+   */
+  readonly fields: UserFeedbackLimitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserFeedbackLimit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserFeedbackLimitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserFeedbackLimit model
+   */
+  interface UserFeedbackLimitFieldRefs {
+    readonly id: FieldRef<"UserFeedbackLimit", 'String'>
+    readonly userId: FieldRef<"UserFeedbackLimit", 'String'>
+    readonly date: FieldRef<"UserFeedbackLimit", 'String'>
+    readonly count: FieldRef<"UserFeedbackLimit", 'Int'>
+    readonly createdAt: FieldRef<"UserFeedbackLimit", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserFeedbackLimit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserFeedbackLimit findUnique
+   */
+  export type UserFeedbackLimitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which UserFeedbackLimit to fetch.
+     */
+    where: UserFeedbackLimitWhereUniqueInput
+  }
+
+  /**
+   * UserFeedbackLimit findUniqueOrThrow
+   */
+  export type UserFeedbackLimitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which UserFeedbackLimit to fetch.
+     */
+    where: UserFeedbackLimitWhereUniqueInput
+  }
+
+  /**
+   * UserFeedbackLimit findFirst
+   */
+  export type UserFeedbackLimitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which UserFeedbackLimit to fetch.
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserFeedbackLimits to fetch.
+     */
+    orderBy?: UserFeedbackLimitOrderByWithRelationInput | UserFeedbackLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserFeedbackLimits.
+     */
+    cursor?: UserFeedbackLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserFeedbackLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserFeedbackLimits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserFeedbackLimits.
+     */
+    distinct?: UserFeedbackLimitScalarFieldEnum | UserFeedbackLimitScalarFieldEnum[]
+  }
+
+  /**
+   * UserFeedbackLimit findFirstOrThrow
+   */
+  export type UserFeedbackLimitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which UserFeedbackLimit to fetch.
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserFeedbackLimits to fetch.
+     */
+    orderBy?: UserFeedbackLimitOrderByWithRelationInput | UserFeedbackLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserFeedbackLimits.
+     */
+    cursor?: UserFeedbackLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserFeedbackLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserFeedbackLimits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserFeedbackLimits.
+     */
+    distinct?: UserFeedbackLimitScalarFieldEnum | UserFeedbackLimitScalarFieldEnum[]
+  }
+
+  /**
+   * UserFeedbackLimit findMany
+   */
+  export type UserFeedbackLimitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which UserFeedbackLimits to fetch.
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserFeedbackLimits to fetch.
+     */
+    orderBy?: UserFeedbackLimitOrderByWithRelationInput | UserFeedbackLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserFeedbackLimits.
+     */
+    cursor?: UserFeedbackLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserFeedbackLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserFeedbackLimits.
+     */
+    skip?: number
+    distinct?: UserFeedbackLimitScalarFieldEnum | UserFeedbackLimitScalarFieldEnum[]
+  }
+
+  /**
+   * UserFeedbackLimit create
+   */
+  export type UserFeedbackLimitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserFeedbackLimit.
+     */
+    data: XOR<UserFeedbackLimitCreateInput, UserFeedbackLimitUncheckedCreateInput>
+  }
+
+  /**
+   * UserFeedbackLimit createMany
+   */
+  export type UserFeedbackLimitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserFeedbackLimits.
+     */
+    data: UserFeedbackLimitCreateManyInput | UserFeedbackLimitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserFeedbackLimit createManyAndReturn
+   */
+  export type UserFeedbackLimitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserFeedbackLimits.
+     */
+    data: UserFeedbackLimitCreateManyInput | UserFeedbackLimitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserFeedbackLimit update
+   */
+  export type UserFeedbackLimitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserFeedbackLimit.
+     */
+    data: XOR<UserFeedbackLimitUpdateInput, UserFeedbackLimitUncheckedUpdateInput>
+    /**
+     * Choose, which UserFeedbackLimit to update.
+     */
+    where: UserFeedbackLimitWhereUniqueInput
+  }
+
+  /**
+   * UserFeedbackLimit updateMany
+   */
+  export type UserFeedbackLimitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserFeedbackLimits.
+     */
+    data: XOR<UserFeedbackLimitUpdateManyMutationInput, UserFeedbackLimitUncheckedUpdateManyInput>
+    /**
+     * Filter which UserFeedbackLimits to update
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * Limit how many UserFeedbackLimits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserFeedbackLimit updateManyAndReturn
+   */
+  export type UserFeedbackLimitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * The data used to update UserFeedbackLimits.
+     */
+    data: XOR<UserFeedbackLimitUpdateManyMutationInput, UserFeedbackLimitUncheckedUpdateManyInput>
+    /**
+     * Filter which UserFeedbackLimits to update
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * Limit how many UserFeedbackLimits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserFeedbackLimit upsert
+   */
+  export type UserFeedbackLimitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserFeedbackLimit to update in case it exists.
+     */
+    where: UserFeedbackLimitWhereUniqueInput
+    /**
+     * In case the UserFeedbackLimit found by the `where` argument doesn't exist, create a new UserFeedbackLimit with this data.
+     */
+    create: XOR<UserFeedbackLimitCreateInput, UserFeedbackLimitUncheckedCreateInput>
+    /**
+     * In case the UserFeedbackLimit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserFeedbackLimitUpdateInput, UserFeedbackLimitUncheckedUpdateInput>
+  }
+
+  /**
+   * UserFeedbackLimit delete
+   */
+  export type UserFeedbackLimitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+    /**
+     * Filter which UserFeedbackLimit to delete.
+     */
+    where: UserFeedbackLimitWhereUniqueInput
+  }
+
+  /**
+   * UserFeedbackLimit deleteMany
+   */
+  export type UserFeedbackLimitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserFeedbackLimits to delete
+     */
+    where?: UserFeedbackLimitWhereInput
+    /**
+     * Limit how many UserFeedbackLimits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserFeedbackLimit without action
+   */
+  export type UserFeedbackLimitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserFeedbackLimit
+     */
+    select?: UserFeedbackLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserFeedbackLimit
+     */
+    omit?: UserFeedbackLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserFeedbackLimitInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10567,17 +10576,6 @@ export namespace Prisma {
   export type PhotoScalarFieldEnum = (typeof PhotoScalarFieldEnum)[keyof typeof PhotoScalarFieldEnum]
 
 
-  export const LocationLogScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    latitude: 'latitude',
-    longitude: 'longitude',
-    timestamp: 'timestamp'
-  };
-
-  export type LocationLogScalarFieldEnum = (typeof LocationLogScalarFieldEnum)[keyof typeof LocationLogScalarFieldEnum]
-
-
   export const ChecklistScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -10620,6 +10618,18 @@ export namespace Prisma {
   };
 
   export type BlacklistedTokenScalarFieldEnum = (typeof BlacklistedTokenScalarFieldEnum)[keyof typeof BlacklistedTokenScalarFieldEnum]
+
+
+  export const UserFeedbackLimitScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    count: 'count',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserFeedbackLimitScalarFieldEnum = (typeof UserFeedbackLimitScalarFieldEnum)[keyof typeof UserFeedbackLimitScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10694,6 +10704,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -10704,13 +10721,6 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -10730,8 +10740,8 @@ export namespace Prisma {
     diaries?: DiaryListRelationFilter
     appusages?: AppUsageListRelationFilter
     checklists?: ChecklistListRelationFilter
-    locationLogs?: LocationLogListRelationFilter
     schedules?: ScheduleListRelationFilter
+    feedbackLimits?: UserFeedbackLimitListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10744,8 +10754,8 @@ export namespace Prisma {
     diaries?: DiaryOrderByRelationAggregateInput
     appusages?: AppUsageOrderByRelationAggregateInput
     checklists?: ChecklistOrderByRelationAggregateInput
-    locationLogs?: LocationLogOrderByRelationAggregateInput
     schedules?: ScheduleOrderByRelationAggregateInput
+    feedbackLimits?: UserFeedbackLimitOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10761,8 +10771,8 @@ export namespace Prisma {
     diaries?: DiaryListRelationFilter
     appusages?: AppUsageListRelationFilter
     checklists?: ChecklistListRelationFilter
-    locationLogs?: LocationLogListRelationFilter
     schedules?: ScheduleListRelationFilter
+    feedbackLimits?: UserFeedbackLimitListRelationFilter
   }, "id" | "userId">
 
   export type UserOrderByWithAggregationInput = {
@@ -10989,63 +10999,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Photo"> | Date | string
   }
 
-  export type LocationLogWhereInput = {
-    AND?: LocationLogWhereInput | LocationLogWhereInput[]
-    OR?: LocationLogWhereInput[]
-    NOT?: LocationLogWhereInput | LocationLogWhereInput[]
-    id?: StringFilter<"LocationLog"> | string
-    userId?: StringFilter<"LocationLog"> | string
-    latitude?: FloatFilter<"LocationLog"> | number
-    longitude?: FloatFilter<"LocationLog"> | number
-    timestamp?: DateTimeFilter<"LocationLog"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type LocationLogOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
-    timestamp?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type LocationLogWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: LocationLogWhereInput | LocationLogWhereInput[]
-    OR?: LocationLogWhereInput[]
-    NOT?: LocationLogWhereInput | LocationLogWhereInput[]
-    userId?: StringFilter<"LocationLog"> | string
-    latitude?: FloatFilter<"LocationLog"> | number
-    longitude?: FloatFilter<"LocationLog"> | number
-    timestamp?: DateTimeFilter<"LocationLog"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
-
-  export type LocationLogOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
-    timestamp?: SortOrder
-    _count?: LocationLogCountOrderByAggregateInput
-    _avg?: LocationLogAvgOrderByAggregateInput
-    _max?: LocationLogMaxOrderByAggregateInput
-    _min?: LocationLogMinOrderByAggregateInput
-    _sum?: LocationLogSumOrderByAggregateInput
-  }
-
-  export type LocationLogScalarWhereWithAggregatesInput = {
-    AND?: LocationLogScalarWhereWithAggregatesInput | LocationLogScalarWhereWithAggregatesInput[]
-    OR?: LocationLogScalarWhereWithAggregatesInput[]
-    NOT?: LocationLogScalarWhereWithAggregatesInput | LocationLogScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"LocationLog"> | string
-    userId?: StringWithAggregatesFilter<"LocationLog"> | string
-    latitude?: FloatWithAggregatesFilter<"LocationLog"> | number
-    longitude?: FloatWithAggregatesFilter<"LocationLog"> | number
-    timestamp?: DateTimeWithAggregatesFilter<"LocationLog"> | Date | string
-  }
-
   export type ChecklistWhereInput = {
     AND?: ChecklistWhereInput | ChecklistWhereInput[]
     OR?: ChecklistWhereInput[]
@@ -11265,6 +11218,69 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"BlacklistedToken"> | Date | string
   }
 
+  export type UserFeedbackLimitWhereInput = {
+    AND?: UserFeedbackLimitWhereInput | UserFeedbackLimitWhereInput[]
+    OR?: UserFeedbackLimitWhereInput[]
+    NOT?: UserFeedbackLimitWhereInput | UserFeedbackLimitWhereInput[]
+    id?: StringFilter<"UserFeedbackLimit"> | string
+    userId?: StringFilter<"UserFeedbackLimit"> | string
+    date?: StringFilter<"UserFeedbackLimit"> | string
+    count?: IntFilter<"UserFeedbackLimit"> | number
+    createdAt?: DateTimeFilter<"UserFeedbackLimit"> | Date | string
+    updatedAt?: DateTimeFilter<"UserFeedbackLimit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserFeedbackLimitOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    count?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserFeedbackLimitWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_date?: UserFeedbackLimitUserIdDateCompoundUniqueInput
+    AND?: UserFeedbackLimitWhereInput | UserFeedbackLimitWhereInput[]
+    OR?: UserFeedbackLimitWhereInput[]
+    NOT?: UserFeedbackLimitWhereInput | UserFeedbackLimitWhereInput[]
+    userId?: StringFilter<"UserFeedbackLimit"> | string
+    date?: StringFilter<"UserFeedbackLimit"> | string
+    count?: IntFilter<"UserFeedbackLimit"> | number
+    createdAt?: DateTimeFilter<"UserFeedbackLimit"> | Date | string
+    updatedAt?: DateTimeFilter<"UserFeedbackLimit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_date">
+
+  export type UserFeedbackLimitOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    count?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserFeedbackLimitCountOrderByAggregateInput
+    _avg?: UserFeedbackLimitAvgOrderByAggregateInput
+    _max?: UserFeedbackLimitMaxOrderByAggregateInput
+    _min?: UserFeedbackLimitMinOrderByAggregateInput
+    _sum?: UserFeedbackLimitSumOrderByAggregateInput
+  }
+
+  export type UserFeedbackLimitScalarWhereWithAggregatesInput = {
+    AND?: UserFeedbackLimitScalarWhereWithAggregatesInput | UserFeedbackLimitScalarWhereWithAggregatesInput[]
+    OR?: UserFeedbackLimitScalarWhereWithAggregatesInput[]
+    NOT?: UserFeedbackLimitScalarWhereWithAggregatesInput | UserFeedbackLimitScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserFeedbackLimit"> | string
+    userId?: StringWithAggregatesFilter<"UserFeedbackLimit"> | string
+    date?: StringWithAggregatesFilter<"UserFeedbackLimit"> | string
+    count?: IntWithAggregatesFilter<"UserFeedbackLimit"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"UserFeedbackLimit"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserFeedbackLimit"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     userId?: string | null
@@ -11275,8 +11291,8 @@ export namespace Prisma {
     diaries?: DiaryCreateNestedManyWithoutUserInput
     appusages?: AppUsageCreateNestedManyWithoutUserInput
     checklists?: ChecklistCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
     schedules?: ScheduleCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11289,8 +11305,8 @@ export namespace Prisma {
     diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
     appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
     schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11303,8 +11319,8 @@ export namespace Prisma {
     diaries?: DiaryUpdateManyWithoutUserNestedInput
     appusages?: AppUsageUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11317,8 +11333,8 @@ export namespace Prisma {
     diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
     appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11557,61 +11573,6 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LocationLogCreateInput = {
-    id?: string
-    latitude: number
-    longitude: number
-    timestamp?: Date | string
-    user: UserCreateNestedOneWithoutLocationLogsInput
-  }
-
-  export type LocationLogUncheckedCreateInput = {
-    id?: string
-    userId: string
-    latitude: number
-    longitude: number
-    timestamp?: Date | string
-  }
-
-  export type LocationLogUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutLocationLogsNestedInput
-  }
-
-  export type LocationLogUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LocationLogCreateManyInput = {
-    id?: string
-    userId: string
-    latitude: number
-    longitude: number
-    timestamp?: Date | string
-  }
-
-  export type LocationLogUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LocationLogUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChecklistCreateInput = {
@@ -11857,6 +11818,68 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserFeedbackLimitCreateInput = {
+    id?: string
+    date: string
+    count?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutFeedbackLimitsInput
+  }
+
+  export type UserFeedbackLimitUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: string
+    count?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserFeedbackLimitUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFeedbackLimitsNestedInput
+  }
+
+  export type UserFeedbackLimitUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserFeedbackLimitCreateManyInput = {
+    id?: string
+    userId: string
+    date: string
+    count?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserFeedbackLimitUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserFeedbackLimitUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11916,16 +11939,16 @@ export namespace Prisma {
     none?: ChecklistWhereInput
   }
 
-  export type LocationLogListRelationFilter = {
-    every?: LocationLogWhereInput
-    some?: LocationLogWhereInput
-    none?: LocationLogWhereInput
-  }
-
   export type ScheduleListRelationFilter = {
     every?: ScheduleWhereInput
     some?: ScheduleWhereInput
     none?: ScheduleWhereInput
+  }
+
+  export type UserFeedbackLimitListRelationFilter = {
+    every?: UserFeedbackLimitWhereInput
+    some?: UserFeedbackLimitWhereInput
+    none?: UserFeedbackLimitWhereInput
   }
 
   export type SortOrderInput = {
@@ -11945,11 +11968,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type LocationLogOrderByRelationAggregateInput = {
+  export type ScheduleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ScheduleOrderByRelationAggregateInput = {
+  export type UserFeedbackLimitOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12175,67 +12198,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type LocationLogCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
-    timestamp?: SortOrder
-  }
-
-  export type LocationLogAvgOrderByAggregateInput = {
-    latitude?: SortOrder
-    longitude?: SortOrder
-  }
-
-  export type LocationLogMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
-    timestamp?: SortOrder
-  }
-
-  export type LocationLogMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    latitude?: SortOrder
-    longitude?: SortOrder
-    timestamp?: SortOrder
-  }
-
-  export type LocationLogSumOrderByAggregateInput = {
-    latitude?: SortOrder
-    longitude?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -12429,6 +12391,46 @@ export namespace Prisma {
     expiresAt?: SortOrder
   }
 
+  export type UserFeedbackLimitUserIdDateCompoundUniqueInput = {
+    userId: string
+    date: string
+  }
+
+  export type UserFeedbackLimitCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    count?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserFeedbackLimitAvgOrderByAggregateInput = {
+    count?: SortOrder
+  }
+
+  export type UserFeedbackLimitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    count?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserFeedbackLimitMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    count?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserFeedbackLimitSumOrderByAggregateInput = {
+    count?: SortOrder
+  }
+
   export type DiaryCreateNestedManyWithoutUserInput = {
     create?: XOR<DiaryCreateWithoutUserInput, DiaryUncheckedCreateWithoutUserInput> | DiaryCreateWithoutUserInput[] | DiaryUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DiaryCreateOrConnectWithoutUserInput | DiaryCreateOrConnectWithoutUserInput[]
@@ -12450,18 +12452,18 @@ export namespace Prisma {
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
   }
 
-  export type LocationLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
-    createMany?: LocationLogCreateManyUserInputEnvelope
-    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-  }
-
   export type ScheduleCreateNestedManyWithoutUserInput = {
     create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
     createMany?: ScheduleCreateManyUserInputEnvelope
     connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+  }
+
+  export type UserFeedbackLimitCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserFeedbackLimitCreateWithoutUserInput, UserFeedbackLimitUncheckedCreateWithoutUserInput> | UserFeedbackLimitCreateWithoutUserInput[] | UserFeedbackLimitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFeedbackLimitCreateOrConnectWithoutUserInput | UserFeedbackLimitCreateOrConnectWithoutUserInput[]
+    createMany?: UserFeedbackLimitCreateManyUserInputEnvelope
+    connect?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
   }
 
   export type DiaryUncheckedCreateNestedManyWithoutUserInput = {
@@ -12485,18 +12487,18 @@ export namespace Prisma {
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
   }
 
-  export type LocationLogUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
-    createMany?: LocationLogCreateManyUserInputEnvelope
-    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-  }
-
   export type ScheduleUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
     createMany?: ScheduleCreateManyUserInputEnvelope
     connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+  }
+
+  export type UserFeedbackLimitUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserFeedbackLimitCreateWithoutUserInput, UserFeedbackLimitUncheckedCreateWithoutUserInput> | UserFeedbackLimitCreateWithoutUserInput[] | UserFeedbackLimitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFeedbackLimitCreateOrConnectWithoutUserInput | UserFeedbackLimitCreateOrConnectWithoutUserInput[]
+    createMany?: UserFeedbackLimitCreateManyUserInputEnvelope
+    connect?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12553,20 +12555,6 @@ export namespace Prisma {
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
-  export type LocationLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
-    upsert?: LocationLogUpsertWithWhereUniqueWithoutUserInput | LocationLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: LocationLogCreateManyUserInputEnvelope
-    set?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    disconnect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    delete?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    update?: LocationLogUpdateWithWhereUniqueWithoutUserInput | LocationLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: LocationLogUpdateManyWithWhereWithoutUserInput | LocationLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
-  }
-
   export type ScheduleUpdateManyWithoutUserNestedInput = {
     create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
@@ -12579,6 +12567,20 @@ export namespace Prisma {
     update?: ScheduleUpdateWithWhereUniqueWithoutUserInput | ScheduleUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ScheduleUpdateManyWithWhereWithoutUserInput | ScheduleUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+  }
+
+  export type UserFeedbackLimitUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserFeedbackLimitCreateWithoutUserInput, UserFeedbackLimitUncheckedCreateWithoutUserInput> | UserFeedbackLimitCreateWithoutUserInput[] | UserFeedbackLimitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFeedbackLimitCreateOrConnectWithoutUserInput | UserFeedbackLimitCreateOrConnectWithoutUserInput[]
+    upsert?: UserFeedbackLimitUpsertWithWhereUniqueWithoutUserInput | UserFeedbackLimitUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserFeedbackLimitCreateManyUserInputEnvelope
+    set?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    disconnect?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    delete?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    connect?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    update?: UserFeedbackLimitUpdateWithWhereUniqueWithoutUserInput | UserFeedbackLimitUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserFeedbackLimitUpdateManyWithWhereWithoutUserInput | UserFeedbackLimitUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserFeedbackLimitScalarWhereInput | UserFeedbackLimitScalarWhereInput[]
   }
 
   export type DiaryUncheckedUpdateManyWithoutUserNestedInput = {
@@ -12623,20 +12625,6 @@ export namespace Prisma {
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
-  export type LocationLogUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput> | LocationLogCreateWithoutUserInput[] | LocationLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: LocationLogCreateOrConnectWithoutUserInput | LocationLogCreateOrConnectWithoutUserInput[]
-    upsert?: LocationLogUpsertWithWhereUniqueWithoutUserInput | LocationLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: LocationLogCreateManyUserInputEnvelope
-    set?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    disconnect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    delete?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    connect?: LocationLogWhereUniqueInput | LocationLogWhereUniqueInput[]
-    update?: LocationLogUpdateWithWhereUniqueWithoutUserInput | LocationLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: LocationLogUpdateManyWithWhereWithoutUserInput | LocationLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
-  }
-
   export type ScheduleUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ScheduleCreateWithoutUserInput, ScheduleUncheckedCreateWithoutUserInput> | ScheduleCreateWithoutUserInput[] | ScheduleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ScheduleCreateOrConnectWithoutUserInput | ScheduleCreateOrConnectWithoutUserInput[]
@@ -12649,6 +12637,20 @@ export namespace Prisma {
     update?: ScheduleUpdateWithWhereUniqueWithoutUserInput | ScheduleUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ScheduleUpdateManyWithWhereWithoutUserInput | ScheduleUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
+  }
+
+  export type UserFeedbackLimitUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserFeedbackLimitCreateWithoutUserInput, UserFeedbackLimitUncheckedCreateWithoutUserInput> | UserFeedbackLimitCreateWithoutUserInput[] | UserFeedbackLimitUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserFeedbackLimitCreateOrConnectWithoutUserInput | UserFeedbackLimitCreateOrConnectWithoutUserInput[]
+    upsert?: UserFeedbackLimitUpsertWithWhereUniqueWithoutUserInput | UserFeedbackLimitUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserFeedbackLimitCreateManyUserInputEnvelope
+    set?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    disconnect?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    delete?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    connect?: UserFeedbackLimitWhereUniqueInput | UserFeedbackLimitWhereUniqueInput[]
+    update?: UserFeedbackLimitUpdateWithWhereUniqueWithoutUserInput | UserFeedbackLimitUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserFeedbackLimitUpdateManyWithWhereWithoutUserInput | UserFeedbackLimitUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserFeedbackLimitScalarWhereInput | UserFeedbackLimitScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAppusagesInput = {
@@ -12743,28 +12745,6 @@ export namespace Prisma {
     update?: XOR<XOR<DiaryUpdateToOneWithWhereWithoutPhotosInput, DiaryUpdateWithoutPhotosInput>, DiaryUncheckedUpdateWithoutPhotosInput>
   }
 
-  export type UserCreateNestedOneWithoutLocationLogsInput = {
-    create?: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutLocationLogsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type UserUpdateOneRequiredWithoutLocationLogsNestedInput = {
-    create?: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutLocationLogsInput
-    upsert?: UserUpsertWithoutLocationLogsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLocationLogsInput, UserUpdateWithoutLocationLogsInput>, UserUncheckedUpdateWithoutLocationLogsInput>
-  }
-
   export type UserCreateNestedOneWithoutChecklistsInput = {
     create?: XOR<UserCreateWithoutChecklistsInput, UserUncheckedCreateWithoutChecklistsInput>
     connectOrCreate?: UserCreateOrConnectWithoutChecklistsInput
@@ -12811,6 +12791,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutSchedulesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSchedulesInput, UserUpdateWithoutSchedulesInput>, UserUncheckedUpdateWithoutSchedulesInput>
+  }
+
+  export type UserCreateNestedOneWithoutFeedbackLimitsInput = {
+    create?: XOR<UserCreateWithoutFeedbackLimitsInput, UserUncheckedCreateWithoutFeedbackLimitsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFeedbackLimitsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutFeedbackLimitsNestedInput = {
+    create?: XOR<UserCreateWithoutFeedbackLimitsInput, UserUncheckedCreateWithoutFeedbackLimitsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFeedbackLimitsInput
+    upsert?: UserUpsertWithoutFeedbackLimitsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFeedbackLimitsInput, UserUpdateWithoutFeedbackLimitsInput>, UserUncheckedUpdateWithoutFeedbackLimitsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12947,22 +12941,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -13137,30 +13115,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type LocationLogCreateWithoutUserInput = {
-    id?: string
-    latitude: number
-    longitude: number
-    timestamp?: Date | string
-  }
-
-  export type LocationLogUncheckedCreateWithoutUserInput = {
-    id?: string
-    latitude: number
-    longitude: number
-    timestamp?: Date | string
-  }
-
-  export type LocationLogCreateOrConnectWithoutUserInput = {
-    where: LocationLogWhereUniqueInput
-    create: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput>
-  }
-
-  export type LocationLogCreateManyUserInputEnvelope = {
-    data: LocationLogCreateManyUserInput | LocationLogCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ScheduleCreateWithoutUserInput = {
     id?: string
     text: string
@@ -13200,6 +13154,32 @@ export namespace Prisma {
 
   export type ScheduleCreateManyUserInputEnvelope = {
     data: ScheduleCreateManyUserInput | ScheduleCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserFeedbackLimitCreateWithoutUserInput = {
+    id?: string
+    date: string
+    count?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserFeedbackLimitUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: string
+    count?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserFeedbackLimitCreateOrConnectWithoutUserInput = {
+    where: UserFeedbackLimitWhereUniqueInput
+    create: XOR<UserFeedbackLimitCreateWithoutUserInput, UserFeedbackLimitUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserFeedbackLimitCreateManyUserInputEnvelope = {
+    data: UserFeedbackLimitCreateManyUserInput | UserFeedbackLimitCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -13294,33 +13274,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
   }
 
-  export type LocationLogUpsertWithWhereUniqueWithoutUserInput = {
-    where: LocationLogWhereUniqueInput
-    update: XOR<LocationLogUpdateWithoutUserInput, LocationLogUncheckedUpdateWithoutUserInput>
-    create: XOR<LocationLogCreateWithoutUserInput, LocationLogUncheckedCreateWithoutUserInput>
-  }
-
-  export type LocationLogUpdateWithWhereUniqueWithoutUserInput = {
-    where: LocationLogWhereUniqueInput
-    data: XOR<LocationLogUpdateWithoutUserInput, LocationLogUncheckedUpdateWithoutUserInput>
-  }
-
-  export type LocationLogUpdateManyWithWhereWithoutUserInput = {
-    where: LocationLogScalarWhereInput
-    data: XOR<LocationLogUpdateManyMutationInput, LocationLogUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type LocationLogScalarWhereInput = {
-    AND?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
-    OR?: LocationLogScalarWhereInput[]
-    NOT?: LocationLogScalarWhereInput | LocationLogScalarWhereInput[]
-    id?: StringFilter<"LocationLog"> | string
-    userId?: StringFilter<"LocationLog"> | string
-    latitude?: FloatFilter<"LocationLog"> | number
-    longitude?: FloatFilter<"LocationLog"> | number
-    timestamp?: DateTimeFilter<"LocationLog"> | Date | string
-  }
-
   export type ScheduleUpsertWithWhereUniqueWithoutUserInput = {
     where: ScheduleWhereUniqueInput
     update: XOR<ScheduleUpdateWithoutUserInput, ScheduleUncheckedUpdateWithoutUserInput>
@@ -13357,6 +13310,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Schedule"> | Date | string
   }
 
+  export type UserFeedbackLimitUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserFeedbackLimitWhereUniqueInput
+    update: XOR<UserFeedbackLimitUpdateWithoutUserInput, UserFeedbackLimitUncheckedUpdateWithoutUserInput>
+    create: XOR<UserFeedbackLimitCreateWithoutUserInput, UserFeedbackLimitUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserFeedbackLimitUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserFeedbackLimitWhereUniqueInput
+    data: XOR<UserFeedbackLimitUpdateWithoutUserInput, UserFeedbackLimitUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserFeedbackLimitUpdateManyWithWhereWithoutUserInput = {
+    where: UserFeedbackLimitScalarWhereInput
+    data: XOR<UserFeedbackLimitUpdateManyMutationInput, UserFeedbackLimitUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserFeedbackLimitScalarWhereInput = {
+    AND?: UserFeedbackLimitScalarWhereInput | UserFeedbackLimitScalarWhereInput[]
+    OR?: UserFeedbackLimitScalarWhereInput[]
+    NOT?: UserFeedbackLimitScalarWhereInput | UserFeedbackLimitScalarWhereInput[]
+    id?: StringFilter<"UserFeedbackLimit"> | string
+    userId?: StringFilter<"UserFeedbackLimit"> | string
+    date?: StringFilter<"UserFeedbackLimit"> | string
+    count?: IntFilter<"UserFeedbackLimit"> | number
+    createdAt?: DateTimeFilter<"UserFeedbackLimit"> | Date | string
+    updatedAt?: DateTimeFilter<"UserFeedbackLimit"> | Date | string
+  }
+
   export type UserCreateWithoutAppusagesInput = {
     id?: string
     userId?: string | null
@@ -13366,8 +13347,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     diaries?: DiaryCreateNestedManyWithoutUserInput
     checklists?: ChecklistCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
     schedules?: ScheduleCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppusagesInput = {
@@ -13379,8 +13360,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
     schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppusagesInput = {
@@ -13408,8 +13389,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diaries?: DiaryUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppusagesInput = {
@@ -13421,8 +13402,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDiariesInput = {
@@ -13434,8 +13415,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     appusages?: AppUsageCreateNestedManyWithoutUserInput
     checklists?: ChecklistCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
     schedules?: ScheduleCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDiariesInput = {
@@ -13447,8 +13428,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
     schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDiariesInput = {
@@ -13500,8 +13481,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appusages?: AppUsageUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiariesInput = {
@@ -13513,8 +13494,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PhotoUpsertWithWhereUniqueWithoutDiaryInput = {
@@ -13600,74 +13581,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserCreateWithoutLocationLogsInput = {
-    id?: string
-    userId?: string | null
-    name?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    diaries?: DiaryCreateNestedManyWithoutUserInput
-    appusages?: AppUsageCreateNestedManyWithoutUserInput
-    checklists?: ChecklistCreateNestedManyWithoutUserInput
-    schedules?: ScheduleCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutLocationLogsInput = {
-    id?: string
-    userId?: string | null
-    name?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
-    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
-    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
-    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutLocationLogsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
-  }
-
-  export type UserUpsertWithoutLocationLogsInput = {
-    update: XOR<UserUpdateWithoutLocationLogsInput, UserUncheckedUpdateWithoutLocationLogsInput>
-    create: XOR<UserCreateWithoutLocationLogsInput, UserUncheckedCreateWithoutLocationLogsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutLocationLogsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutLocationLogsInput, UserUncheckedUpdateWithoutLocationLogsInput>
-  }
-
-  export type UserUpdateWithoutLocationLogsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    diaries?: DiaryUpdateManyWithoutUserNestedInput
-    appusages?: AppUsageUpdateManyWithoutUserNestedInput
-    checklists?: ChecklistUpdateManyWithoutUserNestedInput
-    schedules?: ScheduleUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutLocationLogsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
-    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
-    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
-    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type UserCreateWithoutChecklistsInput = {
     id?: string
     userId?: string | null
@@ -13677,8 +13590,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     diaries?: DiaryCreateNestedManyWithoutUserInput
     appusages?: AppUsageCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
     schedules?: ScheduleCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChecklistsInput = {
@@ -13690,8 +13603,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
     appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
     schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChecklistsInput = {
@@ -13719,8 +13632,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diaries?: DiaryUpdateManyWithoutUserNestedInput
     appusages?: AppUsageUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChecklistsInput = {
@@ -13732,8 +13645,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
     appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
     schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSchedulesInput = {
@@ -13746,7 +13659,7 @@ export namespace Prisma {
     diaries?: DiaryCreateNestedManyWithoutUserInput
     appusages?: AppUsageCreateNestedManyWithoutUserInput
     checklists?: ChecklistCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSchedulesInput = {
@@ -13759,7 +13672,7 @@ export namespace Prisma {
     diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
     appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
-    locationLogs?: LocationLogUncheckedCreateNestedManyWithoutUserInput
+    feedbackLimits?: UserFeedbackLimitUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSchedulesInput = {
@@ -13788,7 +13701,7 @@ export namespace Prisma {
     diaries?: DiaryUpdateManyWithoutUserNestedInput
     appusages?: AppUsageUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSchedulesInput = {
@@ -13801,7 +13714,75 @@ export namespace Prisma {
     diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
     appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
-    locationLogs?: LocationLogUncheckedUpdateManyWithoutUserNestedInput
+    feedbackLimits?: UserFeedbackLimitUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutFeedbackLimitsInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryCreateNestedManyWithoutUserInput
+    appusages?: AppUsageCreateNestedManyWithoutUserInput
+    checklists?: ChecklistCreateNestedManyWithoutUserInput
+    schedules?: ScheduleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFeedbackLimitsInput = {
+    id?: string
+    userId?: string | null
+    name?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diaries?: DiaryUncheckedCreateNestedManyWithoutUserInput
+    appusages?: AppUsageUncheckedCreateNestedManyWithoutUserInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutUserInput
+    schedules?: ScheduleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFeedbackLimitsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFeedbackLimitsInput, UserUncheckedCreateWithoutFeedbackLimitsInput>
+  }
+
+  export type UserUpsertWithoutFeedbackLimitsInput = {
+    update: XOR<UserUpdateWithoutFeedbackLimitsInput, UserUncheckedUpdateWithoutFeedbackLimitsInput>
+    create: XOR<UserCreateWithoutFeedbackLimitsInput, UserUncheckedCreateWithoutFeedbackLimitsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFeedbackLimitsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFeedbackLimitsInput, UserUncheckedUpdateWithoutFeedbackLimitsInput>
+  }
+
+  export type UserUpdateWithoutFeedbackLimitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFeedbackLimitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diaries?: DiaryUncheckedUpdateManyWithoutUserNestedInput
+    appusages?: AppUsageUncheckedUpdateManyWithoutUserNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutUserNestedInput
+    schedules?: ScheduleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DiaryCreateManyUserInput = {
@@ -13835,13 +13816,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type LocationLogCreateManyUserInput = {
-    id?: string
-    latitude: number
-    longitude: number
-    timestamp?: Date | string
-  }
-
   export type ScheduleCreateManyUserInput = {
     id?: string
     text: string
@@ -13854,6 +13828,14 @@ export namespace Prisma {
     color?: string | null
     hasAlarm?: boolean | null
     alarmOffset?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserFeedbackLimitCreateManyUserInput = {
+    id?: string
+    date: string
+    count?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13953,27 +13935,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type LocationLogUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LocationLogUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LocationLogUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    latitude?: FloatFieldUpdateOperationsInput | number
-    longitude?: FloatFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type ScheduleUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
@@ -14018,6 +13979,30 @@ export namespace Prisma {
     color?: NullableStringFieldUpdateOperationsInput | string | null
     hasAlarm?: NullableBoolFieldUpdateOperationsInput | boolean | null
     alarmOffset?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserFeedbackLimitUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserFeedbackLimitUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserFeedbackLimitUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

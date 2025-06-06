@@ -2,36 +2,27 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-
-// 1일 1회 제한을 위한 메모리 저장소 (프로덕션에서는 Redis/DB 권장)
-const userRequestMap: Map<string, string> = new Map(); // userId -> yyyy-MM-dd
+import { AiFeedbackLimitService } from './ai-feedback-limit.service';
 
 @Injectable()
 export class AiFeedbackService {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
+    private readonly aiFeedbackLimitService: AiFeedbackLimitService,
   ) {}
 
   async requestFeedbackWithLimit(userId: string, prompt: string, maxPerDay?: number): Promise<string> {
     const today = new Date().toISOString().slice(0, 10); // yyyy-MM-dd
-    // 요청 카운트 저장 구조로 변경 (userId -> { date, count })
-    let date = '', count = 0;
-    if (userRequestMap.has(userId)) {
-      const userData = userRequestMap.get(userId);
-      if (userData) {
-        const parts = userData.split(':');
-        date = parts[0];
-        count = parseInt(parts[1], 10);
-      }
-    }
+    // DB에서 오늘 카운트 조회
+    let count = await this.aiFeedbackLimitService.getTodayCount(userId, today);
     // maxPerDay가 undefined/null이면 환경변수에서 읽어옴 (기본값 1)
     let limit = maxPerDay;
     if (limit === undefined || limit === null) {
       const max = this.configService.get<number>('AI_FEEDBACK_MAX_PER_DAY');
       limit = max && max > 0 ? max : 1;
     }
-    if (date === today && count >= limit) {
+    if (count >= limit) {
       throw {
         status: 429,
         message: `오늘은 AI 피드백을 최대 ${limit}회 요청하셨습니다.`
@@ -39,11 +30,8 @@ export class AiFeedbackService {
     }
     // 실제 Gemini 호출
     const feedbackText = await this.requestFeedback(prompt);
-    if (date === today) {
-      userRequestMap.set(userId, `${today}:${count + 1}`);
-    } else {
-      userRequestMap.set(userId, `${today}:1`);
-    }
+    // 카운트 증가
+    await this.aiFeedbackLimitService.incrementTodayCount(userId, today);
     return feedbackText;
   }
 

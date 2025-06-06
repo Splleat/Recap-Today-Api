@@ -159,14 +159,6 @@ exports.Prisma.PhotoScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.LocationLogScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  timestamp: 'timestamp'
-};
-
 exports.Prisma.ChecklistScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -202,6 +194,15 @@ exports.Prisma.BlacklistedTokenScalarFieldEnum = {
   expiresAt: 'expiresAt'
 };
 
+exports.Prisma.UserFeedbackLimitScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  count: 'count',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -223,10 +224,10 @@ exports.Prisma.ModelName = {
   AppUsage: 'AppUsage',
   Diary: 'Diary',
   Photo: 'Photo',
-  LocationLog: 'LocationLog',
   Checklist: 'Checklist',
   Schedule: 'Schedule',
-  BlacklistedToken: 'BlacklistedToken'
+  BlacklistedToken: 'BlacklistedToken',
+  UserFeedbackLimit: 'UserFeedbackLimit'
 };
 
 /**
