@@ -7,4 +7,7 @@ export class CreatePhotoDto {
     @IsString()
     @IsNotEmpty()
     url: string;
+
+    @IsString()
+    userId: string;
 }

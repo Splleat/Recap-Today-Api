@@ -1,6 +1,8 @@
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -20,6 +22,10 @@ model User {
   checklists Checklist[]
   schedules Schedule[]
   feedbackLimits UserFeedbackLimit[]
+  emotions  EmotionRecord[]
+  locations LocationLog[]
+  steps     StepRecord[]
+  aiFeedbacks AiFeedback[]
 
   @@index([userId])
   @@map("users")
@@ -34,11 +40,13 @@ model AppUsage {
   appName          String
   usageTimeInMillis Int
   appIconPath      String?
+  isSynced         Boolean  @default(false)
 
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  @@index([userId])
+  @@index([userId, date])
+  @@index([userId, packageName])
   @@map("appusages")
 }
 
@@ -49,12 +57,15 @@ model Diary {
   date       String
   title      String
   content    String?
+  photoPaths String?  // JSON 배열로 저장
+  isSynced   Boolean  @default(false)
 
   photos     Photo[]
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  @@unique([userId, date])
   @@index([userId])
   @@map("diaries")
 }
@@ -63,11 +74,14 @@ model Photo {
   id        String   @id @default(cuid())
   diaryId   String
   url       String
+  userId    String
+  isSynced  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  diary     Diary    @relation(fields: [diaryId], references: [id])
+  diary     Diary    @relation(fields: [diaryId], references: [id], onDelete: Cascade)
 
   @@index([diaryId])
+  @@index([userId])
   @@map("photos")
 }
 
@@ -79,35 +93,42 @@ model Checklist {
   text           String
   subtext        String? 
   isChecked      Boolean  @default(false)
-  dueDate        DateTime?
-  completedDate  DateTime?
+  dueDate        String?  // Flutter에서는 TEXT로 저장
+  completedDate  String?  // Flutter에서는 TEXT로 저장
+  isSynced       Boolean  @default(false)
 
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  @@index([userId])
+  @@index([userId, isChecked])
+  @@index([userId, dueDate])
   @@map("checklists")
 }
 
 model Schedule {
-  id             String   @id @default(cuid())
-  userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  text           String
-  subText        String?
-  dayOfWeek      Int?
-  selectedDate   DateTime?
-  isRoutine      Boolean
-  startTime      String
-  endTime        String
-  color          String?
-  hasAlarm       Boolean?
-  alarmOffset    Int? // Milliseconds
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text              String
+  subText           String?
+  dayOfWeek         Int?     // 0-6 (Sunday to Saturday)
+  selectedDate      String?  // Flutter에서는 TEXT로 저장
+  isRoutine         Boolean  @default(false)
+  startTimeHour     Int      // 시작 시간 (시)
+  startTimeMinute   Int      // 시작 시간 (분)
+  endTimeHour       Int      // 종료 시간 (시)
+  endTimeMinute     Int      // 종료 시간 (분)
+  colorValue        Int?     // 색상 값 (INTEGER)
+  hasAlarm          Boolean? @default(false)
+  alarmOffset       Int?     // Minutes before event
+  isSynced          Boolean  @default(false)
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  @@index([userId])
+  @@index([userId, selectedDate])
+  @@index([userId, dayOfWeek])
+  @@index([userId, isRoutine])
   @@map("schedules")
 }
 
@@ -116,8 +137,11 @@ model BlacklistedToken {
   token     String   @unique
   expiresAt DateTime
 
+  @@index([expiresAt])
   @@map("blacklisted_tokens")
-}model UserFeedbackLimit {
+}
+
+model UserFeedbackLimit {
   id        String   @id @default(cuid())
   userId    String
   date      String // yyyy-MM-dd
@@ -130,4 +154,73 @@ model BlacklistedToken {
   @@unique([userId, date])
   @@index([userId])
   @@map("user_feedback_limits")
+}
+
+model EmotionRecord {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date         String   // yyyy-MM-dd format
+  hour         Int      // 0-23
+  emotionType  String   // 감정 타입 (예: happy, sad, angry, etc.)
+  notes        String?  // 추가 메모
+  isSynced     Boolean  @default(false)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([userId, date, hour])
+  @@index([userId, date])
+  @@map("emotion_records")
+}
+
+model LocationLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  latitude  Float
+  longitude Float
+  accuracy  Float?
+  address   String?
+  timestamp String   // Flutter에서는 TEXT로 저장
+  isSynced  Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, timestamp])
+  @@map("location_logs")
+}
+
+model StepRecord {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String   // yyyy-MM-dd format
+  stepCount Int
+  distance  Float?   // 거리 (미터)
+  calories  Float?   // 칼로리
+  isSynced  Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@index([userId])
+  @@map("steps")
+}
+
+model AiFeedback {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date         String   // yyyy-MM-dd format
+  feedbackText String   // 피드백 내용
+  isSynced     Boolean  @default(false)
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId, date])
+  @@map("ai_feedback")
 }

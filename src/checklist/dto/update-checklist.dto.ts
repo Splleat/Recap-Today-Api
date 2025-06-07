@@ -3,6 +3,6 @@ export class UpdateChecklistDto {
     text?: string;
     subtext?: string;
     isChecked?: boolean;
-    dueDate?: Date;
-    completedDate?: Date;
+    dueDate?: string;
+    completedDate?: string;
 }

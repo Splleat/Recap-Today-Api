@@ -12,6 +12,7 @@ import { PhotoModule } from './photo/photo.module';
 import { DiaryModule } from './diary/diary.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { AiFeedbackModule } from './ai-feedback/ai-feedback.module';
+import { BackupModule } from './backup/backup.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { AiFeedbackModule } from './ai-feedback/ai-feedback.module';
     PhotoModule,
     DiaryModule,
     AiFeedbackModule,
+    BackupModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,9 +5,11 @@ export class CreateScheduleDto {
     dayOfWeek?: number;
     selectedDate?: string;
     isRoutine: boolean;
-    startTime: string;
-    endTime: string;
-    color?: string;
+    startTimeHour: number;
+    startTimeMinute: number;
+    endTimeHour: number;
+    endTimeMinute: number;
+    colorValue?: number;
     hasAlarm?: boolean;
     alarmOffset?: number;
 }

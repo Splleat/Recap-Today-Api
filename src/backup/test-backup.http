@@ -1,0 +1,107 @@
+### 백업 동기화 테스트
+POST http://localhost:3000/backup/sync/test-user-123
+Content-Type: application/json
+
+{
+  "diaries": [
+    {
+      "date": "2023-06-01",
+      "title": "테스트 일기",
+      "content": "오늘은 테스트를 위한 일기입니다.",
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    }
+  ],
+  "checklists": [
+    {
+      "text": "테스트 체크리스트",
+      "subtext": "테스트용 부가 설명",
+      "isChecked": false,
+      "dueDate": "2023-06-05",
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    }
+  ],
+  "schedules": [
+    {
+      "text": "테스트 일정",
+      "subText": "테스트 부가 설명",
+      "dayOfWeek": 1,
+      "selectedDate": "2023-06-05",
+      "startTimeHour": 10,
+      "startTimeMinute": 0,
+      "endTimeHour": 11,
+      "endTimeMinute": 30,
+      "colorValue": 4281895381,
+      "hasAlarm": true,
+      "alarmOffset": 30,
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    }
+  ],
+  "appUsages": [
+    {
+      "date": "2023-06-01",
+      "package_name": "com.example.testapp",
+      "app_name": "테스트 앱",
+      "usage_time": 3600000,
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    },
+    {
+      "date": "2023-06-01",
+      "package_name": null,
+      "app_name": "이름만 있는 앱",
+      "usage_time": 1800000,
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    }
+  ],
+  "emotions": [
+    {
+      "date": "2023-06-01",
+      "hour": 10,
+      "emotionType": "happy",
+      "notes": "기분이 좋습니다.",
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    },
+    {
+      "date": "2023-06-01",
+      "hour": 14,
+      "emotionType": null,
+      "notes": "감정 타입이 없는 데이터",
+      "createdAt": "2023-06-01T14:00:00.000Z"
+    }
+  ],
+  "locations": [
+    {
+      "latitude": 37.5665,
+      "longitude": 126.9780,
+      "accuracy": 10.5,
+      "address": "서울 중구",
+      "timestamp": "2023-06-01T10:00:00.000Z",
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    }
+  ],
+  "steps": [
+    {
+      "date": "2023-06-01",
+      "stepCount": 8500,
+      "distance": 6200.5,
+      "calories": 350.2,
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    },
+    {
+      "date": "2023-06-02",
+      "stepCount": null,
+      "distance": 5000.0,
+      "calories": 300.0,
+      "createdAt": "2023-06-02T10:00:00.000Z"
+    }
+  ],
+  "aiFeedbacks": [
+    {
+      "date": "2023-06-01",
+      "feedbackText": "오늘 하루도 수고하셨습니다. 내일도 파이팅!",
+      "createdAt": "2023-06-01T10:00:00.000Z"
+    }
+  ]
+}
+
+### 데이터 삭제 테스트
+DELETE http://localhost:3000/backup/clear/test-user-123
