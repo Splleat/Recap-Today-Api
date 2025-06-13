@@ -261,17 +261,22 @@ export class BackupService {
     this.logger.log(`일정 동기화 처리 시작: ${schedules.length}개`);
     let count = 0;
     for (const schedule of schedules) {
-      try {
+      try {        this.logger.debug(`일정 처리 중: ${JSON.stringify(schedule)}`);
+        
         // Flutter의 알람 오프셋 필드명 매핑 (alarm_offset_in_minutes -> alarmOffset)
         const alarmOffset = schedule.alarmOffset || schedule.alarm_offset_in_minutes || schedule.alarmOffsetInMinutes;
+          // selectedDate와 dayOfWeek 정규화
+        const normalizedSelectedDate = schedule.selectedDate && schedule.selectedDate !== '' ? schedule.selectedDate : null;
+        const normalizedDayOfWeek = schedule.dayOfWeek || null;        
+        this.logger.debug(`정규화된 값: selectedDate=${normalizedSelectedDate}, dayOfWeek=${normalizedDayOfWeek}`);
         
         // 스케줄 ID로 중복 확인 후 upsert
         const existingSchedule = await this.prisma.schedule.findFirst({
           where: {
             userId: userDbId,
             text: schedule.text,
-            selectedDate: schedule.selectedDate || null,
-            dayOfWeek: schedule.dayOfWeek || null
+            selectedDate: normalizedSelectedDate,
+            dayOfWeek: normalizedDayOfWeek
           }
         });
 
@@ -293,14 +298,13 @@ export class BackupService {
             }
           });
         } else {
-          this.logger.debug(`새 일정 생성: ${schedule.text}`);
-          await this.prisma.schedule.create({
+          this.logger.debug(`새 일정 생성: ${schedule.text}`);          const createdSchedule = await this.prisma.schedule.create({
             data: {
               userId: userDbId,
               text: schedule.text,
               subText: schedule.subText,
-              dayOfWeek: schedule.dayOfWeek,
-              selectedDate: schedule.selectedDate ? schedule.selectedDate : null,
+              dayOfWeek: normalizedDayOfWeek,
+              selectedDate: normalizedSelectedDate,
               isRoutine: schedule.isRoutine || false,
               startTimeHour: schedule.startTimeHour || 0,
               startTimeMinute: schedule.startTimeMinute || 0,
@@ -311,6 +315,7 @@ export class BackupService {
               createdAt: schedule.createdAt ? new Date(schedule.createdAt) : new Date(),
             }
           });
+          this.logger.debug(`일정 생성 완료: ID=${createdSchedule.id}`);
         }
         count++;
       } catch (error) {
@@ -648,8 +653,7 @@ export class BackupService {
           message: '사용자를 찾을 수 없습니다.',
         };
       }      this.logger.log(`사용자 확인됨: ${userId}`);      
-      
-      // 서버에서 모든 데이터 조회 (사진 테이블 제외 - 일기의 photoPaths 필드로 관리)
+        // 서버에서 모든 데이터 조회 (사진 테이블 제외 - 일기의 photoPaths 필드로 관리)
       const [diaries, checklists, schedules, appUsages, emotions, locations, steps, aiFeedbacks] = await Promise.all([
         this.prisma.diary.findMany({ where: { userId: user.id } }),
         this.prisma.checklist.findMany({ where: { userId: user.id } }),
@@ -659,7 +663,9 @@ export class BackupService {
         this.prisma.locationLog.findMany({ where: { userId: user.id } }),
         this.prisma.stepRecord.findMany({ where: { userId: user.id } }),
         this.prisma.aiFeedback.findMany({ where: { userId: user.id } }),
-      ]);const restoredData = {
+      ]);
+      
+      this.logger.log(`데이터 조회 완료 - 일정: ${schedules.length}개, 일기: ${diaries.length}개, 체크리스트: ${checklists.length}개`);const restoredData = {
         diaries: diaries.map(diary => ({
           id: diary.id.toString(),
           userId: userId,
@@ -685,8 +691,8 @@ export class BackupService {
           userId: userId,
           text: item.text,
           subText: item.subText || '',
-          dayOfWeek: item.dayOfWeek || 0,
-          selectedDate: item.selectedDate || '',
+          dayOfWeek: item.dayOfWeek || null,
+          selectedDate: item.selectedDate || null,
           isRoutine: item.isRoutine,
           startTimeHour: item.startTimeHour,
           startTimeMinute: item.startTimeMinute,
@@ -699,7 +705,7 @@ export class BackupService {
           alarm_offset_in_minutes: item.alarmOffset || 0,
           createdAt: item.createdAt.toISOString(),
           updatedAt: item.updatedAt.toISOString(),
-        })),        appUsages: appUsages.map(usage => ({
+        })),appUsages: appUsages.map(usage => ({
           id: usage.id.toString(),
           userId: userId,
           date: usage.date,
