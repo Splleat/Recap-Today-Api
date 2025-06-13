@@ -911,18 +911,17 @@ export class BackupService {
           photoPaths: diary.photoPaths || '',
           createdAt: diary.createdAt.toISOString(),
           updatedAt: diary.updatedAt.toISOString(),
-        })),
-        checklists: checklists.map(item => ({
+        })),        checklists: checklists.map(item => ({
           id: item.id.toString(),
           userId: userId,
           text: item.text,
           subtext: item.subtext || '',
           isChecked: item.isChecked,
-          dueDate: item.dueDate || '',
-          completedDate: item.completedDate || '',
+          dueDate: item.dueDate || null,
+          completedDate: item.completedDate || null,
           createdAt: item.createdAt.toISOString(),
           updatedAt: item.updatedAt.toISOString(),
-        })),        schedules: schedules.map(item => ({
+        })),schedules: schedules.map(item => ({
           id: item.id.toString(),
           userId: userId,
           text: item.text,
