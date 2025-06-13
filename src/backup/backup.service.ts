@@ -7,6 +7,29 @@ export class BackupService {
   private readonly logger = new Logger(BackupService.name);
   
   constructor(private readonly prisma: PrismaService) {}
+  // Helper method to safely convert BigInt values to strings
+  private safeBigIntToString(value: any): string {
+    if (typeof value === 'bigint') {
+      return value.toString();
+    }
+    if (typeof value === 'number') {
+      return value.toString();
+    }
+    if (typeof value === 'string') {
+      return value;
+    }
+    return String(value || 0);
+  }
+
+  // Helper method to safely serialize objects with BigInt values
+  private serializeObject(obj: any): any {
+    return JSON.parse(JSON.stringify(obj, (key, value) => {
+      if (typeof value === 'bigint') {
+        return value.toString();
+      }
+      return value;
+    }));
+  }
   async syncAllData(userId: string, data: BackupData) {
     this.logger.log(`백업 동기화 시작 - 사용자 ID: ${userId}`);
       const results = {
@@ -721,17 +744,17 @@ export class BackupService {
           alarm_offset_in_minutes: item.alarmOffset || 0,
           createdAt: item.createdAt.toISOString(),
           updatedAt: item.updatedAt.toISOString(),
-        })),appUsages: appUsages.map(usage => ({
+        })),        appUsages: appUsages.map(usage => ({
           id: usage.id.toString(),
           userId: userId,
           date: usage.date,
           appName: usage.appName,
           packageName: usage.packageName,
-          usageTimeInMillis: usage.usageTimeInMillis.toString(),
+          usageTimeInMillis: this.safeBigIntToString(usage.usageTimeInMillis),
           // Flutter 호환성을 위한 추가 필드 매핑
           app_name: usage.appName,
           package_name: usage.packageName,
-          usage_time: usage.usageTimeInMillis.toString(),
+          usage_time: this.safeBigIntToString(usage.usageTimeInMillis),
           app_icon_path: usage.appIconPath || '',
           createdAt: usage.createdAt.toISOString(),
           updatedAt: usage.updatedAt.toISOString(),
@@ -756,16 +779,16 @@ export class BackupService {
           timestamp: location.timestamp,
           createdAt: location.createdAt.toISOString(),
           updatedAt: location.updatedAt.toISOString(),
-        })),
-        steps: steps.map(step => ({
+        })),        steps: steps.map(step => ({
           id: step.id.toString(),
           userId: userId,
           date: step.date,
-          stepCount: step.stepCount,
-          distance: step.distance || 0,
-          calories: step.calories || 0,
+          stepCount: this.safeBigIntToString(step.stepCount),
+          distance: this.safeBigIntToString(step.distance || 0),
+          calories: this.safeBigIntToString(step.calories || 0),
           createdAt: step.createdAt.toISOString(),
-          updatedAt: step.updatedAt.toISOString(),        })),        
+          updatedAt: step.updatedAt.toISOString(),
+        })),
         aiFeedbacks: aiFeedbacks.map(feedback => ({
           id: feedback.id.toString(),
           userId: userId,
@@ -776,22 +799,25 @@ export class BackupService {
         })),
         // 사진 데이터는 일기의 photoPaths 필드로 관리되므로 별도 반환하지 않음
         photos: [], // 빈 배열로 유지하여 클라이언트 호환성 보장
-      };
-
-      const totalCount = Object.values(restoredData).reduce((total, items) => total + items.length, 0);
+      };      const totalCount = Object.values(restoredData).reduce((total, items) => total + items.length, 0);
       
       this.logger.log(`데이터 복원 완료 - 사용자: ${userId}, 총 복원 항목: ${totalCount}개`);
       
+      // BigInt 직렬화 문제를 방지하기 위해 안전하게 직렬화
+      const safeRestoredData = this.serializeObject(restoredData);
+      
       return {
         success: true,
-        data: restoredData,
-        message: `서버에서 ${totalCount}개의 항목을 성공적으로 가져왔습니다.`,        statistics: {
+        data: safeRestoredData,
+        message: `서버에서 ${totalCount}개의 항목을 성공적으로 가져왔습니다.`,
+        statistics: {
           diaries: restoredData.diaries.length,
           checklists: restoredData.checklists.length,
           schedules: restoredData.schedules.length,
           appUsages: restoredData.appUsages.length,
           emotions: restoredData.emotions.length,
-          locations: restoredData.locations.length,          steps: restoredData.steps.length,
+          locations: restoredData.locations.length,
+          steps: restoredData.steps.length,
           aiFeedbacks: restoredData.aiFeedbacks.length,
           photos: 0, // 사진은 일기의 photoPaths 필드로 관리됨
         }
