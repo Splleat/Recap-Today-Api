@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
+import { PrismaService } from 'src/prisma.service';
+import * as fs from 'fs';
+import * as path from 'path';
 import { BackupData } from './backup.controller';
 
 @Injectable()
@@ -133,9 +135,17 @@ export class BackupService {
       };
     }
   }
-
   async syncPhotoChunk(userId: string, photoFiles: any[]) {
     this.logger.log(`사진 청크 동기화 시작 - 사용자 ID: ${userId}, 사진 수: ${photoFiles.length}`);
+    
+    // 받은 데이터 구조 로깅
+    this.logger.debug(`받은 photoFiles 구조: ${JSON.stringify(photoFiles.map(pf => ({
+      fileName: pf.fileName,
+      hasData: !!pf.data,
+      dataLength: pf.data ? pf.data.length : 0,
+      diaryDate: pf.diaryDate,
+      diaryUserId: pf.diaryUserId
+    })))}`);
     
     try {
       // 사용자 확인
@@ -154,14 +164,25 @@ export class BackupService {
       let syncedCount = 0;
       
       // 각 사진 파일 처리
-      for (const photoFile of photoFiles) {
-        try {
-          // 사진 파일 데이터를 일기에 연결하여 저장
-          // photoFile 구조: { fileName, base64Data, diaryDate, diaryUserId }
-          const { fileName, base64Data, diaryDate, diaryUserId } = photoFile;
+      for (const photoFile of photoFiles) {        try {          // 사진 파일 데이터를 일기에 연결하여 저장
+          // photoFile 구조: { fileName, data, diaryDate, diaryUserId }
+          const { fileName, data, diaryDate, diaryUserId } = photoFile;
           
-          if (!fileName || !base64Data || !diaryDate) {
-            this.logger.warn(`사진 파일 데이터가 불완전함: ${JSON.stringify(photoFile)}`);
+          this.logger.debug(`사진 파일 처리 시작: ${fileName}, 데이터 길이: ${data ? data.length : 0}`);
+          
+          if (!fileName || !data || !diaryDate) {
+            this.logger.warn(`사진 파일 데이터가 불완전함: fileName=${fileName}, hasData=${!!data}, diaryDate=${diaryDate}`);
+            continue;
+          }
+
+          // Base64 데이터 유효성 검사
+          if (typeof data !== 'string') {
+            this.logger.warn(`Base64 데이터가 문자열이 아님: ${typeof data}`);
+            continue;
+          }
+
+          if (data.length < 100) {
+            this.logger.warn(`Base64 데이터가 너무 짧음: ${data.length} 문자`);
             continue;
           }
 
@@ -171,9 +192,44 @@ export class BackupService {
               userId: user.id,
               date: diaryDate
             }
-          });
-
-          if (diary) {
+          });          if (diary) {
+            // Base64 데이터를 파일로 저장
+            let base64Data = data;
+            let buffer: Buffer;
+            
+            // data: 접두사 제거 (있는 경우)
+            if (base64Data.includes(',')) {
+              base64Data = base64Data.split(',')[1];
+              this.logger.debug(`데이터 URL 접두사 제거됨: ${data.length} → ${base64Data.length} 문자`);
+            }
+            
+            try {
+              buffer = Buffer.from(base64Data, 'base64');
+              this.logger.debug(`Base64 디코딩 성공: ${base64Data.length} 문자 → ${buffer.length} 바이트`);
+              
+              // 디코딩된 데이터가 너무 작으면 유효하지 않음
+              if (buffer.length < 1000) {
+                this.logger.warn(`디코딩된 이미지 데이터가 너무 작음: ${buffer.length} 바이트`);
+                continue;
+              }
+              
+              // uploads 디렉토리 생성 (없으면)
+              const uploadsDir = path.join(process.cwd(), 'uploads', 'photos');
+              if (!fs.existsSync(uploadsDir)) {
+                fs.mkdirSync(uploadsDir, { recursive: true });
+                this.logger.debug(`업로드 디렉토리 생성: ${uploadsDir}`);
+              }
+              
+              // 파일 저장
+              const filePath = path.join(uploadsDir, fileName);
+              fs.writeFileSync(filePath, buffer);
+              this.logger.debug(`파일 저장 완료: ${filePath} (${buffer.length} 바이트)`);
+              
+            } catch (decodeError) {
+              this.logger.error(`Base64 디코딩 실패: ${decodeError.message}, 데이터 샘플: ${base64Data.substring(0, 100)}...`);
+              continue;
+            }
+            
             // 일기가 존재하면 photoPaths 필드에 사진 정보 추가
             const currentPhotoPaths = diary.photoPaths || '[]';
             let photoPathsArray: string[] = [];
@@ -197,7 +253,7 @@ export class BackupService {
               });
               
               syncedCount++;
-              this.logger.debug(`사진 파일 동기화 완료: ${fileName} (일기: ${diaryDate})`);
+              this.logger.debug(`사진 파일 동기화 완료: ${fileName} (일기: ${diaryDate}, 파일 크기: ${buffer.length} bytes)`);
             } else {
               this.logger.debug(`이미 존재하는 사진 파일: ${fileName} (일기: ${diaryDate})`);
             }
