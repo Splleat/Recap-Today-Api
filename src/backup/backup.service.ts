@@ -22,7 +22,6 @@ export class BackupService {
     }
     return String(value || 0);
   }
-
   // Helper method to safely serialize objects with BigInt values
   private serializeObject(obj: any): any {
     return JSON.parse(JSON.stringify(obj, (key, value) => {
@@ -31,6 +30,31 @@ export class BackupService {
       }
       return value;
     }));
+  }
+
+  // 이미지 파일 시그니처 검증 메서드
+  private validateImageSignature(signature: Buffer): boolean {
+    // JPEG 시그니처: FF D8 FF
+    if (signature[0] === 0xFF && signature[1] === 0xD8 && signature[2] === 0xFF) {
+      return true;
+    }
+    
+    // PNG 시그니처: 89 50 4E 47
+    if (signature[0] === 0x89 && signature[1] === 0x50 && signature[2] === 0x4E && signature[3] === 0x47) {
+      return true;
+    }
+    
+    // GIF 시그니처: 47 49 46 38 (GIF8)
+    if (signature[0] === 0x47 && signature[1] === 0x49 && signature[2] === 0x46 && signature[3] === 0x38) {
+      return true;
+    }
+    
+    // WebP 시그니처: 52 49 46 46 (RIFF) - 추가 검사 필요하지만 기본적으로 허용
+    if (signature[0] === 0x52 && signature[1] === 0x49 && signature[2] === 0x46 && signature[3] === 0x46) {
+      return true;
+    }
+    
+    return false;
   }
   async syncAllData(userId: string, data: BackupData) {
     this.logger.log(`백업 동기화 시작 - 사용자 ID: ${userId}`);
@@ -206,24 +230,45 @@ export class BackupService {
             try {
               buffer = Buffer.from(base64Data, 'base64');
               this.logger.debug(`Base64 디코딩 성공: ${base64Data.length} 문자 → ${buffer.length} 바이트`);
+                // 이미지 파일 시그니처 검증
+              const signature = buffer.subarray(0, 4);
+              const isValidImage = this.validateImageSignature(signature);
+              
+              if (!isValidImage) {
+                this.logger.warn(`유효하지 않은 이미지 파일 형식: ${fileName}`);
+                continue;
+              }
               
               // 디코딩된 데이터가 너무 작으면 유효하지 않음
               if (buffer.length < 1000) {
                 this.logger.warn(`디코딩된 이미지 데이터가 너무 작음: ${buffer.length} 바이트`);
                 continue;
               }
-              
-              // uploads 디렉토리 생성 (없으면)
+                // uploads 디렉토리 생성 (없으면)
               const uploadsDir = path.join(process.cwd(), 'uploads', 'photos');
               if (!fs.existsSync(uploadsDir)) {
                 fs.mkdirSync(uploadsDir, { recursive: true });
                 this.logger.debug(`업로드 디렉토리 생성: ${uploadsDir}`);
               }
               
-              // 파일 저장
+              // 파일 경로 확인
               const filePath = path.join(uploadsDir, fileName);
-              fs.writeFileSync(filePath, buffer);
-              this.logger.debug(`파일 저장 완료: ${filePath} (${buffer.length} 바이트)`);
+              const fileExists = fs.existsSync(filePath);
+              
+              // 파일이 이미 존재하는 경우 크기 비교
+              if (fileExists) {
+                const existingSize = fs.statSync(filePath).size;
+                if (existingSize === buffer.length) {
+                  this.logger.debug(`동일한 크기의 파일이 이미 존재함: ${fileName} (${existingSize} 바이트)`);
+                } else {
+                  this.logger.debug(`다른 크기의 파일 덮어쓰기: ${fileName} (기존: ${existingSize}, 새로운: ${buffer.length} 바이트)`);
+                  fs.writeFileSync(filePath, buffer);
+                }
+              } else {
+                // 새 파일 저장
+                fs.writeFileSync(filePath, buffer);
+                this.logger.debug(`새 파일 저장 완료: ${filePath} (${buffer.length} 바이트)`);
+              }
               
             } catch (decodeError) {
               this.logger.error(`Base64 디코딩 실패: ${decodeError.message}, 데이터 샘플: ${base64Data.substring(0, 100)}...`);
@@ -979,6 +1024,70 @@ export class BackupService {
       return {
         success: false,
         message: '데이터 복원 중 오류가 발생했습니다.',
+        error: error.message
+      };
+    }  }
+
+  async downloadPhotoFile(userId: string, fileName: string): Promise<{ success: boolean; filePath?: string; fileBuffer?: Buffer; error?: string }> {
+    this.logger.log(`사진 파일 다운로드 요청 - 사용자: ${userId}, 파일: ${fileName}`);
+    
+    try {
+      // 사용자 확인
+      const user = await this.prisma.user.findUnique({
+        where: { userId: userId }
+      });
+
+      if (!user) {
+        this.logger.warn(`사용자를 찾을 수 없음: ${userId}`);
+        return {
+          success: false,
+          error: 'User not found'
+        };
+      }
+
+      // 사용자가 이 파일에 접근 권한이 있는지 확인 (일기의 photoPaths에 포함되어 있는지)
+      const diary = await this.prisma.diary.findFirst({
+        where: {
+          userId: user.id,
+          photoPaths: {
+            contains: fileName
+          }
+        }
+      });
+
+      if (!diary) {
+        this.logger.warn(`해당 사용자의 일기에서 사진 파일을 찾을 수 없음: ${fileName}`);
+        return {
+          success: false,
+          error: 'Photo not found in user diaries'
+        };
+      }
+
+      // 파일 경로 구성
+      const uploadsDir = path.join(process.cwd(), 'uploads', 'photos');
+      const filePath = path.join(uploadsDir, fileName);
+
+      // 파일 존재 확인
+      if (!fs.existsSync(filePath)) {
+        this.logger.warn(`물리적 파일이 존재하지 않음: ${filePath}`);
+        return {
+          success: false,
+          error: 'Physical file not found'
+        };
+      }      // 파일을 버퍼로 읽기
+      const fileBuffer = fs.readFileSync(filePath);
+      
+      this.logger.log(`사진 파일 다운로드 준비 완료: ${filePath}, 크기: ${fileBuffer.length} bytes`);
+      return {
+        success: true,
+        filePath: filePath,
+        fileBuffer: fileBuffer
+      };
+
+    } catch (error) {
+      this.logger.error(`사진 파일 다운로드 실패 - 사용자: ${userId}, 파일: ${fileName}, 오류: ${error.message}`, error.stack);
+      return {
+        success: false,
         error: error.message
       };
     }
