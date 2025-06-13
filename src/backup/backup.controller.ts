@@ -11,6 +11,8 @@ export interface BackupData {
   steps?: any[];
   aiFeedbacks?: any[];
   photos?: any[];
+  photoFiles?: any[]; // 사진 파일 데이터
+  isPhotoChunk?: boolean; // 사진 청크 여부
 }
 
 @Controller('backup')
@@ -40,8 +42,25 @@ export class BackupController {
     } catch (error) {
       this.logger.error(`백업 동기화 API 오류 - 사용자: ${userId}`, error.stack);
       throw error;
+    }  }
+
+  @Post('sync-photos/:userId')
+  async syncPhotos(@Param('userId') userId: string, @Body() data: BackupData) {
+    this.logger.log(`사진 청크 동기화 API 요청 - 사용자: ${userId}`);
+    
+    const photoCount = data.photoFiles?.length || 0;
+    this.logger.log(`사진 청크 데이터 통계: ${photoCount}개`);
+    
+    try {
+      const result = await this.backupService.syncPhotoChunk(userId, data.photoFiles || []);
+      this.logger.log(`사진 청크 동기화 API 응답 - 사용자: ${userId}, 성공: ${result.success}`);
+      return result;
+    } catch (error) {
+      this.logger.error(`사진 청크 동기화 API 오류 - 사용자: ${userId}`, error.stack);
+      throw error;
     }
   }
+
   @Post('restore/:userId')
   async restoreAllData(@Param('userId') userId: string) {
     this.logger.log(`데이터 복원 API 요청 - 사용자: ${userId}`);

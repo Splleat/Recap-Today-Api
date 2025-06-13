@@ -132,7 +132,103 @@ export class BackupService {
         synced: results.synced
       };
     }
-  }  async clearAllData(userId: string) {
+  }
+
+  async syncPhotoChunk(userId: string, photoFiles: any[]) {
+    this.logger.log(`사진 청크 동기화 시작 - 사용자 ID: ${userId}, 사진 수: ${photoFiles.length}`);
+    
+    try {
+      // 사용자 확인
+      const user = await this.prisma.user.findUnique({
+        where: { userId: userId }
+      });
+
+      if (!user) {
+        this.logger.warn(`사용자를 찾을 수 없음: ${userId}`);
+        return {
+          success: false,
+          error: 'User not found'
+        };
+      }
+
+      let syncedCount = 0;
+      
+      // 각 사진 파일 처리
+      for (const photoFile of photoFiles) {
+        try {
+          // 사진 파일 데이터를 일기에 연결하여 저장
+          // photoFile 구조: { fileName, base64Data, diaryDate, diaryUserId }
+          const { fileName, base64Data, diaryDate, diaryUserId } = photoFile;
+          
+          if (!fileName || !base64Data || !diaryDate) {
+            this.logger.warn(`사진 파일 데이터가 불완전함: ${JSON.stringify(photoFile)}`);
+            continue;
+          }
+
+          // 해당 날짜의 일기 찾기
+          const diary = await this.prisma.diary.findFirst({
+            where: {
+              userId: user.id,
+              date: diaryDate
+            }
+          });
+
+          if (diary) {
+            // 일기가 존재하면 photoPaths 필드에 사진 정보 추가
+            const currentPhotoPaths = diary.photoPaths || '[]';
+            let photoPathsArray: string[] = [];
+            
+            try {
+              photoPathsArray = JSON.parse(currentPhotoPaths);
+            } catch (e) {
+              photoPathsArray = [];
+            }
+
+            // 이미 존재하는 파일명인지 확인
+            if (!photoPathsArray.includes(fileName)) {
+              photoPathsArray.push(fileName);
+              
+              // 일기의 photoPaths 업데이트
+              await this.prisma.diary.update({
+                where: { id: diary.id },
+                data: {
+                  photoPaths: JSON.stringify(photoPathsArray)
+                }
+              });
+              
+              syncedCount++;
+              this.logger.debug(`사진 파일 동기화 완료: ${fileName} (일기: ${diaryDate})`);
+            } else {
+              this.logger.debug(`이미 존재하는 사진 파일: ${fileName} (일기: ${diaryDate})`);
+            }
+          } else {
+            this.logger.warn(`해당 날짜의 일기를 찾을 수 없음: ${diaryDate} (사진: ${fileName})`);
+          }
+          
+        } catch (photoError) {
+          this.logger.error(`개별 사진 파일 처리 오류: ${photoError.message}`);
+        }
+      }
+
+      this.logger.log(`사진 청크 동기화 완료 - 사용자: ${userId}, 처리된 사진: ${syncedCount}/${photoFiles.length}개`);
+      
+      return {
+        success: true,
+        message: `사진 청크 동기화 완료: ${syncedCount}개 처리됨`,
+        syncedCount: syncedCount,
+        totalCount: photoFiles.length
+      };
+      
+    } catch (error) {
+      this.logger.error(`사진 청크 동기화 실패 - 사용자: ${userId}, 오류: ${error.message}`, error.stack);
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  }
+
+  async clearAllData(userId: string) {
     this.logger.log(`모든 데이터 삭제 시작 - 사용자 ID: ${userId}`);
     
     try {
