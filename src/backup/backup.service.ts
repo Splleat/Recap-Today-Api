@@ -213,13 +213,35 @@ export class BackupService {
     this.logger.log(`일기 동기화 처리 완료: ${count}/${diaries.length}개 성공`);
     return count;
   }
-
   private async syncChecklists(userDbId: string, checklists: any[]) {
     this.logger.log(`체크리스트 동기화 처리 시작: ${checklists.length}개`);
     let count = 0;
     for (const checklist of checklists) {
       try {
-        await this.prisma.checklist.create({            data: {
+        // 중복 확인: 텍스트와 사용자 ID로 검사
+        const existingChecklist = await this.prisma.checklist.findFirst({
+          where: {
+            userId: userDbId,
+            text: checklist.text,
+            dueDate: checklist.dueDate || null
+          }
+        });
+
+        if (existingChecklist) {
+          this.logger.debug(`기존 체크리스트 업데이트: ${checklist.text}`);
+          await this.prisma.checklist.update({
+            where: { id: existingChecklist.id },
+            data: {
+              subtext: checklist.subtext,
+              isChecked: checklist.isChecked || false,
+              completedDate: checklist.completedDate ? checklist.completedDate : null,
+              updatedAt: new Date(),
+            }
+          });
+        } else {
+          this.logger.debug(`새 체크리스트 생성: ${checklist.text}`);
+          await this.prisma.checklist.create({
+            data: {
               userId: userDbId,
               text: checklist.text,
               subtext: checklist.subtext,
@@ -228,7 +250,8 @@ export class BackupService {
               completedDate: checklist.completedDate ? checklist.completedDate : null,
               createdAt: checklist.createdAt ? new Date(checklist.createdAt) : new Date(),
             }
-        });
+          });
+        }
         count++;
       } catch (error) {
         this.logger.error(`체크리스트 동기화 오류:`, error.message);
@@ -238,12 +261,45 @@ export class BackupService {
     this.logger.log(`체크리스트 동기화 처리 완료: ${count}/${checklists.length}개 성공`);
     return count;
   }
-
   private async syncSchedules(userDbId: string, schedules: any[]) {
     this.logger.log(`일정 동기화 처리 시작: ${schedules.length}개`);
     let count = 0;
     for (const schedule of schedules) {
-      try {        await this.prisma.schedule.create({            data: {
+      try {
+        // Flutter의 알람 오프셋 필드명 매핑 (alarm_offset_in_minutes -> alarmOffset)
+        const alarmOffset = schedule.alarmOffset || schedule.alarm_offset_in_minutes || schedule.alarmOffsetInMinutes;
+        
+        // 스케줄 ID로 중복 확인 후 upsert
+        const existingSchedule = await this.prisma.schedule.findFirst({
+          where: {
+            userId: userDbId,
+            text: schedule.text,
+            selectedDate: schedule.selectedDate || null,
+            dayOfWeek: schedule.dayOfWeek || null
+          }
+        });
+
+        if (existingSchedule) {
+          this.logger.debug(`기존 일정 업데이트: ${schedule.text}`);
+          await this.prisma.schedule.update({
+            where: { id: existingSchedule.id },
+            data: {
+              subText: schedule.subText,
+              isRoutine: schedule.isRoutine || false,
+              startTimeHour: schedule.startTimeHour || 0,
+              startTimeMinute: schedule.startTimeMinute || 0,
+              endTimeHour: schedule.endTimeHour || 0,
+              endTimeMinute: schedule.endTimeMinute || 0,
+              colorValue: schedule.colorValue,
+              hasAlarm: schedule.hasAlarm,
+              alarmOffset: alarmOffset,
+              updatedAt: new Date(),
+            }
+          });
+        } else {
+          this.logger.debug(`새 일정 생성: ${schedule.text}`);
+          await this.prisma.schedule.create({
+            data: {
               userId: userDbId,
               text: schedule.text,
               subText: schedule.subText,
@@ -255,20 +311,21 @@ export class BackupService {
               endTimeHour: schedule.endTimeHour || 0,
               endTimeMinute: schedule.endTimeMinute || 0,
               colorValue: schedule.colorValue,
-              hasAlarm: schedule.hasAlarm,
-              alarmOffset: schedule.alarmOffset,
+              hasAlarm: schedule.hasAlarm,              alarmOffset: alarmOffset,
               createdAt: schedule.createdAt ? new Date(schedule.createdAt) : new Date(),
             }
-        });
+          });
+        }
         count++;
       } catch (error) {
         this.logger.error(`일정 동기화 오류:`, error.message);
         console.error(`일정 동기화 오류:`, error);
       }
-    }
-    this.logger.log(`일정 동기화 처리 완료: ${count}/${schedules.length}개 성공`);
+    }    this.logger.log(`일정 동기화 처리 완료: ${count}/${schedules.length}개 성공`);
     return count;
-  }  private async syncAppUsages(userDbId: string, appUsages: any[]) {
+  }
+
+  private async syncAppUsages(userDbId: string, appUsages: any[]) {
     this.logger.log(`앱 사용량 동기화 처리 시작: ${appUsages.length}개`);
     let count = 0;
     for (const appUsage of appUsages) {
@@ -628,8 +685,7 @@ export class BackupService {
           completedDate: item.completedDate || '',
           createdAt: item.createdAt.toISOString(),
           updatedAt: item.updatedAt.toISOString(),
-        })),
-        schedules: schedules.map(item => ({
+        })),        schedules: schedules.map(item => ({
           id: item.id.toString(),
           userId: userId,
           text: item.text,
@@ -644,16 +700,22 @@ export class BackupService {
           colorValue: item.colorValue || 0,
           hasAlarm: item.hasAlarm || false,
           alarmOffset: item.alarmOffset || 0,
+          // Flutter 호환성을 위한 추가 필드 매핑
+          alarm_offset_in_minutes: item.alarmOffset || 0,
           createdAt: item.createdAt.toISOString(),
           updatedAt: item.updatedAt.toISOString(),
-        })),
-        appUsages: appUsages.map(usage => ({
+        })),        appUsages: appUsages.map(usage => ({
           id: usage.id.toString(),
           userId: userId,
           date: usage.date,
           appName: usage.appName,
           packageName: usage.packageName,
           usageTimeInMillis: usage.usageTimeInMillis.toString(),
+          // Flutter 호환성을 위한 추가 필드 매핑
+          app_name: usage.appName,
+          package_name: usage.packageName,
+          usage_time: usage.usageTimeInMillis.toString(),
+          app_icon_path: usage.appIconPath || '',
           createdAt: usage.createdAt.toISOString(),
           updatedAt: usage.updatedAt.toISOString(),
         })),
