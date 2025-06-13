@@ -644,15 +644,26 @@ export class BackupService {
       // 사용자 확인
       const user = await this.prisma.user.findUnique({
         where: { userId: userId }
-      });
-
-      if (!user) {
+      });      if (!user) {
         this.logger.warn(`사용자를 찾을 수 없음: ${userId}`);
         return {
           success: false,
           message: '사용자를 찾을 수 없습니다.',
         };
-      }      this.logger.log(`사용자 확인됨: ${userId}`);      
+      }
+      
+      this.logger.log(`사용자 확인됨: ${userId}, 내부 ID: ${user.id}`);
+      
+      // 데이터베이스에서 직접 일정 조회 확인
+      const scheduleCount = await this.prisma.schedule.count({ where: { userId: user.id } });
+      this.logger.log(`데이터베이스 일정 개수 확인: ${scheduleCount}개 (userId: ${user.id})`);
+      
+      // 모든 일정 조회 (디버깅용)
+      const allSchedules = await this.prisma.schedule.findMany();
+      this.logger.log(`전체 일정 개수: ${allSchedules.length}개`);
+      allSchedules.forEach(s => {
+        this.logger.debug(`전체 일정: ID=${s.id}, userId=${s.userId}, text=${s.text}`);
+      });
         // 서버에서 모든 데이터 조회 (사진 테이블 제외 - 일기의 photoPaths 필드로 관리)
       const [diaries, checklists, schedules, appUsages, emotions, locations, steps, aiFeedbacks] = await Promise.all([
         this.prisma.diary.findMany({ where: { userId: user.id } }),
@@ -665,7 +676,12 @@ export class BackupService {
         this.prisma.aiFeedback.findMany({ where: { userId: user.id } }),
       ]);
       
-      this.logger.log(`데이터 조회 완료 - 일정: ${schedules.length}개, 일기: ${diaries.length}개, 체크리스트: ${checklists.length}개`);const restoredData = {
+      this.logger.log(`데이터 조회 완료 - 일정: ${schedules.length}개, 일기: ${diaries.length}개, 체크리스트: ${checklists.length}개`);
+      
+      // 일정 데이터 상세 로깅
+      schedules.forEach(schedule => {
+        this.logger.debug(`조회된 일정: ID=${schedule.id}, text=${schedule.text}, selectedDate=${schedule.selectedDate}, dayOfWeek=${schedule.dayOfWeek}, isRoutine=${schedule.isRoutine}`);
+      });const restoredData = {
         diaries: diaries.map(diary => ({
           id: diary.id.toString(),
           userId: userId,
