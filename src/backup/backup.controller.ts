@@ -10,6 +10,7 @@ export interface BackupData {
   locations?: any[];
   steps?: any[];
   aiFeedbacks?: any[];
+  photos?: any[];
 }
 
 @Controller('backup')
@@ -19,8 +20,7 @@ export class BackupController {
   constructor(private readonly backupService: BackupService) {}
 
   @Post('sync/:userId')  async syncAllData(@Param('userId') userId: string, @Body() data: BackupData) {
-    this.logger.log(`백업 동기화 API 요청 - 사용자: ${userId}`);
-    const dataStats = {
+    this.logger.log(`백업 동기화 API 요청 - 사용자: ${userId}`);    const dataStats = {
       diaries: data.diaries?.length || 0,
       checklists: data.checklists?.length || 0,
       schedules: data.schedules?.length || 0,
@@ -29,6 +29,7 @@ export class BackupController {
       locations: data.locations?.length || 0,
       steps: data.steps?.length || 0,
       aiFeedbacks: data.aiFeedbacks?.length || 0,
+      photos: data.photos?.length || 0,
     };
     this.logger.log(`요청 데이터 통계: ${JSON.stringify(dataStats)}`);
     

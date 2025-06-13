@@ -9,8 +9,7 @@ export class BackupService {
   constructor(private readonly prisma: PrismaService) {}
   async syncAllData(userId: string, data: BackupData) {
     this.logger.log(`백업 동기화 시작 - 사용자 ID: ${userId}`);
-    
-    const results = {
+      const results = {
       success: true,
       synced: {
         diaries: 0,
@@ -21,6 +20,7 @@ export class BackupService {
         locations: 0,
         steps: 0,
         aiFeedbacks: 0,
+        photos: 0,
       },
       errors: []
     };
@@ -86,13 +86,18 @@ export class BackupService {
         this.logger.log(`걸음 수 데이터 동기화 시작: ${data.steps.length}개`);
         results.synced.steps = await this.syncStepRecords(user.id, data.steps);
         this.logger.log(`걸음 수 데이터 동기화 완료: ${results.synced.steps}개`);
-      }
-
-      // AI 피드백 데이터 동기화
+      }      // AI 피드백 데이터 동기화
       if (data.aiFeedbacks && data.aiFeedbacks.length > 0) {
         this.logger.log(`AI 피드백 데이터 동기화 시작: ${data.aiFeedbacks.length}개`);
         results.synced.aiFeedbacks = await this.syncAiFeedbacks(user.id, data.aiFeedbacks);
         this.logger.log(`AI 피드백 데이터 동기화 완료: ${results.synced.aiFeedbacks}개`);
+      }
+
+      // 사진 데이터 동기화
+      if (data.photos && data.photos.length > 0) {
+        this.logger.log(`사진 데이터 동기화 시작: ${data.photos.length}개`);
+        results.synced.photos = await this.syncPhotos(user.id, data.photos);
+        this.logger.log(`사진 데이터 동기화 완료: ${results.synced.photos}개`);
       }
 
       this.logger.log(`백업 동기화 성공 완료 - 사용자: ${userId}, 총 동기화 항목: ${Object.values(results.synced).reduce((a, b) => a + b, 0)}개`);
@@ -123,9 +128,7 @@ export class BackupService {
         };
       }
 
-      this.logger.log(`사용자 확인됨, 데이터 삭제 시작: ${user.id}`);
-
-      // 사용자의 모든 데이터 삭제 (CASCADE로 자동 삭제되도록 함)
+      this.logger.log(`사용자 확인됨, 데이터 삭제 시작: ${user.id}`);      // 사용자의 모든 데이터 삭제 (CASCADE로 자동 삭제되도록 함)
       const deleteResults = await this.prisma.$transaction([
         this.prisma.appUsage.deleteMany({ where: { userId: user.id } }),
         this.prisma.diary.deleteMany({ where: { userId: user.id } }),
@@ -135,17 +138,17 @@ export class BackupService {
         this.prisma.locationLog.deleteMany({ where: { userId: user.id } }),
         this.prisma.stepRecord.deleteMany({ where: { userId: user.id } }),
         this.prisma.aiFeedback.deleteMany({ where: { userId: user.id } }),
+        this.prisma.photo.deleteMany({ where: { userId: user.id } }),
       ]);
 
       const totalDeleted = deleteResults.reduce((sum, result) => sum + result.count, 0);
 
       this.logger.log(`데이터 삭제 완료 - 사용자: ${userId}, 삭제된 항목: ${totalDeleted}개`);
-      this.logger.log(`삭제 상세: 앱사용량=${deleteResults[0].count}, 일기=${deleteResults[1].count}, 체크리스트=${deleteResults[2].count}, 일정=${deleteResults[3].count}, 감정=${deleteResults[4].count}, 위치=${deleteResults[5].count}, 걸음=${deleteResults[6].count}, AI피드백=${deleteResults[7].count}`);
+      this.logger.log(`삭제 상세: 앱사용량=${deleteResults[0].count}, 일기=${deleteResults[1].count}, 체크리스트=${deleteResults[2].count}, 일정=${deleteResults[3].count}, 감정=${deleteResults[4].count}, 위치=${deleteResults[5].count}, 걸음=${deleteResults[6].count}, AI피드백=${deleteResults[7].count}, 사진=${deleteResults[8].count}`);
 
       return {
         success: true,
-        message: `모든 데이터가 성공적으로 삭제되었습니다. (삭제된 항목: ${totalDeleted}개)`,
-        deletedCounts: {
+        message: `모든 데이터가 성공적으로 삭제되었습니다. (삭제된 항목: ${totalDeleted}개)`,        deletedCounts: {
           appUsages: deleteResults[0].count,
           diaries: deleteResults[1].count,
           checklists: deleteResults[2].count,
@@ -154,6 +157,7 @@ export class BackupService {
           locations: deleteResults[5].count,
           steps: deleteResults[6].count,
           aiFeedbacks: deleteResults[7].count,
+          photos: deleteResults[8].count,
         }
       };
     } catch (error) {
@@ -532,6 +536,49 @@ export class BackupService {
     return count;
   }
 
+  private async syncPhotos(userDbId: string, photos: any[]) {
+    this.logger.log(`사진 동기화 처리 시작: ${photos.length}개`);
+    let count = 0;
+    for (const photo of photos) {
+      try {
+        // 일기 ID와 경로로 중복 확인
+        const existingPhoto = await this.prisma.photo.findFirst({
+          where: {
+            diaryId: photo.diaryId.toString(),
+            url: photo.path
+          }
+        });
+
+        if (existingPhoto) {
+          this.logger.debug(`기존 사진 업데이트: ${photo.path}`);
+          await this.prisma.photo.update({
+            where: { id: existingPhoto.id },
+            data: {
+              url: photo.path,
+              updatedAt: new Date(),
+            }
+          });
+        } else {
+          this.logger.debug(`새 사진 생성: ${photo.path}`);
+          await this.prisma.photo.create({
+            data: {
+              diaryId: photo.diaryId.toString(),
+              url: photo.path,
+              userId: userDbId,
+              createdAt: photo.createdAt ? new Date(photo.createdAt) : new Date(),
+            }
+          });
+        }
+        count++;
+      } catch (error) {
+        this.logger.error(`사진 동기화 오류 (${photo.path}):`, error.message);
+        console.error(`사진 동기화 오류 (${photo.path}):`, error);
+      }
+    }
+    this.logger.log(`사진 동기화 처리 완료: ${count}/${photos.length}개 성공`);
+    return count;
+  }
+
   async restoreAllData(userId: string) {
     this.logger.log(`데이터 복원 시작 - 사용자 ID: ${userId}`);
     
@@ -550,7 +597,7 @@ export class BackupService {
       }
 
       this.logger.log(`사용자 확인됨: ${userId}`);      // 서버에서 모든 데이터 조회
-      const [diaries, checklists, schedules, appUsages, emotions, locations, steps, aiFeedbacks] = await Promise.all([
+      const [diaries, checklists, schedules, appUsages, emotions, locations, steps, aiFeedbacks, photos] = await Promise.all([
         this.prisma.diary.findMany({ where: { userId: user.id } }),
         this.prisma.checklist.findMany({ where: { userId: user.id } }),
         this.prisma.schedule.findMany({ where: { userId: user.id } }),
@@ -559,7 +606,8 @@ export class BackupService {
         this.prisma.locationLog.findMany({ where: { userId: user.id } }),
         this.prisma.stepRecord.findMany({ where: { userId: user.id } }),
         this.prisma.aiFeedback.findMany({ where: { userId: user.id } }),
-      ]);      const restoredData = {
+        this.prisma.photo.findMany({ where: { userId: user.id } }),
+      ]);const restoredData = {
         diaries: diaries.map(diary => ({
           id: diary.id.toString(),
           userId: userId,
@@ -639,14 +687,21 @@ export class BackupService {
           calories: step.calories || 0,
           createdAt: step.createdAt.toISOString(),
           updatedAt: step.updatedAt.toISOString(),
-        })),
-        aiFeedbacks: aiFeedbacks.map(feedback => ({
+        })),        aiFeedbacks: aiFeedbacks.map(feedback => ({
           id: feedback.id.toString(),
           userId: userId,
           date: feedback.date,
           feedbackText: feedback.feedbackText,
           createdAt: feedback.createdAt.toISOString(),
           updatedAt: feedback.updatedAt?.toISOString(),
+        })),
+        photos: photos.map(photo => ({
+          id: photo.id.toString(),
+          diaryId: photo.diaryId,
+          path: photo.url,
+          userId: userId,
+          createdAt: photo.createdAt.toISOString(),
+          updatedAt: photo.updatedAt.toISOString(),
         })),
       };
 
@@ -657,8 +712,7 @@ export class BackupService {
       return {
         success: true,
         data: restoredData,
-        message: `서버에서 ${totalCount}개의 항목을 성공적으로 가져왔습니다.`,
-        statistics: {
+        message: `서버에서 ${totalCount}개의 항목을 성공적으로 가져왔습니다.`,        statistics: {
           diaries: restoredData.diaries.length,
           checklists: restoredData.checklists.length,
           schedules: restoredData.schedules.length,
@@ -667,6 +721,7 @@ export class BackupService {
           locations: restoredData.locations.length,
           steps: restoredData.steps.length,
           aiFeedbacks: restoredData.aiFeedbacks.length,
+          photos: restoredData.photos.length,
         }
       };
     } catch (error) {
