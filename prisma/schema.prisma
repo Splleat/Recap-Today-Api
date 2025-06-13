@@ -118,7 +118,7 @@ model Schedule {
   startTimeMinute   Int      // 시작 시간 (분)
   endTimeHour       Int      // 종료 시간 (시)
   endTimeMinute     Int      // 종료 시간 (분)
-  colorValue        Int?     // 색상 값 (INTEGER)
+  colorValue        BigInt?  // 색상 값 (BIGINT for Flutter Color values)
   hasAlarm          Boolean? @default(false)
   alarmOffset       Int?     // Minutes before event
   isSynced          Boolean  @default(false)
