@@ -93,11 +93,10 @@ export class BackupService {
         this.logger.log(`AI 피드백 데이터 동기화 완료: ${results.synced.aiFeedbacks}개`);
       }
 
-      // 사진 데이터 동기화
+      // 사진 데이터는 일기 테이블의 photoPaths 필드로 관리되므로 별도 동기화 불필요
       if (data.photos && data.photos.length > 0) {
-        this.logger.log(`사진 데이터 동기화 시작: ${data.photos.length}개`);
-        results.synced.photos = await this.syncPhotos(user.id, data.photos);
-        this.logger.log(`사진 데이터 동기화 완료: ${results.synced.photos}개`);
+        this.logger.log(`사진 데이터는 일기의 photoPaths 필드로 관리됨: ${data.photos.length}개 스킵`);
+        results.synced.photos = 0; // 별도 동기화하지 않음
       }
 
       this.logger.log(`백업 동기화 성공 완료 - 사용자: ${userId}, 총 동기화 항목: ${Object.values(results.synced).reduce((a, b) => a + b, 0)}개`);
@@ -126,9 +125,9 @@ export class BackupService {
           success: false,
           error: 'User not found'
         };
-      }
-
-      this.logger.log(`사용자 확인됨, 데이터 삭제 시작: ${user.id}`);      // 사용자의 모든 데이터 삭제 (CASCADE로 자동 삭제되도록 함)
+      }      this.logger.log(`사용자 확인됨, 데이터 삭제 시작: ${user.id}`);      
+      
+      // 사용자의 모든 데이터 삭제 (사진 테이블 제외 - 일기의 photoPaths 필드로 관리)
       const deleteResults = await this.prisma.$transaction([
         this.prisma.appUsage.deleteMany({ where: { userId: user.id } }),
         this.prisma.diary.deleteMany({ where: { userId: user.id } }),
@@ -138,13 +137,10 @@ export class BackupService {
         this.prisma.locationLog.deleteMany({ where: { userId: user.id } }),
         this.prisma.stepRecord.deleteMany({ where: { userId: user.id } }),
         this.prisma.aiFeedback.deleteMany({ where: { userId: user.id } }),
-        this.prisma.photo.deleteMany({ where: { userId: user.id } }),
-      ]);
-
-      const totalDeleted = deleteResults.reduce((sum, result) => sum + result.count, 0);
+      ]);      const totalDeleted = deleteResults.reduce((sum, result) => sum + result.count, 0);
 
       this.logger.log(`데이터 삭제 완료 - 사용자: ${userId}, 삭제된 항목: ${totalDeleted}개`);
-      this.logger.log(`삭제 상세: 앱사용량=${deleteResults[0].count}, 일기=${deleteResults[1].count}, 체크리스트=${deleteResults[2].count}, 일정=${deleteResults[3].count}, 감정=${deleteResults[4].count}, 위치=${deleteResults[5].count}, 걸음=${deleteResults[6].count}, AI피드백=${deleteResults[7].count}, 사진=${deleteResults[8].count}`);
+      this.logger.log(`삭제 상세: 앱사용량=${deleteResults[0].count}, 일기=${deleteResults[1].count}, 체크리스트=${deleteResults[2].count}, 일정=${deleteResults[3].count}, 감정=${deleteResults[4].count}, 위치=${deleteResults[5].count}, 걸음=${deleteResults[6].count}, AI피드백=${deleteResults[7].count}, 사진=0(일기 필드로 관리)`);
 
       return {
         success: true,
@@ -157,7 +153,7 @@ export class BackupService {
           locations: deleteResults[5].count,
           steps: deleteResults[6].count,
           aiFeedbacks: deleteResults[7].count,
-          photos: deleteResults[8].count,
+          photos: 0, // 사진은 일기의 photoPaths 필드로 관리됨
         }
       };
     } catch (error) {
@@ -651,10 +647,10 @@ export class BackupService {
           success: false,
           message: '사용자를 찾을 수 없습니다.',
         };
-      }
-
-      this.logger.log(`사용자 확인됨: ${userId}`);      // 서버에서 모든 데이터 조회
-      const [diaries, checklists, schedules, appUsages, emotions, locations, steps, aiFeedbacks, photos] = await Promise.all([
+      }      this.logger.log(`사용자 확인됨: ${userId}`);      
+      
+      // 서버에서 모든 데이터 조회 (사진 테이블 제외 - 일기의 photoPaths 필드로 관리)
+      const [diaries, checklists, schedules, appUsages, emotions, locations, steps, aiFeedbacks] = await Promise.all([
         this.prisma.diary.findMany({ where: { userId: user.id } }),
         this.prisma.checklist.findMany({ where: { userId: user.id } }),
         this.prisma.schedule.findMany({ where: { userId: user.id } }),
@@ -663,7 +659,6 @@ export class BackupService {
         this.prisma.locationLog.findMany({ where: { userId: user.id } }),
         this.prisma.stepRecord.findMany({ where: { userId: user.id } }),
         this.prisma.aiFeedback.findMany({ where: { userId: user.id } }),
-        this.prisma.photo.findMany({ where: { userId: user.id } }),
       ]);const restoredData = {
         diaries: diaries.map(diary => ({
           id: diary.id.toString(),
@@ -748,8 +743,8 @@ export class BackupService {
           distance: step.distance || 0,
           calories: step.calories || 0,
           createdAt: step.createdAt.toISOString(),
-          updatedAt: step.updatedAt.toISOString(),
-        })),        aiFeedbacks: aiFeedbacks.map(feedback => ({
+          updatedAt: step.updatedAt.toISOString(),        })),        
+        aiFeedbacks: aiFeedbacks.map(feedback => ({
           id: feedback.id.toString(),
           userId: userId,
           date: feedback.date,
@@ -757,14 +752,8 @@ export class BackupService {
           createdAt: feedback.createdAt.toISOString(),
           updatedAt: feedback.updatedAt?.toISOString(),
         })),
-        photos: photos.map(photo => ({
-          id: photo.id.toString(),
-          diaryId: photo.diaryId,
-          path: photo.url,
-          userId: userId,
-          createdAt: photo.createdAt.toISOString(),
-          updatedAt: photo.updatedAt.toISOString(),
-        })),
+        // 사진 데이터는 일기의 photoPaths 필드로 관리되므로 별도 반환하지 않음
+        photos: [], // 빈 배열로 유지하여 클라이언트 호환성 보장
       };
 
       const totalCount = Object.values(restoredData).reduce((total, items) => total + items.length, 0);
@@ -780,10 +769,9 @@ export class BackupService {
           schedules: restoredData.schedules.length,
           appUsages: restoredData.appUsages.length,
           emotions: restoredData.emotions.length,
-          locations: restoredData.locations.length,
-          steps: restoredData.steps.length,
+          locations: restoredData.locations.length,          steps: restoredData.steps.length,
           aiFeedbacks: restoredData.aiFeedbacks.length,
-          photos: restoredData.photos.length,
+          photos: 0, // 사진은 일기의 photoPaths 필드로 관리됨
         }
       };
     } catch (error) {

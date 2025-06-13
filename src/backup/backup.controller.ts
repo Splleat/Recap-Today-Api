@@ -29,7 +29,7 @@ export class BackupController {
       locations: data.locations?.length || 0,
       steps: data.steps?.length || 0,
       aiFeedbacks: data.aiFeedbacks?.length || 0,
-      photos: data.photos?.length || 0,
+      photos: (data.photos?.length || 0) + ' (일기 필드로 관리됨)',
     };
     this.logger.log(`요청 데이터 통계: ${JSON.stringify(dataStats)}`);
     
